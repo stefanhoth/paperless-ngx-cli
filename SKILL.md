@@ -9,7 +9,7 @@ description: >
 
 # Paperless-NGX CLI
 
-Assumes `paperless` is available in PATH and the following env vars are set:
+Assumes the `paperless` binary is available in PATH and the following env vars are set:
 
 ```
 PAPERLESS_URL           Base URL, e.g. http://paperless.local:8000
