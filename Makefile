@@ -1,4 +1,6 @@
-BINARY := paperless
+BINARY  := paperless
+PREFIX  ?= /usr/local
+DESTDIR ?=
 
 .PHONY: build install generate clean
 
@@ -6,12 +8,13 @@ build:
 	go build -buildvcs=false -o $(BINARY) .
 
 install: build
-	cp $(BINARY) ../bin/paperless
-	@echo "Installed to bin/paperless"
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -m 755 $(BINARY) $(DESTDIR)$(PREFIX)/bin/$(BINARY)
+	@echo "Installed to $(DESTDIR)$(PREFIX)/bin/$(BINARY)"
 
 generate:
 	@echo "Downloading schema..."
-	curl -s "$$PAPERLESS_URL/api/schema/?format=json" \
+	curl -sf "$$PAPERLESS_URL/api/schema/?format=json" \
 		-H "Authorization: Token $$PAPERLESS_API_TOKEN" \
 		-o schema/paperless.json
 	@echo "Fixing schema inconsistencies..."
