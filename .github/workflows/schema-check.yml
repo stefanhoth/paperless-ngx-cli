@@ -1,0 +1,135 @@
+name: Schema Drift Check
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # 07:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download demo schema
+        run: |
+          curl -sf \
+            "https://demo.paperless-ngx.com/api/schema/?format=json" \
+            -o /tmp/demo-schema-raw.json
+
+      - name: Extract demo API version
+        id: demo_version
+        run: |
+          version=$(python3 -c "import json; d=json.load(open('/tmp/demo-schema-raw.json')); print(d.get('info',{}).get('version','unknown'))")
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Patch demo schema
+        run: |
+          python3 scripts/fix-schema.py \
+            --input /tmp/demo-schema-raw.json \
+            --output /tmp/demo-schema-patched.json
+
+      - name: Compare with vendored schema
+        id: compare
+        run: |
+          if diff -q schema/paperless.json /tmp/demo-schema-patched.json > /dev/null 2>&1; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No schema changes detected."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Schema has changed."
+            # Capture a bounded summary (first 120 lines of unified diff)
+            diff -u schema/paperless.json /tmp/demo-schema-patched.json \
+              | head -120 > /tmp/schema-diff.txt || true
+          fi
+
+      - name: Check for existing open drift issue
+        if: steps.compare.outputs.changed == 'true'
+        id: existing_issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          issue_number=$(gh issue list \
+            --label "schema-drift" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+          echo "number=${issue_number}" >> "$GITHUB_OUTPUT"
+
+      - name: Build issue body file
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          DEMO_VERSION: ${{ steps.demo_version.outputs.version }}
+        run: |
+          # Use Python to build the body — avoids shell interpolation of external content
+          python3 - <<'PYEOF'
+          import os, datetime
+
+          demo_version = os.environ.get("DEMO_VERSION", "unknown")
+          today = datetime.date.today().isoformat()
+
+          with open("/tmp/schema-diff.txt") as f:
+              diff = f.read()
+
+          body = f"""## Paperless-NGX API schema has changed
+
+The daily schema check detected a difference between the vendored `schema/paperless.json`
+and the current schema from the [Paperless-NGX demo](https://demo.paperless-ngx.com/).
+
+**Detected:** {today}
+**Demo API version:** `{demo_version}`
+
+### Diff (first 120 lines)
+
+```diff
+{diff}
+```
+
+### To update
+
+```bash
+make generate   # downloads new schema, patches it, regenerates api/paperless.gen.go
+make build      # verify it compiles
+```
+
+Then commit the updated `schema/paperless.json` and `api/paperless.gen.go`.
+"""
+
+          with open("/tmp/issue-body.md", "w") as f:
+              f.write(body)
+          PYEOF
+
+      - name: Create or update drift issue
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEMO_VERSION: ${{ steps.demo_version.outputs.version }}
+          EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
+        run: |
+          # Sanitize version to alphanumeric/dot/dash/space/parens only — safe for shell title arg
+          SAFE_VERSION=$(printf '%s' "$DEMO_VERSION" | tr -cd '[:alnum:] ._-()')
+
+          if [ -n "$EXISTING_ISSUE" ]; then
+            TODAY=$(date -u +%Y-%m-%d)
+            gh issue comment "$EXISTING_ISSUE" \
+              --body "Schema still differs as of ${TODAY}. Demo version: \`${SAFE_VERSION}\`."
+          else
+            gh issue create \
+              --title "Schema drift detected (demo: ${SAFE_VERSION})" \
+              --body-file /tmp/issue-body.md \
+              --label "schema-drift"
+          fi
+
+      - name: Close resolved drift issue
+        if: steps.compare.outputs.changed == 'false' && steps.existing_issue.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
+        run: |
+          gh issue close "$EXISTING_ISSUE" \
+            --comment "Schema is back in sync with the demo. Closing."
