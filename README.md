@@ -23,7 +23,7 @@ make build
 
 Or install directly:
 ```bash
-go install paperless-cli@latest
+go install github.com/stefanhoth/paperless-ngx-cli@latest
 ```
 
 ## Configuration

@@ -1,4 +1,4 @@
-module paperless-cli
+module github.com/stefanhoth/paperless-ngx-cli
 
 go 1.26.4
 

@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"paperless-cli/api"
+	"github.com/stefanhoth/paperless-ngx-cli/api"
 )
 
 func init() {

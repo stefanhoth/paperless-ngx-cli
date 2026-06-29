@@ -30,8 +30,10 @@ Beispiele:
 		_, cfg := mustClient()
 
 		if cfg.sshHost == "" {
-			fmt.Fprintln(os.Stderr, "SSH-Host nicht konfiguriert. Setze PAPERLESS_SSH_HOST oder PAPERLESS_URL.")
-			os.Exit(1)
+			fmt.Println("manage requires SSH access to the Docker host.")
+			fmt.Println("Set PAPERLESS_SSH_HOST (or derive it from PAPERLESS_URL) to enable this command.")
+			fmt.Println("Optional: PAPERLESS_SSH_USER (default: current OS user), PAPERLESS_CONTAINER (default: paperless-ngx-webserver-1)")
+			return
 		}
 
 		manageArgs := strings.Join(args, " ")

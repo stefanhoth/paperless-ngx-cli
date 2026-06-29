@@ -1,6 +1,6 @@
 package main
 
-import "paperless-cli/cmd"
+import "github.com/stefanhoth/paperless-ngx-cli/cmd"
 
 func main() {
 	cmd.Execute()

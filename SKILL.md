@@ -2,53 +2,43 @@
 name: paperless-ngx-cli
 description: >
   CLI for Paperless-NGX document management. Use when the user wants to search,
-  list, or manage documents, tags, correspondents, or document types in their
-  Paperless-NGX instance. Also handles bulk operations and running management
-  commands in the Paperless container via SSH.
+  list, or manage documents, tags, correspondents, or document types in a
+  Paperless-NGX instance. Also handles bulk operations and (when SSH is
+  configured) running management commands inside the Paperless container.
 ---
 
 # Paperless-NGX CLI
 
-A typed Go CLI generated from the Paperless-NGX OpenAPI spec via
-[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen).
+Assumes `paperless` is available in PATH and the following env vars are set:
 
-## Setup
-
-Build and install:
-```bash
-make build        # produces ./paperless binary
-make install      # copies it to ../bin/paperless (if inside the synology project)
+```
+PAPERLESS_URL           Base URL, e.g. http://paperless.local:8000
+PAPERLESS_API_TOKEN     API token from Paperless Settings → API
 ```
 
-Set environment variables (add to `~/.zshenv` or `~/.bashrc`):
-```bash
-export PAPERLESS_URL=http://your-paperless-host:8000
-export PAPERLESS_API_TOKEN=your_api_token_here
+SSH-based commands (`manage`, and the installed-version part of `version`) are
+optional. They activate when `PAPERLESS_SSH_HOST` is set (or derivable from
+`PAPERLESS_URL`). Without SSH, those commands print a setup hint and exit cleanly.
 
-# For manage and version commands (SSH into the Docker host):
-export PAPERLESS_SSH_HOST=your-docker-host      # defaults to PAPERLESS_URL hostname
-export PAPERLESS_SSH_USER=your-ssh-username     # defaults to current OS user
-export PAPERLESS_CONTAINER=paperless-ngx-webserver-1  # default
-```
+---
 
 ## Commands
 
 ```
-paperless status                          # System stats (documents, tags, etc.)
-paperless docs [-n <count>]              # Recent documents (default: 10)
-paperless search <query>                 # Full-text search (default: 20 results)
-paperless doc <id>                       # Document details
-paperless doc <id> --full-perms          # Document details with permissions
-paperless tags                           # List all tags with document count
-paperless correspondents                 # List all correspondents
-paperless types                          # List all document types
-paperless version                        # Installed vs. available version (needs SSH)
-paperless manage <cmd> [args]            # Run manage.py in container (needs SSH)
+paperless status                     System stats (total documents, tags, types, etc.)
+paperless docs [-n <count>]          Recent documents (default: 10), newest first
+paperless search <query>             Full-text search, up to 20 results
+paperless doc <id>                   Document details (title, date, tags, type, pages)
+paperless doc <id> --full-perms      Same, plus full permission info
+paperless tags                       All tags with document count
+paperless correspondents             All correspondents with document count
+paperless types                      All document types with document count
+paperless version                    Available vs. installed version
 ```
 
 ## Bulk Operations
 
-IDs are comma-separated: `1,2,3`
+IDs are comma-separated (`1,2,3`). Operations run asynchronously.
 
 ```
 paperless bulk reprocess <ids>
@@ -61,36 +51,17 @@ paperless bulk set-correspondent <ids> <correspondent_id>
 paperless bulk set-type <ids> <type_id>
 ```
 
-Bulk operations run asynchronously — only a confirmation is returned.
+Use `tags`, `correspondents`, or `types` to look up numeric IDs first.
 
-## Management Commands (via SSH)
+## Management Commands (requires SSH)
 
-These require SSH access to the Docker host:
+Runs `manage.py` inside the Paperless Docker container via SSH.
+Prints a setup hint and exits cleanly if SSH is not configured.
 
 ```
-paperless manage document_retagger          # Re-apply matching rules
-paperless manage document_renamer           # Regenerate filenames
-paperless manage document_index reindex     # Rebuild search index
-paperless manage document_sanity_checker    # Check for inconsistencies
-paperless manage document_archiver          # Re-run OCR on documents
+paperless manage document_retagger          Re-apply matching rules to all documents
+paperless manage document_renamer           Regenerate filenames from storage template
+paperless manage document_index reindex     Rebuild the full-text search index
+paperless manage document_sanity_checker    Report inconsistencies (missing files, no OCR, etc.)
+paperless manage document_archiver          Re-run OCR on all documents
 ```
-
-## ID Lookup
-
-Use `tags`, `correspondents`, and `types` to get numeric IDs before bulk operations:
-
-```bash
-paperless tags                   # find tag ID
-paperless bulk add-tag 42 7      # add tag 7 to document 42
-```
-
-## Regenerating the API Client
-
-When Paperless-NGX is updated and the API schema changes:
-
-```bash
-make generate    # downloads schema, patches it, regenerates api/paperless.gen.go
-make install     # rebuild and install
-```
-
-Requires `PAPERLESS_URL` and `PAPERLESS_API_TOKEN` to be set for the schema download.
