@@ -21,7 +21,11 @@ generate:
 	python3 scripts/fix-schema.py
 	@echo "Generating API client..."
 	oapi-codegen --config oapi-codegen.yaml schema/paperless.json
-	@echo "Done."
+	@echo "Updating tracked version..."
+	curl -sf https://api.github.com/repos/paperless-ngx/paperless-ngx/releases/latest \
+		| python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])" \
+		> .paperless-version
+	@echo "Done. Tracked version: $$(cat .paperless-version)"
 
 clean:
 	rm -f $(BINARY)

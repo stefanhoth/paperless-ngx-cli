@@ -16,37 +16,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download demo schema
+      - name: Get latest Paperless-NGX release
+        id: upstream
         run: |
-          curl -sf \
-            "https://demo.paperless-ngx.com/api/schema/?format=json" \
-            -o /tmp/demo-schema-raw.json
-
-      - name: Extract demo API version
-        id: demo_version
-        run: |
-          version=$(python3 -c "import json; d=json.load(open('/tmp/demo-schema-raw.json')); print(d.get('info',{}).get('version','unknown'))")
+          version=$(curl -sf https://api.github.com/repos/paperless-ngx/paperless-ngx/releases/latest \
+            | python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])")
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
-      - name: Patch demo schema
-        run: |
-          python3 scripts/fix-schema.py \
-            --input /tmp/demo-schema-raw.json \
-            --output /tmp/demo-schema-patched.json
+      - name: Read tracked version
+        id: tracked
+        run: echo "version=$(cat .paperless-version)" >> "$GITHUB_OUTPUT"
 
-      - name: Compare with vendored schema
+      - name: Detect version change
         id: compare
+        env:
+          UPSTREAM: ${{ steps.upstream.outputs.version }}
+          TRACKED: ${{ steps.tracked.outputs.version }}
         run: |
-          if diff -q schema/paperless.json /tmp/demo-schema-patched.json > /dev/null 2>&1; then
+          echo "Tracked: ${TRACKED}  /  Upstream: ${UPSTREAM}"
+          if [ "${TRACKED}" = "${UPSTREAM}" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No schema changes detected."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Schema has changed."
-            # Capture a bounded summary (first 120 lines of unified diff)
-            diff -u schema/paperless.json /tmp/demo-schema-patched.json \
-              | head -120 > /tmp/schema-diff.txt || true
           fi
+
+      - name: Full schema diff (requires PAPERLESS_URL + PAPERLESS_API_TOKEN secrets)
+        id: schema_diff
+        if: steps.compare.outputs.changed == 'true' && secrets.PAPERLESS_URL != '' && secrets.PAPERLESS_API_TOKEN != ''
+        env:
+          PAPERLESS_URL: ${{ secrets.PAPERLESS_URL }}
+          PAPERLESS_API_TOKEN: ${{ secrets.PAPERLESS_API_TOKEN }}
+        run: |
+          curl -sf "${PAPERLESS_URL}/api/schema/?format=json" \
+            -H "Authorization: Token ${PAPERLESS_API_TOKEN}" \
+            -o /tmp/live-schema-raw.json
+          python3 scripts/fix-schema.py \
+            --input /tmp/live-schema-raw.json \
+            --output /tmp/live-schema-patched.json
+          diff -u schema/paperless.json /tmp/live-schema-patched.json \
+            | head -120 > /tmp/schema-diff.txt || true
+          echo "has_diff=true" >> "$GITHUB_OUTPUT"
 
       - name: Check for existing open drift issue
         if: steps.compare.outputs.changed == 'true'
@@ -61,29 +70,28 @@ jobs:
             --jq '.[0].number // empty')
           echo "number=${issue_number}" >> "$GITHUB_OUTPUT"
 
-      - name: Build issue body file
+      - name: Build issue body
         if: steps.compare.outputs.changed == 'true'
         env:
-          DEMO_VERSION: ${{ steps.demo_version.outputs.version }}
+          TRACKED_VERSION: ${{ steps.tracked.outputs.version }}
+          UPSTREAM_VERSION: ${{ steps.upstream.outputs.version }}
+          HAS_DIFF: ${{ steps.schema_diff.outputs.has_diff }}
         run: python3 scripts/build-issue-body.py
 
       - name: Create or update drift issue
         if: steps.compare.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEMO_VERSION: ${{ steps.demo_version.outputs.version }}
+          UPSTREAM_VERSION: ${{ steps.upstream.outputs.version }}
           EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
         run: |
-          # Sanitize version to alphanumeric/dot/dash/space/parens only — safe for shell title arg
-          SAFE_VERSION=$(printf '%s' "$DEMO_VERSION" | tr -cd '[:alnum:] ._-()')
-
+          SAFE_VERSION=$(printf '%s' "$UPSTREAM_VERSION" | tr -cd '[:alnum:] ._-()')
           if [ -n "$EXISTING_ISSUE" ]; then
-            TODAY=$(date -u +%Y-%m-%d)
             gh issue comment "$EXISTING_ISSUE" \
-              --body "Schema still differs as of ${TODAY}. Demo version: \`${SAFE_VERSION}\`."
+              --body "Still unresolved as of $(date -u +%Y-%m-%d). Latest upstream: \`${SAFE_VERSION}\`."
           else
             gh issue create \
-              --title "Schema drift detected (demo: ${SAFE_VERSION})" \
+              --title "New Paperless-NGX release: ${SAFE_VERSION}" \
               --body-file /tmp/issue-body.md \
               --label "schema-drift"
           fi
@@ -95,4 +103,4 @@ jobs:
           EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
         run: |
           gh issue close "$EXISTING_ISSUE" \
-            --comment "Schema is back in sync with the demo. Closing."
+            --comment "Tracked version is now in sync with upstream. Closing."
