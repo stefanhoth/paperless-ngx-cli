@@ -40,20 +40,24 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Full schema diff (requires PAPERLESS_URL + PAPERLESS_API_TOKEN secrets)
+      - name: Full schema diff via Docker
         id: schema_diff
-        if: steps.compare.outputs.changed == 'true' && secrets.PAPERLESS_URL != '' && secrets.PAPERLESS_API_TOKEN != ''
+        if: steps.compare.outputs.changed == 'true'
         env:
-          PAPERLESS_URL: ${{ secrets.PAPERLESS_URL }}
-          PAPERLESS_API_TOKEN: ${{ secrets.PAPERLESS_API_TOKEN }}
+          UPSTREAM: ${{ steps.upstream.outputs.version }}
         run: |
-          curl -sf "${PAPERLESS_URL}/api/schema/?format=json" \
-            -H "Authorization: Token ${PAPERLESS_API_TOKEN}" \
-            -o /tmp/live-schema-raw.json
+          docker pull ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}
+          docker run --rm \
+            -e PAPERLESS_SECRET_KEY=changeme \
+            -e PAPERLESS_DBENGINE=sqlite \
+            ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM} \
+            python3 /usr/src/paperless/src/manage.py spectacular \
+              --file /dev/stdout --format openapi-json 2>/dev/null \
+          > /tmp/new-schema-raw.json
           python3 scripts/fix-schema.py \
-            --input /tmp/live-schema-raw.json \
-            --output /tmp/live-schema-patched.json
-          diff -u schema/paperless.json /tmp/live-schema-patched.json \
+            --input /tmp/new-schema-raw.json \
+            --output /tmp/new-schema-patched.json
+          diff -u schema/paperless.json /tmp/new-schema-patched.json \
             | head -120 > /tmp/schema-diff.txt || true
           echo "has_diff=true" >> "$GITHUB_OUTPUT"
 

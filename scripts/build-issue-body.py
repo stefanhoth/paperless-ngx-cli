@@ -47,14 +47,14 @@ may need to be updated.
 ### To update
 
 ```bash
-make generate   # downloads schema from your instance, patches it, regenerates client
-make build      # verify it compiles
+make generate-docker VERSION={upstream}   # pulls Docker image, exports schema, regenerates client
+make build                                 # verify it compiles
 git add schema/paperless.json api/paperless.gen.go .paperless-version
 git commit -m "chore: update to Paperless-NGX {upstream}"
 ```
 
-> **Tip:** Set `PAPERLESS_URL` and `PAPERLESS_API_TOKEN` as repository secrets \
-to enable a full schema diff in future checks.
+> **Tip:** If you have a running Paperless instance, `make generate` fetches the schema \
+directly via `PAPERLESS_URL` + `PAPERLESS_API_TOKEN`.
 """
 
 out_path = "/tmp/issue-body.md"
