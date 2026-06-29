@@ -65,44 +65,7 @@ jobs:
         if: steps.compare.outputs.changed == 'true'
         env:
           DEMO_VERSION: ${{ steps.demo_version.outputs.version }}
-        run: |
-          # Use Python to build the body — avoids shell interpolation of external content
-          python3 - <<'PYEOF'
-          import os, datetime
-
-          demo_version = os.environ.get("DEMO_VERSION", "unknown")
-          today = datetime.date.today().isoformat()
-
-          with open("/tmp/schema-diff.txt") as f:
-              diff = f.read()
-
-          body = f"""## Paperless-NGX API schema has changed
-
-The daily schema check detected a difference between the vendored `schema/paperless.json`
-and the current schema from the [Paperless-NGX demo](https://demo.paperless-ngx.com/).
-
-**Detected:** {today}
-**Demo API version:** `{demo_version}`
-
-### Diff (first 120 lines)
-
-```diff
-{diff}
-```
-
-### To update
-
-```bash
-make generate   # downloads new schema, patches it, regenerates api/paperless.gen.go
-make build      # verify it compiles
-```
-
-Then commit the updated `schema/paperless.json` and `api/paperless.gen.go`.
-"""
-
-          with open("/tmp/issue-body.md", "w") as f:
-              f.write(body)
-          PYEOF
+        run: python3 scripts/build-issue-body.py
 
       - name: Create or update drift issue
         if: steps.compare.outputs.changed == 'true'
