@@ -1,0 +1,5 @@
+package: api
+generate:
+  models: true
+  client: true
+output: api/paperless.gen.go
