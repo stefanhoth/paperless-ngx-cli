@@ -35,16 +35,13 @@ Built with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) — the 
 
 ## Installation
 
+Download the binary for your platform from [GitHub Releases](https://github.com/stefanhoth/paperless-ngx-cli/releases/latest), extract, and place `paperless` somewhere in your `$PATH`.
+
+**Build from source:**
 ```bash
 git clone https://github.com/stefanhoth/paperless-ngx-cli
 cd paperless-ngx-cli
-make build
-# binary is at ./paperless
-```
-
-Or install directly:
-```bash
-go install github.com/stefanhoth/paperless-ngx-cli/cmd/paperless@latest
+make install   # installs to /usr/local/bin/paperless
 ```
 
 ## Configuration
