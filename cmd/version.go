@@ -28,6 +28,7 @@ var versionCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			os.Exit(1)
 		}
+		checkAPIVersion(resp.HTTPResponse.Header)
 
 		installed := "unknown (PAPERLESS_SSH_HOST not configured)"
 		if cfg.sshHost != "" {
