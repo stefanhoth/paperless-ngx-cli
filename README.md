@@ -23,10 +23,6 @@ Paperless-NGX has a solid web UI, but the API is the real power interface. Once 
 
 The client is generated from Paperless-NGX's own OpenAPI spec, so commands and types stay accurate as the API evolves. A daily CI check detects new Paperless releases and opens a GitHub issue when the schema needs updating.
 
-## How it works
-
-Built with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) — the Go client is generated directly from the Paperless-NGX OpenAPI schema. The generated client gives compile-time safety against API changes: when Paperless updates its schema, `make generate-docker` catches breaking changes at build time rather than at runtime.
-
 ## Version Support
 
 | CLI version | Status | Paperless-NGX | API version |
@@ -42,20 +38,20 @@ Run `paperless version` to verify compatibility — it prints the CLI's target A
 
 ## Requirements
 
-- Go 1.21+
-- A running Paperless-NGX instance (tested with 2.20.x)
+- A running Paperless-NGX 2.x instance
 - SSH access to the Docker host (only for `manage` and `version` commands)
 
 ## Installation
 
-Download the binary for your platform from [GitHub Releases](https://github.com/stefanhoth/paperless-ngx-cli/releases/latest), extract, and place `paperless` somewhere in your `$PATH`.
+**Download a binary** from [GitHub Releases](https://github.com/stefanhoth/paperless-ngx-cli/releases/latest), extract, and place `paperless` somewhere in your `$PATH`.
 
-**Build from source:**
+**Homebrew** (macOS / Linux):
 ```bash
-git clone https://github.com/stefanhoth/paperless-ngx-cli
-cd paperless-ngx-cli
-make install   # installs to /usr/local/bin/paperless
+brew tap stefanhoth/tap
+brew install paperless-ngx-cli
 ```
+
+For building from source, see [docs/development.md](docs/development.md).
 
 ## Configuration
 
@@ -116,47 +112,9 @@ paperless manage document_index reindex
 paperless manage document_archiver       # re-run OCR on all documents
 ```
 
-## Regenerating the API Client
+## Contributing
 
-The generated client lives in `api/paperless.gen.go`. Regenerate it when Paperless updates its API:
-
-```bash
-# No running instance needed — pulls the official Docker image and exports the schema:
-make generate-docker VERSION=v2.20.15
-make build
-
-# Or, if you have a running Paperless instance:
-make generate   # uses PAPERLESS_URL + PAPERLESS_API_TOKEN
-make build
-```
-
-The `scripts/fix-schema.py` script patches two known issues in the Paperless OpenAPI schema before generation:
-- Renames response types that conflict with oapi-codegen's generated wrapper names
-- Fixes `Tag.children` which the API returns as objects but the schema declares as integer IDs
-
-## Project Structure
-
-```
-├── api/                    # generated client (do not edit)
-│   └── paperless.gen.go
-├── cmd/                    # CLI commands
-│   ├── root.go             # client setup and config
-│   ├── status.go
-│   ├── docs.go
-│   ├── search.go
-│   ├── doc.go
-│   ├── list.go             # tags, correspondents, types
-│   ├── bulk.go
-│   ├── manage.go
-│   └── version.go
-├── schema/
-│   └── paperless.json      # vendored API schema (patched)
-├── scripts/
-│   └── fix-schema.py       # schema patches for regeneration
-├── SKILL.md                # AI assistant skill descriptor
-├── Makefile
-└── main.go
-```
+See [docs/development.md](docs/development.md) for build instructions, project structure, the API client regeneration workflow, and release process.
 
 ## License
 
