@@ -44,7 +44,7 @@ make build
 
 Or install directly:
 ```bash
-go install github.com/stefanhoth/paperless-ngx-cli@latest
+go install github.com/stefanhoth/paperless-ngx-cli/cmd/paperless@latest
 ```
 
 ## Configuration

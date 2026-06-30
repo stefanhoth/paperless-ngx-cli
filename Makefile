@@ -5,7 +5,7 @@ DESTDIR ?=
 .PHONY: build install generate clean
 
 build:
-	go build -buildvcs=false -o $(BINARY) .
+	go build -buildvcs=false -o $(BINARY) ./cmd/paperless
 
 install: build
 	install -d $(DESTDIR)$(PREFIX)/bin
