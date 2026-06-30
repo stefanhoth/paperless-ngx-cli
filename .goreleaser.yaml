@@ -29,20 +29,17 @@ archives:
 checksum:
   name_template: checksums.txt
 
-brews:
+homebrew_casks:
   - name: paperless-ngx-cli
     repository:
       owner: stefanhoth
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    directory: Formula
+    directory: Casks
     homepage: https://github.com/stefanhoth/paperless-ngx-cli
     description: "Paperless-NGX document archive, from the terminal"
-    license: MIT
-    install: |
-      bin.install "paperless"
-    test: |
-      system "#{bin}/paperless", "--help"
+    binaries:
+      - paperless
 
 changelog:
   sort: asc
