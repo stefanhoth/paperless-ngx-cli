@@ -55,7 +55,13 @@ For building from source, see [docs/development.md](docs/development.md).
 
 ## Configuration
 
-Set variables in your shell profile, or create a config file at `~/.config/paperless-ngx-cli/config`:
+The easiest way to configure the CLI is the interactive setup command:
+
+```bash
+paperless configure
+```
+
+This prompts for your Paperless URL and API token and writes them to `~/.config/paperless-ngx-cli/config` with secure permissions (`0600`). Alternatively, set variables in your shell profile or create the config file manually:
 
 ```ini
 PAPERLESS_URL=http://paperless.local:8000
