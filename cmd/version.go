@@ -21,6 +21,7 @@ var versionCmd = &cobra.Command{
 	Short: "Show CLI and Paperless-NGX instance versions",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("paperless CLI:      %s\n", Version)
+		fmt.Printf("API version:        v%d\n", APIVersion)
 
 		c, cfg := mustClient()
 		resp, err := c.RemoteVersionRetrieveWithResponse(ctx())
@@ -28,7 +29,11 @@ var versionCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			os.Exit(1)
 		}
-		checkAPIVersion(resp.HTTPResponse.Header)
+
+		serverAPIVersion := resp.HTTPResponse.Header.Get("X-Api-Version")
+		if serverAPIVersion != "" && serverAPIVersion != fmt.Sprintf("%d", APIVersion) {
+			fmt.Fprintf(os.Stderr, "warning: server API version is v%s, CLI targets v%d — consider updating the CLI\n", serverAPIVersion, APIVersion)
+		}
 
 		installed := "unknown (PAPERLESS_SSH_HOST not configured)"
 		if cfg.sshHost != "" {

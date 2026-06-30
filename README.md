@@ -27,6 +27,21 @@ The client is generated from Paperless-NGX's own OpenAPI spec, so commands and t
 
 Built with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) — the Go client is generated directly from the Paperless-NGX OpenAPI schema. The generated client gives compile-time safety against API changes: when Paperless updates its schema, `make generate-docker` catches breaking changes at build time rather than at runtime.
 
+## API Versioning
+
+The CLI pins to a specific Paperless-NGX REST API version and sends the corresponding `Accept` header with every request:
+
+```
+Accept: application/json; version=9
+```
+
+| CLI version | API version | Paperless-NGX series |
+|---|---|---|
+| v1.x (current) | v9 | 2.x stable |
+| v2.x (planned) | v10 | 3.x (when stable) |
+
+**Major CLI version = API major version.** When Paperless ships a new stable API version, a new major CLI version follows. You can safely run `paperless version` — it prints both the CLI's target API version and warns if the server reports a different API version in its response headers.
+
 ## Requirements
 
 - Go 1.21+
