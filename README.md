@@ -27,20 +27,18 @@ The client is generated from Paperless-NGX's own OpenAPI spec, so commands and t
 
 Built with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) — the Go client is generated directly from the Paperless-NGX OpenAPI schema. The generated client gives compile-time safety against API changes: when Paperless updates its schema, `make generate-docker` catches breaking changes at build time rather than at runtime.
 
-## API Versioning
+## Version Support
 
-The CLI pins to a specific Paperless-NGX REST API version and sends the corresponding `Accept` header with every request:
+| CLI version | Status | Paperless-NGX | API version |
+|---|---|---|---|
+| **v1.x** | ✅ Active | 2.x stable | v9 |
+| v2.x | Planned | 3.x (not yet stable) | v10 |
 
-```
-Accept: application/json; version=9
-```
+**One major CLI version per Paperless API version.** The CLI pins to a specific API version and sends `Accept: application/json; version=N` with every request, so responses are always in the expected format even when the server supports multiple API versions.
 
-| CLI version | API version | Paperless-NGX series |
-|---|---|---|
-| v1.x (current) | v9 | 2.x stable |
-| v2.x (planned) | v10 | 3.x (when stable) |
+When Paperless-NGX ships a stable 3.x series with API v10, CLI v2.0.0 will follow. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
 
-**Major CLI version = API major version.** When Paperless ships a new stable API version, a new major CLI version follows. You can safely run `paperless version` — it prints both the CLI's target API version and warns if the server reports a different API version in its response headers.
+Run `paperless version` to verify compatibility — it prints the CLI's target API version and warns if your server reports a different API version in its response headers.
 
 ## Requirements
 
