@@ -1,6 +1,16 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.1.3] - 2026-06-30
+
+### Bug Fixes
+
+- Translate all user-facing strings from German to English
+
+### Features
+
+- Add CLI binary version to version output
+
 ## [0.1.2] - 2026-06-30
 
 ### Bug Fixes
