@@ -29,7 +29,6 @@ go test ./...       # run unit tests
 │   ├── doc.go
 │   ├── list.go             # tags, correspondents, types
 │   ├── bulk.go
-│   ├── manage.go
 │   └── version.go
 ├── docs/                   # developer documentation
 ├── schema/

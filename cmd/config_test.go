@@ -20,9 +20,6 @@ func setEnv(t *testing.T, pairs ...string) {
 var allConfigKeys = []string{
 	"PAPERLESS_URL",
 	"PAPERLESS_API_TOKEN",
-	"PAPERLESS_SSH_HOST",
-	"PAPERLESS_SSH_USER",
-	"PAPERLESS_CONTAINER",
 }
 
 // clearConfigEnv unsets all config env vars for the duration of the test.
@@ -93,75 +90,11 @@ func TestParseConfig_TrailingSlashStripped(t *testing.T) {
 	}
 }
 
-func TestParseConfig_SSHHostDerivedFromURL(t *testing.T) {
-	clearConfigEnv(t)
-	setEnv(t,
-		"PAPERLESS_URL", "http://diskstation.fritz.box:8000",
-		"PAPERLESS_API_TOKEN", "tok",
-	)
-	cfg, err := parseConfig(nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if cfg.sshHost != "diskstation.fritz.box" {
-		t.Errorf("sshHost derived incorrectly: %q", cfg.sshHost)
-	}
-}
-
-func TestParseConfig_SSHHostExplicitOverridesURL(t *testing.T) {
-	clearConfigEnv(t)
-	setEnv(t,
-		"PAPERLESS_URL", "http://diskstation.fritz.box:8000",
-		"PAPERLESS_API_TOKEN", "tok",
-		"PAPERLESS_SSH_HOST", "myserver.example.com",
-	)
-	cfg, err := parseConfig(nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if cfg.sshHost != "myserver.example.com" {
-		t.Errorf("explicit sshHost not respected: %q", cfg.sshHost)
-	}
-}
-
-func TestParseConfig_ContainerDefault(t *testing.T) {
-	clearConfigEnv(t)
-	setEnv(t,
-		"PAPERLESS_URL", "http://paperless.local:8000",
-		"PAPERLESS_API_TOKEN", "tok",
-	)
-	cfg, err := parseConfig(nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if cfg.container != "paperless-ngx-webserver-1" {
-		t.Errorf("container default wrong: %q", cfg.container)
-	}
-}
-
-func TestParseConfig_ContainerExplicit(t *testing.T) {
-	clearConfigEnv(t)
-	setEnv(t,
-		"PAPERLESS_URL", "http://paperless.local:8000",
-		"PAPERLESS_API_TOKEN", "tok",
-		"PAPERLESS_CONTAINER", "my-paperless",
-	)
-	cfg, err := parseConfig(nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if cfg.container != "my-paperless" {
-		t.Errorf("explicit container not respected: %q", cfg.container)
-	}
-}
-
 func TestParseConfig_FileValuesUsedWhenEnvAbsent(t *testing.T) {
 	clearConfigEnv(t)
 	fileVals := map[string]string{
 		"PAPERLESS_URL":       "http://from-file.local:8000",
 		"PAPERLESS_API_TOKEN": "file-token",
-		"PAPERLESS_SSH_HOST":  "file-host",
-		"PAPERLESS_CONTAINER": "file-container",
 	}
 	cfg, err := parseConfig(fileVals)
 	if err != nil {
@@ -172,12 +105,6 @@ func TestParseConfig_FileValuesUsedWhenEnvAbsent(t *testing.T) {
 	}
 	if cfg.token != "file-token" {
 		t.Errorf("token from file: %q", cfg.token)
-	}
-	if cfg.sshHost != "file-host" {
-		t.Errorf("sshHost from file: %q", cfg.sshHost)
-	}
-	if cfg.container != "file-container" {
-		t.Errorf("container from file: %q", cfg.container)
 	}
 }
 
@@ -210,8 +137,6 @@ func TestReadConfigFile_ParsesKeyValuePairs(t *testing.T) {
 # comment line
 PAPERLESS_URL=http://paperless.local:8000
 PAPERLESS_API_TOKEN = mytoken
-
-PAPERLESS_CONTAINER=webserver
 `
 	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
 		t.Fatal(err)
@@ -221,7 +146,6 @@ PAPERLESS_CONTAINER=webserver
 	cases := map[string]string{
 		"PAPERLESS_URL":       "http://paperless.local:8000",
 		"PAPERLESS_API_TOKEN": "mytoken",
-		"PAPERLESS_CONTAINER": "webserver",
 	}
 	for k, want := range cases {
 		if got := vals[k]; got != want {

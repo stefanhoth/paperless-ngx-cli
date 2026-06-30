@@ -3,8 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"os/exec"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -23,7 +21,7 @@ var versionCmd = &cobra.Command{
 		fmt.Printf("paperless CLI:      %s\n", Version)
 		fmt.Printf("API version:        v%d\n", APIVersion)
 
-		c, cfg := mustClient()
+		c, _ := mustClient()
 		resp, err := c.RemoteVersionRetrieveWithResponse(ctx())
 		if err != nil || resp.StatusCode() != 200 {
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
@@ -35,9 +33,9 @@ var versionCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "warning: server API version is v%s, CLI targets v%d — consider updating the CLI\n", serverAPIVersion, APIVersion)
 		}
 
-		installed := "unknown (PAPERLESS_SSH_HOST not configured)"
-		if cfg.sshHost != "" {
-			installed = sshInstalledVersion(cfg)
+		installed := resp.HTTPResponse.Header.Get("X-Version")
+		if installed == "" {
+			installed = "unknown"
 		}
 
 		v := resp.JSON200
@@ -56,16 +54,4 @@ var versionCmd = &cobra.Command{
 		fmt.Printf("Paperless (latest): %s\n", available)
 		fmt.Printf("Update available:   %s\n", updateAvail)
 	},
-}
-
-func sshInstalledVersion(cfg config) string {
-	dockerCmd := fmt.Sprintf(
-		"/usr/local/bin/docker inspect %s --format '{{index .Config.Labels \"org.opencontainers.image.version\"}}'",
-		shellQuote(cfg.container),
-	)
-	out, err := exec.Command("ssh", cfg.sshUser+"@"+cfg.sshHost, dockerCmd).Output()
-	if err != nil {
-		return "unknown"
-	}
-	return strings.TrimSpace(string(out))
 }
