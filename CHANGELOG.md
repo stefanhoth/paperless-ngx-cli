@@ -1,6 +1,16 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.0.0] - 2026-06-30
+
+### Bug Fixes
+
+- Add macOS quarantine removal hook to Homebrew cask
+
+### Features
+
+- Remove SSH/Docker coupling — pure-API CLI (#3)
+
 ## [0.2.1] - 2026-06-30
 
 ### Bug Fixes
