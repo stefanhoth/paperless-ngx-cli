@@ -9,12 +9,15 @@ description: >
 
 # Paperless-NGX CLI
 
-Assumes the `paperless` binary is available in PATH and the following env vars are set:
+Assumes the `paperless` binary is available in PATH and configured. Configuration
+is read from env vars or `~/.config/paperless-ngx-cli/config` (env takes precedence):
 
 ```
 PAPERLESS_URL           Base URL, e.g. http://paperless.local:8000
 PAPERLESS_API_TOKEN     API token from Paperless Settings → API
 ```
+
+If not yet configured, run `paperless configure` for interactive setup.
 
 SSH-based commands (`manage`, and the installed-version part of `version`) are
 optional. They activate when `PAPERLESS_SSH_HOST` is set (or derivable from
@@ -33,7 +36,8 @@ paperless doc <id> --full-perms      Same, plus full permission info
 paperless tags                       All tags with document count
 paperless correspondents             All correspondents with document count
 paperless types                      All document types with document count
-paperless version                    Available vs. installed version
+paperless configure                  Interactive setup — writes ~/.config/paperless-ngx-cli/config
+paperless version                    CLI version, target API version, and Paperless instance version
 ```
 
 ## Bulk Operations

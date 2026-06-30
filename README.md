@@ -43,13 +43,13 @@ Run `paperless version` to verify compatibility — it prints the CLI's target A
 
 ## Installation
 
-**Download a binary** from [GitHub Releases](https://github.com/stefanhoth/paperless-ngx-cli/releases/latest), extract, and place `paperless` somewhere in your `$PATH`.
-
-**Homebrew** (macOS / Linux):
+**Homebrew** (macOS / Linux — recommended):
 ```bash
 brew tap stefanhoth/tap
 brew install paperless-ngx-cli
 ```
+
+**Binary** — download from [GitHub Releases](https://github.com/stefanhoth/paperless-ngx-cli/releases/latest), extract, and place `paperless` somewhere in your `$PATH`.
 
 For building from source, see [docs/development.md](docs/development.md).
 
