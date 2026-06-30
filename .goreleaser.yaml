@@ -40,6 +40,12 @@ homebrew_casks:
     description: "Paperless-NGX document archive, from the terminal"
     binaries:
       - paperless
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/paperless"]
+          end
 
 changelog:
   sort: asc
