@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -235,5 +237,50 @@ func TestReadConfigFile_MissingFileReturnsNil(t *testing.T) {
 	vals := readConfigFile("/nonexistent/path/config")
 	if vals != nil {
 		t.Errorf("expected nil for missing file, got %v", vals)
+	}
+}
+
+func TestReadConfigFile_WarnsOnInsecurePermissions(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "config")
+	if err := os.WriteFile(path, []byte("PAPERLESS_URL=http://x\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Capture stderr
+	old := os.Stderr
+	r, w, _ := os.Pipe()
+	os.Stderr = w
+
+	readConfigFile(path)
+
+	w.Close()
+	os.Stderr = old
+
+	out, _ := io.ReadAll(r)
+	if !strings.Contains(string(out), "insecure permissions") {
+		t.Errorf("expected insecure permissions warning, got: %q", string(out))
+	}
+}
+
+func TestReadConfigFile_NoWarnOnSecurePermissions(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "config")
+	if err := os.WriteFile(path, []byte("PAPERLESS_URL=http://x\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	old := os.Stderr
+	r, w, _ := os.Pipe()
+	os.Stderr = w
+
+	readConfigFile(path)
+
+	w.Close()
+	os.Stderr = old
+
+	out, _ := io.ReadAll(r)
+	if strings.Contains(string(out), "insecure") {
+		t.Errorf("unexpected warning for 0600 file: %q", string(out))
 	}
 }
