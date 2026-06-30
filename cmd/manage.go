@@ -21,13 +21,13 @@ func init() {
 
 var manageCmd = &cobra.Command{
 	Use:   "manage <cmd> [args]",
-	Short: "manage.py im Container ausführen (via SSH)",
-	Long: `Führt manage.py-Kommandos im Paperless-Container aus.
+	Short: "Run manage.py commands inside the Paperless container (via SSH)",
+	Long: `Runs manage.py commands inside the Paperless Docker container over SSH.
 
-Benötigt SSH-Zugang zum Host und einen laufenden Container.
-Konfiguration via Umgebungsvariablen (siehe README).
+Requires SSH access to the Docker host and a running container.
+Configure via environment variables (see README).
 
-Beispiele:
+Examples:
   paperless manage document_retagger
   paperless manage document_sanity_checker
   paperless manage document_index reindex`,

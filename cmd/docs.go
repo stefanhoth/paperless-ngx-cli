@@ -10,13 +10,13 @@ import (
 )
 
 func init() {
-	docsCmd.Flags().IntP("number", "n", 10, "Anzahl Dokumente")
+	docsCmd.Flags().IntP("number", "n", 10, "Number of documents to show")
 	rootCmd.AddCommand(docsCmd)
 }
 
 var docsCmd = &cobra.Command{
 	Use:   "docs",
-	Short: "Letzte Dokumente auflisten",
+	Short: "List recent documents",
 	Run: func(cmd *cobra.Command, args []string) {
 		n, _ := cmd.Flags().GetInt("number")
 		c, _ := mustClient()
@@ -28,11 +28,11 @@ var docsCmd = &cobra.Command{
 		}
 		resp, err := c.DocumentsListWithResponse(ctx(), params)
 		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "Fehler: %v\n", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			os.Exit(1)
 		}
 
-		fmt.Printf("%-6s  %-12s  %-25s  %s\n", "ID", "Datum", "Korrespondent", "Titel")
+		fmt.Printf("%-6s  %-12s  %-25s  %s\n", "ID", "Date", "Correspondent", "Title")
 		fmt.Println(strings.Repeat("─", 90))
 		for _, d := range resp.JSON200.Results {
 			date := "—"
@@ -51,6 +51,6 @@ var docsCmd = &cobra.Command{
 			}
 			fmt.Printf("%-6d  %-12s  %-25s  %s\n", derefInt(d.Id), date, corr, title)
 		}
-		fmt.Printf("\n%d von %d Dokumenten\n", len(resp.JSON200.Results), resp.JSON200.Count)
+		fmt.Printf("\n%d of %d documents\n", len(resp.JSON200.Results), resp.JSON200.Count)
 	},
 }

@@ -33,7 +33,7 @@ func mustClient() (*api.ClientWithResponses, config) {
 	cfg := loadConfig()
 	c, err := newClient(cfg)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Client-Fehler:", err)
+		fmt.Fprintln(os.Stderr, "client error:", err)
 		os.Exit(1)
 	}
 	return c, cfg
