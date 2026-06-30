@@ -78,7 +78,7 @@ Environment variables always take precedence over the config file.
 | `PAPERLESS_API_TOKEN` | Yes | API token from Paperless Settings → API |
 | `PAPERLESS_SSH_HOST` | No | SSH host for `manage`/`version` (defaults to hostname from `PAPERLESS_URL`) |
 | `PAPERLESS_SSH_USER` | No | SSH username (defaults to current OS user) |
-| `PAPERLESS_CONTAINER` | No | Docker container name (defaults to `paperless-ngx-webserver-1`) |
+| `PAPERLESS_CONTAINER` | No | Docker container name (defaults to `paperless-ngx-webserver-1`). Only needed if you renamed the container in your Compose file. |
 
 Get your API token at `http://your-paperless/api/auth/token/` or in the Paperless web UI under Settings → API.
 

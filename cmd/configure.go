@@ -73,7 +73,7 @@ SSH settings are optional and only needed for the manage and version commands.`,
 		fmt.Println("\nSSH settings (optional — only needed for manage/version commands)")
 		sshHost := prompt("SSH host (leave empty to derive from URL)", "PAPERLESS_SSH_HOST", "")
 		sshUser := prompt("SSH user (leave empty for current OS user)", "PAPERLESS_SSH_USER", "")
-		container := prompt("Container name", "PAPERLESS_CONTAINER", "paperless-ngx-webserver-1")
+		container := prompt("Container name (only needed if you renamed it in your Compose file)", "PAPERLESS_CONTAINER", "paperless-ngx-webserver-1")
 
 		var sb strings.Builder
 		sb.WriteString("PAPERLESS_URL=" + url + "\n")
