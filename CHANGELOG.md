@@ -1,6 +1,21 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.2.1] - 2026-06-30
+
+### Bug Fixes
+
+- Replace deprecated brews with homebrew_casks in GoReleaser config
+- Pass HOMEBREW_TAP_GITHUB_TOKEN env var to GoReleaser action
+
+## [0.2.0] - 2026-06-30
+
+### Features
+
+- Pin to API v9 with Accept header on every request
+- Show API version in `paperless version` and warn on mismatch
+- Add Homebrew tap to GoReleaser release pipeline
+
 ## [0.1.5] - 2026-06-30
 
 ### Features
