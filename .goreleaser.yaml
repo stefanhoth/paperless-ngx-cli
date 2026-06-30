@@ -19,7 +19,7 @@ builds:
     flags:
       - -buildvcs=false
     ldflags:
-      - -s -w
+      - -s -w -X github.com/stefanhoth/paperless-ngx-cli/cmd.Version={{.Version}}
 
 archives:
   - formats:
