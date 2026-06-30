@@ -49,7 +49,16 @@ go install github.com/stefanhoth/paperless-ngx-cli@latest
 
 ## Configuration
 
-All configuration is via environment variables. Add these to your shell profile:
+Set variables in your shell profile, or create a config file at `~/.config/paperless-ngx-cli/config`:
+
+```ini
+PAPERLESS_URL=http://paperless.local:8000
+PAPERLESS_API_TOKEN=your-token-here
+```
+
+Environment variables always take precedence over the config file.
+
+**Variables:**
 
 | Variable | Required | Description |
 |---|---|---|

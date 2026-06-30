@@ -24,7 +24,7 @@ func configFilePath() string {
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(dir, "paperless-ngx", "config")
+	return filepath.Join(dir, "paperless-ngx-cli", "config")
 }
 
 // readConfigFile parses a KEY=VALUE file. Returns nil if file does not exist.
