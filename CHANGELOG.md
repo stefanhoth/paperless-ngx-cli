@@ -1,6 +1,12 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.1.1] - 2026-06-30
+
+### Bug Fixes
+
+- Move main to cmd/paperless so go install creates binary named paperless
+
 ## [0.1.0] - 2026-06-30
 
 ### Bug Fixes
