@@ -30,18 +30,5 @@ checksum:
   name_template: checksums.txt
 
 changelog:
-  sort: asc
-  use: github
-  filters:
-    exclude:
-      - "^chore(deps)"
-      - "^test:"
-  groups:
-    - title: Features
-      regexp: "^feat"
-      order: 0
-    - title: Bug Fixes
-      regexp: "^fix"
-      order: 1
-    - title: Other
-      order: 99
+  use: git-cliff
+  abbrev: 7
