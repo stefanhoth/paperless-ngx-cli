@@ -77,7 +77,7 @@ Environment variables always take precedence over the config file.
 | `PAPERLESS_URL` | Yes | Base URL, e.g. `http://paperless.local:8000` |
 | `PAPERLESS_API_TOKEN` | Yes | API token from Paperless Settings → API |
 | `PAPERLESS_SSH_HOST` | No | SSH host for `manage`/`version` (defaults to hostname from `PAPERLESS_URL`) |
-| `PAPERLESS_SSH_USER` | No | SSH username (defaults to current OS user) |
+| `PAPERLESS_SSH_USER` | No | SSH username (defaults to current OS user). Passwordless key-based auth is required — the CLI does not handle password prompts. |
 | `PAPERLESS_CONTAINER` | No | Docker container name (defaults to `paperless-ngx-webserver-1`). Only relevant when Paperless runs as a Docker container — the CLI will use `docker exec` to run management commands inside it. |
 
 Get your API token at `http://your-paperless/api/auth/token/` or in the Paperless web UI under Settings → API.

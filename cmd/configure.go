@@ -72,7 +72,7 @@ SSH settings are optional and only needed for the manage and version commands.`,
 
 		fmt.Println("\nSSH settings (optional — only needed for manage/version commands)")
 		sshHost := prompt("SSH host (leave empty to derive from URL)", "PAPERLESS_SSH_HOST", "")
-		sshUser := prompt("SSH user (leave empty for current OS user)", "PAPERLESS_SSH_USER", "")
+		sshUser := prompt("SSH user — passwordless key-based auth required (leave empty for current OS user)", "PAPERLESS_SSH_USER", "")
 		fmt.Println("  Container name: only needed when Paperless runs in Docker (uses 'docker exec' to call manage.py).")
 		fmt.Println("  Leave empty if Paperless runs directly on the host (bare-metal/venv).")
 		container := prompt("Container name", "PAPERLESS_CONTAINER", "paperless-ngx-webserver-1")
