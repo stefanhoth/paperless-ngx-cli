@@ -1,10 +1,31 @@
 # paperless-ngx-cli
 
-A typed command-line interface for [Paperless-NGX](https://docs.paperless-ngx.com/), generated from the official OpenAPI spec using [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen).
+Your [Paperless-NGX](https://docs.paperless-ngx.com/) document archive, from the terminal.
 
-## Why
+Search documents, inspect metadata, trigger bulk operations, and run management commands — without opening a browser. Designed for scripting, automation, and AI-assisted workflows.
 
-The generated Go client gives you compile-time safety against API changes. When Paperless updates its schema, running `make generate` catches breaking changes at build time rather than at runtime.
+```bash
+paperless search "Steuerbescheid 2024"
+paperless bulk reprocess 10,11,12
+paperless manage document_retagger
+```
+
+The CLI is statically compiled and ships as a single binary for Linux and macOS. No runtime, no dependencies.
+
+## Why this exists
+
+Paperless-NGX has a solid web UI, but the API is the real power interface. Once you expose it on the command line, you can:
+
+- **automate** document processing pipelines via shell scripts or cron jobs
+- **integrate** Paperless into AI agents and Claude Code workflows using the bundled [SKILL.md](SKILL.md)
+- **bulk-operate** on document sets that would take dozens of clicks in the UI
+- **monitor** your instance and trigger reindexing or OCR without SSH-ing into the server manually
+
+The client is generated from Paperless-NGX's own OpenAPI spec, so commands and types stay accurate as the API evolves. A daily CI check detects new Paperless releases and opens a GitHub issue when the schema needs updating.
+
+## How it works
+
+Built with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) — the Go client is generated directly from the Paperless-NGX OpenAPI schema. The generated client gives compile-time safety against API changes: when Paperless updates its schema, `make generate-docker` catches breaking changes at build time rather than at runtime.
 
 ## Requirements
 
@@ -15,7 +36,7 @@ The generated Go client gives you compile-time safety against API changes. When 
 ## Installation
 
 ```bash
-git clone https://github.com/yourname/paperless-ngx-cli
+git clone https://github.com/stefanhoth/paperless-ngx-cli
 cd paperless-ngx-cli
 make build
 # binary is at ./paperless
@@ -81,7 +102,12 @@ paperless manage document_archiver       # re-run OCR on all documents
 The generated client lives in `api/paperless.gen.go`. Regenerate it when Paperless updates its API:
 
 ```bash
-make generate   # downloads schema from PAPERLESS_URL, patches it, regenerates client
+# No running instance needed — pulls the official Docker image and exports the schema:
+make generate-docker VERSION=v2.20.15
+make build
+
+# Or, if you have a running Paperless instance:
+make generate   # uses PAPERLESS_URL + PAPERLESS_API_TOKEN
 make build
 ```
 
