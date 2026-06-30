@@ -1,6 +1,12 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.1.2] - 2026-06-30
+
+### Bug Fixes
+
+- Revert to root main.go, use GitHub Releases as primary install path
+
 ## [0.1.1] - 2026-06-30
 
 ### Bug Fixes
