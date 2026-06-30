@@ -3,19 +3,14 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"net/url"
 	"os"
-	"os/user"
 	"path/filepath"
 	"strings"
 )
 
 type config struct {
-	baseURL   string
-	token     string
-	sshHost   string
-	sshUser   string
-	container string
+	baseURL string
+	token   string
 }
 
 // configFilePath returns ~/.config/paperless-ngx/config (XDG).
@@ -81,31 +76,9 @@ func parseConfig(fileVals map[string]string) (config, error) {
 		return config{}, fmt.Errorf("PAPERLESS_API_TOKEN is not set")
 	}
 
-	sshHost := get("PAPERLESS_SSH_HOST", fileVals)
-	if sshHost == "" {
-		if u, err := url.Parse(baseURL); err == nil {
-			sshHost = u.Hostname()
-		}
-	}
-
-	sshUser := get("PAPERLESS_SSH_USER", fileVals)
-	if sshUser == "" {
-		if u, err := user.Current(); err == nil {
-			sshUser = u.Username
-		}
-	}
-
-	container := get("PAPERLESS_CONTAINER", fileVals)
-	if container == "" {
-		container = "paperless-ngx-webserver-1"
-	}
-
 	return config{
-		baseURL:   baseURL,
-		token:     token,
-		sshHost:   sshHost,
-		sshUser:   sshUser,
-		container: container,
+		baseURL: baseURL,
+		token:   token,
 	}, nil
 }
 

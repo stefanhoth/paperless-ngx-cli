@@ -2,12 +2,11 @@
 
 Your [Paperless-NGX](https://docs.paperless-ngx.com/) document archive, from the terminal.
 
-Search documents, inspect metadata, trigger bulk operations, and run management commands — without opening a browser. Designed for scripting, automation, and AI-assisted workflows.
+Search documents, inspect metadata, and trigger bulk operations — without opening a browser. Designed for scripting, automation, and AI-assisted workflows.
 
 ```bash
 paperless search "Steuerbescheid 2024"
 paperless bulk reprocess 10,11,12
-paperless manage document_retagger
 ```
 
 The CLI is statically compiled and ships as a single binary for Linux and macOS. No runtime, no dependencies.
@@ -19,7 +18,6 @@ Paperless-NGX has a solid web UI, but the API is the real power interface. Once 
 - **automate** document processing pipelines via shell scripts or cron jobs
 - **integrate** Paperless into AI agents and Claude Code workflows using the bundled [SKILL.md](SKILL.md)
 - **bulk-operate** on document sets that would take dozens of clicks in the UI
-- **monitor** your instance and trigger reindexing or OCR without SSH-ing into the server manually
 
 The client is generated from Paperless-NGX's own OpenAPI spec, so commands and types stay accurate as the API evolves. A daily CI check detects new Paperless releases and opens a GitHub issue when the schema needs updating.
 
@@ -39,7 +37,6 @@ Run `paperless version` to verify compatibility — it prints the CLI's target A
 ## Requirements
 
 - A running Paperless-NGX 2.x instance
-- SSH access to the Docker host (only for `manage` and `version` commands)
 
 ## Installation
 
@@ -76,9 +73,6 @@ Environment variables always take precedence over the config file.
 |---|---|---|
 | `PAPERLESS_URL` | Yes | Base URL, e.g. `http://paperless.local:8000` |
 | `PAPERLESS_API_TOKEN` | Yes | API token from Paperless Settings → API |
-| `PAPERLESS_SSH_HOST` | No | SSH host for `manage`/`version` (defaults to hostname from `PAPERLESS_URL`) |
-| `PAPERLESS_SSH_USER` | No | SSH username (defaults to current OS user). Passwordless key-based auth is required — the CLI does not handle password prompts. |
-| `PAPERLESS_CONTAINER` | No | Docker container name (defaults to `paperless-ngx-webserver-1`). Only relevant when Paperless runs as a Docker container — the CLI will use `docker exec` to run management commands inside it. |
 
 Get your API token at `http://your-paperless/api/auth/token/` or in the Paperless web UI under Settings → API.
 
@@ -105,17 +99,6 @@ paperless bulk delete 42
 paperless bulk add-tag 10,11,12 7       # add tag ID 7
 paperless bulk set-correspondent 5 3    # set correspondent ID 3
 paperless bulk rotate 99 90
-```
-
-### Management Commands (SSH)
-
-These run `manage.py` inside the Paperless container via SSH:
-
-```bash
-paperless manage document_retagger
-paperless manage document_sanity_checker
-paperless manage document_index reindex
-paperless manage document_archiver       # re-run OCR on all documents
 ```
 
 ## Contributing

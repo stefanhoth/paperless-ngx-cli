@@ -3,8 +3,7 @@ name: paperless-ngx-cli
 description: >
   CLI for Paperless-NGX document management. Use when the user wants to search,
   list, or manage documents, tags, correspondents, or document types in a
-  Paperless-NGX instance. Also handles bulk operations and (when SSH is
-  configured) running management commands inside the Paperless container.
+  Paperless-NGX instance. Also handles bulk operations and version checks.
 ---
 
 # Paperless-NGX CLI
@@ -18,10 +17,6 @@ PAPERLESS_API_TOKEN     API token from Paperless Settings → API
 ```
 
 If not yet configured, run `paperless configure` for interactive setup.
-
-SSH-based commands (`manage`, and the installed-version part of `version`) are
-optional. They activate when `PAPERLESS_SSH_HOST` is set (or derivable from
-`PAPERLESS_URL`). Without SSH, those commands print a setup hint and exit cleanly.
 
 ---
 
@@ -56,16 +51,3 @@ paperless bulk set-type <ids> <type_id>
 ```
 
 Use `tags`, `correspondents`, or `types` to look up numeric IDs first.
-
-## Management Commands (requires SSH)
-
-Runs `manage.py` inside the Paperless Docker container via SSH.
-Prints a setup hint and exits cleanly if SSH is not configured.
-
-```
-paperless manage document_retagger          Re-apply matching rules to all documents
-paperless manage document_renamer           Regenerate filenames from storage template
-paperless manage document_index reindex     Rebuild the full-text search index
-paperless manage document_sanity_checker    Report inconsistencies (missing files, no OCR, etc.)
-paperless manage document_archiver          Re-run OCR on all documents
-```

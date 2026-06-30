@@ -20,8 +20,7 @@ var configureCmd = &cobra.Command{
 	Long: `Interactively prompts for configuration values and writes them to
 ~/.config/paperless-ngx-cli/config with secure permissions (0600).
 
-Existing values are shown as defaults — press Enter to keep them.
-SSH settings are optional and only needed for the manage and version commands.`,
+Existing values are shown as defaults — press Enter to keep them.`,
 	Args: cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		path := configFilePath()
@@ -70,25 +69,9 @@ SSH settings are optional and only needed for the manage and version commands.`,
 			os.Exit(1)
 		}
 
-		fmt.Println("\nSSH settings (optional — only needed for manage/version commands)")
-		sshHost := prompt("SSH host (leave empty to derive from URL)", "PAPERLESS_SSH_HOST", "")
-		sshUser := prompt("SSH user — passwordless key-based auth required (leave empty for current OS user)", "PAPERLESS_SSH_USER", "")
-		fmt.Println("  Container name: only needed when Paperless runs in Docker (uses 'docker exec' to call manage.py).")
-		fmt.Println("  Leave empty if Paperless runs directly on the host (bare-metal/venv).")
-		container := prompt("Container name", "PAPERLESS_CONTAINER", "paperless-ngx-webserver-1")
-
 		var sb strings.Builder
 		sb.WriteString("PAPERLESS_URL=" + url + "\n")
 		sb.WriteString("PAPERLESS_API_TOKEN=" + token + "\n")
-		if sshHost != "" {
-			sb.WriteString("PAPERLESS_SSH_HOST=" + sshHost + "\n")
-		}
-		if sshUser != "" {
-			sb.WriteString("PAPERLESS_SSH_USER=" + sshUser + "\n")
-		}
-		if container != "" && container != "paperless-ngx-webserver-1" {
-			sb.WriteString("PAPERLESS_CONTAINER=" + container + "\n")
-		}
 
 		if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
 			fmt.Fprintf(os.Stderr, "error creating config directory: %v\n", err)
@@ -102,4 +85,3 @@ SSH settings are optional and only needed for the manage and version commands.`,
 		fmt.Printf("\n✓ Config written to %s\n", path)
 	},
 }
-
