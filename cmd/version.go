@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -43,7 +44,7 @@ var versionCmd = &cobra.Command{
 		updateAvail := "no"
 		if v != nil {
 			if s, ok := (*v)["version"].(string); ok {
-				available = s
+				available = strings.TrimPrefix(s, "v")
 			}
 			if b, ok := (*v)["update_available"].(bool); ok && b {
 				updateAvail = "yes"
