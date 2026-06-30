@@ -29,7 +29,16 @@ func configFilePath() string {
 
 // readConfigFile parses a KEY=VALUE file. Returns nil if file does not exist.
 // Lines starting with # and blank lines are ignored.
+// Warns to stderr if the file is readable by group or others.
 func readConfigFile(path string) map[string]string {
+	info, err := os.Stat(path)
+	if err != nil {
+		return nil
+	}
+	if perm := info.Mode().Perm(); perm&0o077 != 0 {
+		fmt.Fprintf(os.Stderr, "warning: config file %s has insecure permissions (%o). Run: chmod 600 %s\n", path, perm, path)
+	}
+
 	f, err := os.Open(path)
 	if err != nil {
 		return nil

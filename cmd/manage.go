@@ -9,6 +9,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// shellQuote wraps s in single quotes and escapes embedded single quotes,
+// making it safe for interpolation into a remote shell command string.
+func shellQuote(s string) string {
+	return "'" + strings.ReplaceAll(s, "'", `'\''`) + "'"
+}
+
 func init() {
 	rootCmd.AddCommand(manageCmd)
 }
@@ -36,10 +42,13 @@ Beispiele:
 			return
 		}
 
-		manageArgs := strings.Join(args, " ")
+		quoted := make([]string, len(args))
+		for i, a := range args {
+			quoted[i] = shellQuote(a)
+		}
 		dockerCmd := fmt.Sprintf(
 			"/usr/local/bin/docker exec %s python3 manage.py %s",
-			cfg.container, manageArgs,
+			shellQuote(cfg.container), strings.Join(quoted, " "),
 		)
 
 		fmt.Printf("SSH %s@%s: %s\n\n", cfg.sshUser, cfg.sshHost, dockerCmd)

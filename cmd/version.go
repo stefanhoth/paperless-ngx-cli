@@ -50,7 +50,7 @@ var versionCmd = &cobra.Command{
 func sshInstalledVersion(cfg config) string {
 	dockerCmd := fmt.Sprintf(
 		"/usr/local/bin/docker inspect %s --format '{{index .Config.Labels \"org.opencontainers.image.version\"}}'",
-		cfg.container,
+		shellQuote(cfg.container),
 	)
 	out, err := exec.Command("ssh", cfg.sshUser+"@"+cfg.sshHost, dockerCmd).Output()
 	if err != nil {
