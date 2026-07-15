@@ -2,7 +2,7 @@ BINARY  := paperless
 PREFIX  ?= /usr/local
 DESTDIR ?=
 
-.PHONY: build install generate clean check format lint
+.PHONY: build install generate clean check format lint test
 
 build:
 	go build -buildvcs=false -o $(BINARY) .
@@ -16,6 +16,9 @@ format:
 lint: check
 	test -z "$$(gofumpt -l .)" || (echo "not gofumpt-formatted, run: make format" >&2 && gofumpt -l . && exit 1)
 	golangci-lint run ./...
+
+test:
+	go test -race ./...
 
 install: build
 	install -d $(DESTDIR)$(PREFIX)/bin
