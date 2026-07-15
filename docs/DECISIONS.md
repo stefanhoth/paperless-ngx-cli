@@ -32,3 +32,7 @@ code or product but don't warrant a full [ADR](adr/).
   point, the red `Test` job didn't block the PR that introduced it from
   merging; fixed immediately after in a follow-up PR. This is exactly the
   gap the ruleset (added later in this same retrofit) closes going forward.
+- **Imported the branch-protection ruleset with `required_review_thread_resolution: true`**,
+  not `false` as originally proposed in `.github/rulesets/main-branch-protection.json`.
+  Open review threads must now be resolved before a PR can merge. The
+  checked-in ruleset file was updated to match the live setting.
