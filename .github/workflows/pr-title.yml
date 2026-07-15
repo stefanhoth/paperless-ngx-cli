@@ -12,6 +12,17 @@ jobs:
     name: Conventional commit title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate conventional commit format
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const pattern = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9./_-]+\))?!?: .+/;
+            const title = context.payload.pull_request.title;
+            if (pattern.test(title)) {
+              core.info(`PR title OK: ${title}`);
+            } else {
+              core.setFailed(
+                `PR title doesn't follow Conventional Commits: "${title}"\n` +
+                `Expected: type(scope): description — e.g. feat(export): add PDF export`
+              );
+            }
