@@ -38,8 +38,8 @@ var docCmd = &cobra.Command{
 
 		d := resp.JSON200
 		date := "—"
-		if d.CreatedDate != nil {
-			date = d.CreatedDate.String()[:10]
+		if d.CreatedDate != nil { //nolint:staticcheck // SA1019: no documented replacement for this deprecated upstream field
+			date = d.CreatedDate.String()[:10] //nolint:staticcheck // SA1019: same as above
 		}
 		added := "—"
 		if d.Added != nil {

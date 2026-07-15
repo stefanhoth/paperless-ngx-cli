@@ -82,14 +82,17 @@ Examples:
 			fmt.Fprintln(os.Stderr, "error:", err)
 			os.Exit(1)
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 
 		respBody, err := io.ReadAll(resp.Body)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "error:", err)
 			os.Exit(1)
 		}
-		os.Stdout.Write(respBody)
+		if _, err := os.Stdout.Write(respBody); err != nil {
+			fmt.Fprintln(os.Stderr, "error:", err)
+			os.Exit(1)
+		}
 
 		if resp.StatusCode >= 400 {
 			fmt.Fprintf(os.Stderr, "error: HTTP %d\n", resp.StatusCode)
@@ -169,5 +172,5 @@ func readInputBody(input string) ([]byte, error) {
 	if input == "-" {
 		return io.ReadAll(os.Stdin)
 	}
-	return os.ReadFile(input)
+	return os.ReadFile(input) //nolint:gosec // G304: input is an explicit user-supplied --input flag, not attacker-controlled
 }

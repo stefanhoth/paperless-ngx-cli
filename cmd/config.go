@@ -34,11 +34,11 @@ func readConfigFile(path string) map[string]string {
 		fmt.Fprintf(os.Stderr, "warning: config file %s has insecure permissions (%o). Run: chmod 600 %s\n", path, perm, path)
 	}
 
-	f, err := os.Open(path)
+	f, err := os.Open(path) //nolint:gosec // G304: path is the fixed XDG config location, not user-supplied
 	if err != nil {
 		return nil
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	vals := make(map[string]string)
 	scanner := bufio.NewScanner(f)

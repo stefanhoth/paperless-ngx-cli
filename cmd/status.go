@@ -15,7 +15,7 @@ func init() {
 var statusCmd = &cobra.Command{
 	Use:   "status",
 	Short: "Show system statistics",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		c, _ := mustClient()
 		resp, err := c.StatisticsRetrieveWithResponse(ctx())
 		if err != nil || resp.StatusCode() != 200 {

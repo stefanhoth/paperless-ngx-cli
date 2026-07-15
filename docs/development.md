@@ -11,8 +11,17 @@
 ```bash
 make build          # compiles ./paperless
 make install        # installs to /usr/local/bin/paperless
+make check          # go vet
+make format         # gofumpt -w .
+make lint           # format check + golangci-lint (must be clean before pushing)
 go test ./...       # run unit tests
 ```
+
+Requires [golangci-lint](https://golangci-lint.run/) and
+[gofumpt](https://github.com/mvdan/gofumpt) (`brew install golangci-lint gofumpt`).
+
+Run `lefthook install` once after cloning to enable the pre-commit hook that
+runs `make lint` automatically (`brew install lefthook`).
 
 ## Project Structure
 

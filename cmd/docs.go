@@ -17,7 +17,7 @@ func init() {
 var docsCmd = &cobra.Command{
 	Use:   "docs",
 	Short: "List recent documents",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(cmd *cobra.Command, _ []string) {
 		n, _ := cmd.Flags().GetInt("number")
 		c, _ := mustClient()
 
@@ -36,8 +36,8 @@ var docsCmd = &cobra.Command{
 		fmt.Println(strings.Repeat("─", 90))
 		for _, d := range resp.JSON200.Results {
 			date := "—"
-			if d.CreatedDate != nil {
-				date = d.CreatedDate.String()[:10]
+			if d.CreatedDate != nil { //nolint:staticcheck // SA1019: no documented replacement for this deprecated upstream field
+				date = d.CreatedDate.String()[:10] //nolint:staticcheck // SA1019: same as above
 			}
 			corr := "—"
 			if d.Correspondent != nil {

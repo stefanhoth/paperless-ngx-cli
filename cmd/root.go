@@ -1,3 +1,4 @@
+// Package cmd implements the paperless CLI's commands.
 package cmd
 
 import (
@@ -19,6 +20,7 @@ var rootCmd = &cobra.Command{
 	Short: "Paperless-NGX CLI",
 }
 
+// Execute runs the root command, exiting with status 1 on error.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
