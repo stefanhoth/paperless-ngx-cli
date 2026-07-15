@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":semanticCommits", ":pinDigests"],
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
   "timezone": "Europe/Berlin",
   "labels": ["dependencies"],
   "lockFileMaintenance": { "enabled": true, "automerge": true },
