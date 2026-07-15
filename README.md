@@ -114,7 +114,7 @@ paperless api "/documents/?created__date=2026-07-08" | jq '.results[].id'
 
 ## Contributing
 
-See [docs/development.md](docs/development.md) for build instructions, project structure, the API client regeneration workflow, and release process.
+See [docs/development.md](docs/development.md) for build instructions, project structure, the API client regeneration workflow, and release process. Architecture decisions are recorded in [docs/adr/](docs/adr/) and [docs/DECISIONS.md](docs/DECISIONS.md). See [SECURITY.md](SECURITY.md) for the threat model.
 
 ## License
 
