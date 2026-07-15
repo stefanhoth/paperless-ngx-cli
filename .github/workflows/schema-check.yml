@@ -5,6 +5,10 @@ on:
     - cron: "0 7 * * *"   # 07:00 UTC daily
   workflow_dispatch:
 
+concurrency:
+  group: schema-check
+  cancel-in-progress: false
+
 permissions:
   contents: read
   issues: write
@@ -14,7 +18,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
 
       - name: Get latest Paperless-NGX release
         id: upstream
@@ -46,11 +52,11 @@ jobs:
         env:
           UPSTREAM: ${{ steps.upstream.outputs.version }}
         run: |
-          docker pull ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}
+          docker pull "ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}"
           docker run --rm \
             -e PAPERLESS_SECRET_KEY=changeme \
             -e PAPERLESS_DBENGINE=sqlite \
-            ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM} \
+            "ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}" \
             python3 /usr/src/paperless/src/manage.py spectacular \
               --file /dev/stdout --format openapi-json 2>/dev/null \
           > /tmp/new-schema-raw.json
