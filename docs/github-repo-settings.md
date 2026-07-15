@@ -1,7 +1,7 @@
 # GitHub repo settings: PR checks & auto-merge
 
 **Date:** 2026-07-15
-**Status:** workflows active; ruleset imported and enforcing
+**Status:** workflows active; ruleset imported and enforcing; Renovate installed
 
 ## Goal
 
@@ -31,6 +31,7 @@ lands on `main` unchecked.
   `required_review_thread_resolution` is `true` in the live ruleset (open
   review threads must be resolved before merge), not `false` as originally
   proposed — the checked-in file has been updated to match.
+- ✅ **Renovate GitHub App** — installed.
 
 ## One-time manual steps still outstanding
 
@@ -39,8 +40,6 @@ lands on `main` unchecked.
    `stefanhoth/homebrew-tap` with `Contents: Read & Write`. Setup steps are
    in [docs/development.md](development.md#homebrew-tap-setup). Required for
    `release.yml` to push the Homebrew cask; confirm it's already set.
-2. **Install the Renovate GitHub App** for this repo (if not already
-   installed org/account-wide): https://github.com/apps/renovate.
 
 ## Maintenance warning
 
