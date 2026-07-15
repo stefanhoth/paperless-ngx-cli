@@ -6,6 +6,42 @@ import (
 	"testing"
 )
 
+func TestResolveMethod(t *testing.T) {
+	cases := []struct {
+		name     string
+		explicit string
+		hasBody  bool
+		want     string
+	}{
+		{"no body, no explicit method -> GET", "", false, "GET"},
+		{"body, no explicit method -> POST", "", true, "POST"},
+		{"explicit method wins over no body", "PATCH", false, "PATCH"},
+		{"explicit method wins over body", "PATCH", true, "PATCH"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := resolveMethod(tc.explicit, tc.hasBody); got != tc.want {
+				t.Errorf("resolveMethod(%q, %v) = %q, want %q", tc.explicit, tc.hasBody, got, tc.want)
+			}
+		})
+	}
+}
+
+func TestValidateBodyFlags(t *testing.T) {
+	if err := validateBodyFlags(nil, ""); err != nil {
+		t.Errorf("neither flag set: unexpected error: %v", err)
+	}
+	if err := validateBodyFlags([]string{"a=b"}, ""); err != nil {
+		t.Errorf("--field only: unexpected error: %v", err)
+	}
+	if err := validateBodyFlags(nil, "body.json"); err != nil {
+		t.Errorf("--input only: unexpected error: %v", err)
+	}
+	if err := validateBodyFlags([]string{"a=b"}, "body.json"); err == nil {
+		t.Error("expected error when --field and --input are both set")
+	}
+}
+
 func TestNormalizeAPIPath(t *testing.T) {
 	base := "http://paperless.local:8000"
 	cases := []struct {
