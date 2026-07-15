@@ -17,7 +17,7 @@ func init() {
 var tagsCmd = &cobra.Command{
 	Use:   "tags",
 	Short: "List all tags",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		c, _ := mustClient()
 		n := 200
 		name := "name"
@@ -40,7 +40,7 @@ var tagsCmd = &cobra.Command{
 var correspondentsCmd = &cobra.Command{
 	Use:   "correspondents",
 	Short: "List all correspondents",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		c, _ := mustClient()
 		n := 200
 		name := "name"
@@ -63,7 +63,7 @@ var correspondentsCmd = &cobra.Command{
 var typesCmd = &cobra.Command{
 	Use:   "types",
 	Short: "List all document types",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		c, _ := mustClient()
 		n := 200
 		name := "name"

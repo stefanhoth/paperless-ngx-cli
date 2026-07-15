@@ -18,7 +18,7 @@ func init() {
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Show CLI and Paperless-NGX instance versions",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		fmt.Printf("paperless CLI:      %s\n", Version)
 		fmt.Printf("API version:        v%d\n", APIVersion)
 

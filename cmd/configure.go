@@ -22,7 +22,7 @@ var configureCmd = &cobra.Command{
 
 Existing values are shown as defaults — press Enter to keep them.`,
 	Args: cobra.NoArgs,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		path := configFilePath()
 		existing := readConfigFile(path)
 		if existing == nil {

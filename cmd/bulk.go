@@ -29,7 +29,7 @@ var bulkCmd = &cobra.Command{
 
 ids: comma-separated, e.g. 1,2,3`,
 	Args: cobra.MinimumNArgs(2),
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, args []string) {
 		op := args[0]
 		ids := parseIDs(args[1])
 		if len(ids) == 0 {

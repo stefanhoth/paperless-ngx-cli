@@ -12,7 +12,7 @@ import (
 func setEnv(t *testing.T, pairs ...string) {
 	t.Helper()
 	for i := 0; i < len(pairs); i += 2 {
-		t.Setenv(pairs[i], pairs[i+1])
+		t.Setenv(pairs[i], pairs[i+1]) //nolint:gosec // G602: callers always pass an even number of key/value args
 	}
 }
 
@@ -28,13 +28,13 @@ func clearConfigEnv(t *testing.T) {
 	t.Helper()
 	for _, k := range allConfigKeys {
 		orig, had := os.LookupEnv(k)
-		os.Unsetenv(k)
+		_ = os.Unsetenv(k)
 		k := k
 		t.Cleanup(func() {
 			if had {
-				os.Setenv(k, orig)
+				_ = os.Setenv(k, orig)
 			} else {
-				os.Unsetenv(k)
+				_ = os.Unsetenv(k)
 			}
 		})
 	}
@@ -59,7 +59,8 @@ func TestParseConfig_MissingToken(t *testing.T) {
 
 func TestParseConfig_MinimalValid(t *testing.T) {
 	clearConfigEnv(t)
-	setEnv(t,
+	setEnv(
+		t,
 		"PAPERLESS_URL", "http://paperless.local:8000",
 		"PAPERLESS_API_TOKEN", "tok123",
 	)
@@ -77,7 +78,8 @@ func TestParseConfig_MinimalValid(t *testing.T) {
 
 func TestParseConfig_TrailingSlashStripped(t *testing.T) {
 	clearConfigEnv(t)
-	setEnv(t,
+	setEnv(
+		t,
 		"PAPERLESS_URL", "http://paperless.local:8000/",
 		"PAPERLESS_API_TOKEN", "tok",
 	)
@@ -110,7 +112,8 @@ func TestParseConfig_FileValuesUsedWhenEnvAbsent(t *testing.T) {
 
 func TestParseConfig_EnvTakesPrecedenceOverFile(t *testing.T) {
 	clearConfigEnv(t)
-	setEnv(t,
+	setEnv(
+		t,
 		"PAPERLESS_URL", "http://env.local:8000",
 		"PAPERLESS_API_TOKEN", "env-token",
 	)
@@ -167,7 +170,7 @@ func TestReadConfigFile_MissingFileReturnsNil(t *testing.T) {
 func TestReadConfigFile_WarnsOnInsecurePermissions(t *testing.T) {
 	dir := t.TempDir()
 	path := filepath.Join(dir, "config")
-	if err := os.WriteFile(path, []byte("PAPERLESS_URL=http://x\n"), 0o644); err != nil {
+	if err := os.WriteFile(path, []byte("PAPERLESS_URL=http://x\n"), 0o644); err != nil { //nolint:gosec // G306: intentionally insecure permissions to exercise the warning path
 		t.Fatal(err)
 	}
 
@@ -178,7 +181,7 @@ func TestReadConfigFile_WarnsOnInsecurePermissions(t *testing.T) {
 
 	readConfigFile(path)
 
-	w.Close()
+	_ = w.Close()
 	os.Stderr = old
 
 	out, _ := io.ReadAll(r)
@@ -200,7 +203,7 @@ func TestReadConfigFile_NoWarnOnSecurePermissions(t *testing.T) {
 
 	readConfigFile(path)
 
-	w.Close()
+	_ = w.Close()
 	os.Stderr = old
 
 	out, _ := io.ReadAll(r)

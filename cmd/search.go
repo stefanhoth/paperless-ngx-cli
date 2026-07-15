@@ -44,8 +44,8 @@ var searchCmd = &cobra.Command{
 		fmt.Println(strings.Repeat("─", 70))
 		for _, d := range resp.JSON200.Results {
 			date := "—"
-			if d.CreatedDate != nil {
-				date = d.CreatedDate.String()[:10]
+			if d.CreatedDate != nil { //nolint:staticcheck // SA1019: no documented replacement for this deprecated upstream field
+				date = d.CreatedDate.String()[:10] //nolint:staticcheck // SA1019: same as above
 			}
 			title := derefStr(d.Title)
 			if len(title) > 55 {
