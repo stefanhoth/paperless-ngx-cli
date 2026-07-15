@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false # never kill a half-finished release
+
 permissions:
   contents: write
 
@@ -12,16 +16,18 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      # persist-credentials stays at its default (true): the final step
+      # pushes CHANGELOG.md back to main using this checkout's credentials.
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
-          go-version: stable
+          go-version-file: go.mod
           cache: true
 
-      - uses: goreleaser/goreleaser-action@v7
+      - uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7
         with:
           version: "~> v2"
           args: release --clean
@@ -30,7 +36,7 @@ jobs:
           HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
 
       - name: Update CHANGELOG.md
-        uses: orhun/git-cliff-action@v4
+        uses: orhun/git-cliff-action@f50e11560dce63f7c33227798f90b924471a88b5 # v4
         with:
           config: cliff.toml
           args: --verbose
@@ -39,10 +45,12 @@ jobs:
           GITHUB_REPO: ${{ github.repository }}
 
       - name: Commit CHANGELOG.md to main
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md
           git diff --staged --quiet && exit 0
-          git commit -m "chore(release): update CHANGELOG.md for ${{ github.ref_name }}"
+          git commit -m "chore(release): update CHANGELOG.md for $TAG"
           git push origin HEAD:main
