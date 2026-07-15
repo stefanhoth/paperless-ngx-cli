@@ -4,10 +4,11 @@
 
 ```bash
 make build        # compiles ./paperless
-go test ./cmd/... # unit tests (no running Paperless instance needed)
+make lint          # gofumpt + golangci-lint, must be clean
+make test          # go test -race ./... (no running Paperless instance needed)
 ```
 
-Always run tests after changes to `cmd/`.
+Always run `make lint` and `make test` after changes to `cmd/`.
 
 ## Generated Code — Do Not Edit
 

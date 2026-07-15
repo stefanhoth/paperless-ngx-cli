@@ -14,7 +14,7 @@ make install        # installs to /usr/local/bin/paperless
 make check          # go vet
 make format         # gofumpt -w .
 make lint           # format check + golangci-lint (must be clean before pushing)
-go test ./...       # run unit tests
+make test           # go test -race ./...
 ```
 
 Requires [golangci-lint](https://golangci-lint.run/) and
