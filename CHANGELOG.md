@@ -1,6 +1,12 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.1.1] - 2026-07-15
+
+### Bug Fixes
+
+- Prefix /api on raw api passthrough (#8)
+
 ## [1.1.0] - 2026-07-15
 
 ### Bug Fixes
