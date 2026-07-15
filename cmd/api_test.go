@@ -49,12 +49,15 @@ func TestNormalizeAPIPath(t *testing.T) {
 		in   string
 		want string
 	}{
-		{"leading slash optional", "documents/4028/", "/documents/4028/"},
-		{"trailing slash added", "/documents/4028", "/documents/4028/"},
-		{"already normalized", "/documents/4028/", "/documents/4028/"},
-		{"query string preserved", "/documents/?created__date=2026-07-08", "/documents/?created__date=2026-07-08"},
-		{"trailing slash added before query", "/documents?created__date=2026-07-08", "/documents/?created__date=2026-07-08"},
-		{"matching full URL reduced to path", base + "/documents/4028/", "/documents/4028/"},
+		{"leading slash optional", "documents/4028/", "/api/documents/4028/"},
+		{"trailing slash added", "/documents/4028", "/api/documents/4028/"},
+		{"already normalized", "/documents/4028/", "/api/documents/4028/"},
+		{"query string preserved", "/documents/?created__date=2026-07-08", "/api/documents/?created__date=2026-07-08"},
+		{"trailing slash added before query", "/documents?created__date=2026-07-08", "/api/documents/?created__date=2026-07-08"},
+		{"matching full URL reduced to path", base + "/documents/4028/", "/api/documents/4028/"},
+		{"api prefix not duplicated", "/api/documents/4028/", "/api/documents/4028/"},
+		{"api prefix added to bare api path", "api/tags/", "/api/tags/"},
+		{"full URL with api prefix", base + "/api/documents/4028/", "/api/documents/4028/"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

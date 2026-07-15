@@ -137,6 +137,11 @@ func normalizeAPIPath(raw string, baseURL string) (string, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
+	// Paperless serves the REST API under /api/; without this prefix the
+	// request hits the web UI and Django rejects it with a CSRF 403.
+	if path != "/api" && !strings.HasPrefix(path, "/api/") {
+		path = "/api" + path
+	}
 	if !strings.HasSuffix(path, "/") {
 		path += "/"
 	}
