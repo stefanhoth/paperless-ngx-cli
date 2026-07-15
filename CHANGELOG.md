@@ -1,6 +1,20 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.1.0] - 2026-07-15
+
+### Bug Fixes
+
+- Normalize version display — strip v prefix from latest version
+
+### Features
+
+- Add paperless api raw REST passthrough (#6)
+
+### Ai
+
+- Add mattpocock/skills suite (#5)
+
 ## [1.0.0] - 2026-06-30
 
 ### Bug Fixes
