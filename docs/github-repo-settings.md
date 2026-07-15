@@ -1,7 +1,7 @@
 # GitHub repo settings: PR checks & auto-merge
 
 **Date:** 2026-07-15
-**Status:** workflows active; one manual step below is still outstanding
+**Status:** workflows active; ruleset imported and enforcing
 
 ## Goal
 
@@ -23,19 +23,23 @@ lands on `main` unchecked.
 - ✅ **Allow auto-merge** — enabled.
 - ✅ **Automatically delete head branches** — enabled.
 - ✅ Squash-merge only, merge/rebase commit disabled.
+- ✅ **Ruleset imported** (`Protect main`, id `19006703`) — Lint/Build/Test/
+  Conventional-commit-title are now genuinely required; a red PR can no
+  longer merge (this gap is what let PR #11's failing `Test` job land
+  before the ruleset existed). One deliberate deviation from the checked-in
+  `.github/rulesets/main-branch-protection.json`:
+  `required_review_thread_resolution` is `true` in the live ruleset (open
+  review threads must be resolved before merge), not `false` as originally
+  proposed — the checked-in file has been updated to match.
 
 ## One-time manual steps still outstanding
 
-1. **Settings → Rules → Rulesets → New ruleset ▾ → Import a ruleset**:
-   import `.github/rulesets/main-branch-protection.json`. Until this is
-   done, CI results are informational only — a red PR can still merge
-   (this happened once while `ci.yml` was first being added).
-2. **Secrets** (Settings → Secrets and variables → Actions):
+1. **Secrets** (Settings → Secrets and variables → Actions):
    `HOMEBREW_TAP_GITHUB_TOKEN` — a fine-grained PAT scoped to
    `stefanhoth/homebrew-tap` with `Contents: Read & Write`. Setup steps are
    in [docs/development.md](development.md#homebrew-tap-setup). Required for
    `release.yml` to push the Homebrew cask; confirm it's already set.
-3. **Install the Renovate GitHub App** for this repo (if not already
+2. **Install the Renovate GitHub App** for this repo (if not already
    installed org/account-wide): https://github.com/apps/renovate.
 
 ## Maintenance warning
