@@ -101,6 +101,17 @@ paperless bulk set-correspondent 5 3    # set correspondent ID 3
 paperless bulk rotate 99 90
 ```
 
+### Raw API Escape Hatch
+
+For anything not covered by the commands above, `paperless api` is a
+`gh api`-style passthrough: same auth, raw JSON on stdout.
+
+```bash
+paperless api /documents/4028/ --method PATCH --field created=2022-02-08
+paperless api /documents/4028/ --method PATCH --input body.json
+paperless api "/documents/?created__date=2026-07-08" | jq '.results[].id'
+```
+
 ## Contributing
 
 See [docs/development.md](docs/development.md) for build instructions, project structure, the API client regeneration workflow, and release process.

@@ -25,10 +25,16 @@ func Execute() {
 	}
 }
 
+// setAuthHeaders sets the Authorization and Accept headers sent on every
+// request to the Paperless-NGX API.
+func setAuthHeaders(req *http.Request, cfg config) {
+	req.Header.Set("Authorization", "Token "+cfg.token)
+	req.Header.Set("Accept", fmt.Sprintf("application/json; version=%d", APIVersion))
+}
+
 func newClient(cfg config) (*api.ClientWithResponses, error) {
 	addHeaders := func(_ context.Context, req *http.Request) error {
-		req.Header.Set("Authorization", "Token "+cfg.token)
-		req.Header.Set("Accept", fmt.Sprintf("application/json; version=%d", APIVersion))
+		setAuthHeaders(req, cfg)
 		return nil
 	}
 	return api.NewClientWithResponses(cfg.baseURL, api.WithRequestEditorFn(addHeaders))

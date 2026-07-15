@@ -51,3 +51,22 @@ paperless bulk set-type <ids> <type_id>
 ```
 
 Use `tags`, `correspondents`, or `types` to look up numeric IDs first.
+
+## Raw API Escape Hatch
+
+For anything the dedicated commands above don't cover (e.g. setting a single
+arbitrary field like `created` on one document), use `paperless api` —
+same auth, prints raw JSON for piping into `jq`.
+
+```
+paperless api <path> [-X <method>] [-f key=value ...] [--input <file>|-]
+```
+
+```
+paperless api /documents/4028/ --method PATCH --field created=2022-02-08
+paperless api /documents/4028/ --method PATCH --input body.json
+paperless api "/documents/?created__date=2026-07-08" | jq '.results[].id'
+```
+
+Defaults: `GET` with no body; `POST` when `-f`/`--input` is given and `-X` is
+omitted. `-f` and `--input` are mutually exclusive. Non-2xx exits non-zero.
