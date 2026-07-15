@@ -35,14 +35,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
 
-      - name: Update CHANGELOG.md
-        uses: orhun/git-cliff-action@f50e11560dce63f7c33227798f90b924471a88b5 # v4
-        with:
-          config: cliff.toml
-          args: --verbose
+      - name: Install git-cliff
         env:
-          OUTPUT: CHANGELOG.md
+          GIT_CLIFF_VERSION: 2.13.1
+        run: |
+          archive="git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          base_url="https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}"
+          curl -sSfLO "${base_url}/${archive}"
+          curl -sSfLO "${base_url}/${archive}.sha512"
+          sha512sum -c "${archive}.sha512"
+          tar -xf "$archive"
+          install -m 755 "git-cliff-${GIT_CLIFF_VERSION}/git-cliff" /usr/local/bin/git-cliff
+
+      - name: Update CHANGELOG.md
+        env:
           GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git-cliff --config cliff.toml --verbose --output CHANGELOG.md
 
       - name: Commit CHANGELOG.md to main
         env:
