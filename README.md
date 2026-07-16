@@ -116,11 +116,13 @@ paperless api "/documents/?created__date=2026-07-08" | jq '.results[].id'
 
 The CLI ships with a [SKILL.md](SKILL.md) describing itself to AI assistants
 like Claude Code. Install it directly from the binary instead of a separate
-`skills add` step:
+`skills add` step. It's written to the vendor-neutral
+`.agents/skills/paperless-ngx-cli/SKILL.md`, with `.claude/skills/paperless-ngx-cli`
+symlinked to it so Claude Code picks it up too:
 
 ```bash
-paperless skill install          # ./.claude/skills/paperless-ngx-cli/SKILL.md
-paperless skill install --user   # ~/.claude/skills/paperless-ngx-cli/SKILL.md
+paperless skill install          # ./.agents/skills/paperless-ngx-cli/SKILL.md (+ ./.claude/skills symlink)
+paperless skill install --user   # ~/.agents/skills/paperless-ngx-cli/SKILL.md (+ ~/.claude/skills symlink)
 ```
 
 ## Contributing
