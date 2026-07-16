@@ -84,8 +84,28 @@ git push origin v1.2.3
 
 This triggers:
 1. GoReleaser builds binaries for linux/darwin × amd64/arm64 and creates a GitHub Release
-2. `orhun/git-cliff-action` regenerates `CHANGELOG.md` and commits it back to `main`
+2. `git-cliff` regenerates `CHANGELOG.md` and opens a PR against `main` with auto-merge enabled — `main`'s branch protection requires a PR with passing checks, so this can't push directly
 3. GoReleaser pushes an updated Homebrew formula to [stefanhoth/homebrew-tap](https://github.com/stefanhoth/homebrew-tap)
+
+### Changelog PR Setup
+
+The changelog step opens its PR with a dedicated PAT rather than the
+workflow's default `GITHUB_TOKEN`: GitHub doesn't trigger further workflow
+runs for events authored by the default token, so the required status
+checks (Lint, Build, Test, Conventional commit title) would never run on
+a `GITHUB_TOKEN`-authored PR, and it would sit unmergeable forever.
+
+**Required secret** in this repo (`Settings → Secrets → Actions`):
+
+| Secret | Value |
+|---|---|
+| `RELEASE_PR_GITHUB_TOKEN` | A GitHub PAT with `Contents: Read & Write` and `Pull requests: Read & Write` permission scoped to `stefanhoth/paperless-ngx-cli` |
+
+**Creating the PAT:**
+1. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+2. Resource owner: `stefanhoth`, Repository access: `Only select repositories` → `paperless-ngx-cli`
+3. Permissions: `Contents` → `Read and write`, `Pull requests` → `Read and write`
+4. Copy the token and add it as `RELEASE_PR_GITHUB_TOKEN` in `stefanhoth/paperless-ngx-cli` secrets
 
 ### Homebrew Tap Setup
 
