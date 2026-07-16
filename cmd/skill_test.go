@@ -72,7 +72,7 @@ func TestWriteSkillFile(t *testing.T) {
 func TestEnsureSkillSymlink_CreatesRelativeLink(t *testing.T) {
 	dir := t.TempDir()
 	targetDir := filepath.Join(dir, ".agents", "skills", "paperless-ngx-cli")
-	if err := os.MkdirAll(targetDir, 0o755); err != nil {
+	if err := os.MkdirAll(targetDir, 0o750); err != nil {
 		t.Fatal(err)
 	}
 	linkPath := filepath.Join(dir, ".claude", "skills", "paperless-ngx-cli")
@@ -105,7 +105,7 @@ func TestEnsureSkillSymlink_CreatesRelativeLink(t *testing.T) {
 func TestEnsureSkillSymlink_IdempotentOnSecondRun(t *testing.T) {
 	dir := t.TempDir()
 	targetDir := filepath.Join(dir, ".agents", "skills", "paperless-ngx-cli")
-	if err := os.MkdirAll(targetDir, 0o755); err != nil {
+	if err := os.MkdirAll(targetDir, 0o750); err != nil {
 		t.Fatal(err)
 	}
 	linkPath := filepath.Join(dir, ".claude", "skills", "paperless-ngx-cli")
@@ -121,11 +121,11 @@ func TestEnsureSkillSymlink_IdempotentOnSecondRun(t *testing.T) {
 func TestEnsureSkillSymlink_RefusesToOverwriteRealDirectory(t *testing.T) {
 	dir := t.TempDir()
 	targetDir := filepath.Join(dir, ".agents", "skills", "paperless-ngx-cli")
-	if err := os.MkdirAll(targetDir, 0o755); err != nil {
+	if err := os.MkdirAll(targetDir, 0o750); err != nil {
 		t.Fatal(err)
 	}
 	linkPath := filepath.Join(dir, ".claude", "skills", "paperless-ngx-cli")
-	if err := os.MkdirAll(linkPath, 0o755); err != nil {
+	if err := os.MkdirAll(linkPath, 0o750); err != nil {
 		t.Fatal(err)
 	}
 
