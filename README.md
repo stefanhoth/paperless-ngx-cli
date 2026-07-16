@@ -16,7 +16,7 @@ The CLI is statically compiled and ships as a single binary for Linux and macOS.
 Paperless-NGX has a solid web UI, but the API is the real power interface. Once you expose it on the command line, you can:
 
 - **automate** document processing pipelines via shell scripts or cron jobs
-- **integrate** Paperless into AI agents and Claude Code workflows using the bundled [SKILL.md](SKILL.md)
+- **integrate** Paperless into AI agents and Claude Code workflows using the bundled [SKILL.md](SKILL.md) (`paperless skill install`)
 - **bulk-operate** on document sets that would take dozens of clicks in the UI
 
 The client is generated from Paperless-NGX's own OpenAPI spec, so commands and types stay accurate as the API evolves. A daily CI check detects new Paperless releases and opens a GitHub issue when the schema needs updating.
@@ -110,6 +110,19 @@ For anything not covered by the commands above, `paperless api` is a
 paperless api /documents/4028/ --method PATCH --field created=2022-02-08
 paperless api /documents/4028/ --method PATCH --input body.json
 paperless api "/documents/?created__date=2026-07-08" | jq '.results[].id'
+```
+
+### AI Assistant Skill
+
+The CLI ships with a [SKILL.md](SKILL.md) describing itself to AI assistants
+like Claude Code. Install it directly from the binary instead of a separate
+`skills add` step. It's written to the vendor-neutral
+`.agents/skills/paperless-ngx-cli/SKILL.md`, with `.claude/skills/paperless-ngx-cli`
+symlinked to it so Claude Code picks it up too:
+
+```bash
+paperless skill install          # ./.agents/skills/paperless-ngx-cli/SKILL.md (+ ./.claude/skills symlink)
+paperless skill install --user   # ~/.agents/skills/paperless-ngx-cli/SKILL.md (+ ~/.claude/skills symlink)
 ```
 
 ## Contributing

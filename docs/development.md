@@ -38,6 +38,7 @@ runs `make lint` automatically (`brew install lefthook`).
 │   ├── doc.go
 │   ├── list.go             # tags, correspondents, types
 │   ├── bulk.go
+│   ├── skill.go            # `skill install` — writes the embedded SKILL.md to disk
 │   └── version.go
 ├── docs/                   # developer documentation
 ├── schema/
