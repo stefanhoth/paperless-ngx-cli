@@ -16,11 +16,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      # persist-credentials stays at its default (true): the final step
-      # pushes CHANGELOG.md back to main using this checkout's credentials.
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
@@ -53,13 +52,29 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: git-cliff --config cliff.toml --verbose --output CHANGELOG.md
 
-      - name: Commit CHANGELOG.md to main
+      - name: Open changelog PR
         env:
           TAG: ${{ github.ref_name }}
+          GH_TOKEN: ${{ secrets.RELEASE_PR_GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md
           git diff --staged --quiet && exit 0
+
+          # main requires PRs with passing status checks, so this can't push
+          # directly. GITHUB_TOKEN can't be used for the push/PR either: GitHub
+          # doesn't trigger workflows (so the required checks never run) for
+          # events authored by the default token. RELEASE_PR_GITHUB_TOKEN is a
+          # PAT for this, same pattern as HOMEBREW_TAP_GITHUB_TOKEN.
+          branch="chore/changelog-$TAG"
+          git checkout -b "$branch"
           git commit -m "chore(release): update CHANGELOG.md for $TAG"
-          git push origin HEAD:main
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git push origin "$branch"
+
+          gh pr create \
+            --title "chore(release): update CHANGELOG.md for $TAG" \
+            --body "Automated changelog update for $TAG." \
+            --base main --head "$branch"
+          gh pr merge "$branch" --squash --auto
