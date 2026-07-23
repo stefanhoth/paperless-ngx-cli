@@ -58,10 +58,11 @@ jobs:
           free -h
           set +e
           docker run --rm \
+            --entrypoint python3 \
             -e PAPERLESS_SECRET_KEY=changeme \
             -e PAPERLESS_DBENGINE=sqlite \
             "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}" \
-            python3 /usr/src/paperless/src/manage.py spectacular \
+            /usr/src/paperless/src/manage.py spectacular \
               --file /dev/stdout --format openapi-json \
           > /tmp/new-schema-raw.json 2> /tmp/spectacular-stderr.log
           docker_exit=$?
