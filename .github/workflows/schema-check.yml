@@ -55,7 +55,10 @@ jobs:
           # ghcr.io image tags drop the "v" prefix used by GitHub release tag_names.
           IMAGE_TAG="${UPSTREAM#v}"
           docker pull "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}"
-          free -h
+          # --entrypoint python3 skips the image's s6-overlay /init, which
+          # otherwise runs full container startup (migrations, Redis wait,
+          # etc.) before our command and fails when there's no Redis/DB
+          # service attached to this one-off run.
           set +e
           docker run --rm \
             --entrypoint python3 \
@@ -67,14 +70,9 @@ jobs:
           > /tmp/new-schema-raw.json 2> /tmp/spectacular-stderr.log
           docker_exit=$?
           set -e
-          echo "docker run exit code: ${docker_exit}"
-          echo "--- stderr ---"
-          cat /tmp/spectacular-stderr.log
-          echo "--- raw output (first 40 lines) ---"
-          head -40 /tmp/new-schema-raw.json
-          echo "--- raw output size ---"
-          wc -c /tmp/new-schema-raw.json
           if [ "${docker_exit}" -ne 0 ]; then
+            echo "manage.py spectacular failed with exit code ${docker_exit}:"
+            cat /tmp/spectacular-stderr.log
             exit 1
           fi
           python3 scripts/fix-schema.py \
@@ -112,7 +110,7 @@ jobs:
           UPSTREAM_VERSION: ${{ steps.upstream.outputs.version }}
           EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
         run: |
-          SAFE_VERSION=$(printf '%s' "$UPSTREAM_VERSION" | tr -cd '[:alnum:] ._-()')
+          SAFE_VERSION=$(printf '%s' "$UPSTREAM_VERSION" | tr -cd '[:alnum:] ._()-')
           if [ -n "$EXISTING_ISSUE" ]; then
             gh issue comment "$EXISTING_ISSUE" \
               --body "Still unresolved as of $(date -u +%Y-%m-%d). Latest upstream: \`${SAFE_VERSION}\`."
