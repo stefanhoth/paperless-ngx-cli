@@ -52,11 +52,13 @@ jobs:
         env:
           UPSTREAM: ${{ steps.upstream.outputs.version }}
         run: |
-          docker pull "ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}"
+          # ghcr.io image tags drop the "v" prefix used by GitHub release tag_names.
+          IMAGE_TAG="${UPSTREAM#v}"
+          docker pull "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}"
           docker run --rm \
             -e PAPERLESS_SECRET_KEY=changeme \
             -e PAPERLESS_DBENGINE=sqlite \
-            "ghcr.io/paperless-ngx/paperless-ngx:${UPSTREAM}" \
+            "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}" \
             python3 /usr/src/paperless/src/manage.py spectacular \
               --file /dev/stdout --format openapi-json 2>/dev/null \
           > /tmp/new-schema-raw.json
