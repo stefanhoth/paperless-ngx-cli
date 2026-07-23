@@ -55,13 +55,27 @@ jobs:
           # ghcr.io image tags drop the "v" prefix used by GitHub release tag_names.
           IMAGE_TAG="${UPSTREAM#v}"
           docker pull "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}"
+          free -h
+          set +e
           docker run --rm \
             -e PAPERLESS_SECRET_KEY=changeme \
             -e PAPERLESS_DBENGINE=sqlite \
             "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}" \
             python3 /usr/src/paperless/src/manage.py spectacular \
-              --file /dev/stdout --format openapi-json 2>/dev/null \
-          > /tmp/new-schema-raw.json
+              --file /dev/stdout --format openapi-json \
+          > /tmp/new-schema-raw.json 2> /tmp/spectacular-stderr.log
+          docker_exit=$?
+          set -e
+          echo "docker run exit code: ${docker_exit}"
+          echo "--- stderr ---"
+          cat /tmp/spectacular-stderr.log
+          echo "--- raw output (first 40 lines) ---"
+          head -40 /tmp/new-schema-raw.json
+          echo "--- raw output size ---"
+          wc -c /tmp/new-schema-raw.json
+          if [ "${docker_exit}" -ne 0 ]; then
+            exit 1
+          fi
           python3 scripts/fix-schema.py \
             --input /tmp/new-schema-raw.json \
             --output /tmp/new-schema-patched.json
