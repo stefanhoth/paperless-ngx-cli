@@ -78,7 +78,13 @@ jobs:
           python3 scripts/fix-schema.py \
             --input /tmp/new-schema-raw.json \
             --output /tmp/new-schema-patched.json
-          diff -u schema/paperless.json /tmp/new-schema-patched.json \
+          # schema/paperless.json and the freshly generated file are both
+          # minified to a single line, so a line-based diff between them
+          # is just two giant lines. Pretty-print both to temp copies so
+          # the diff (and the `head -120` cap) is actually line-by-line.
+          python3 -m json.tool schema/paperless.json > /tmp/old-schema-pretty.json
+          python3 -m json.tool /tmp/new-schema-patched.json > /tmp/new-schema-pretty.json
+          diff -u /tmp/old-schema-pretty.json /tmp/new-schema-pretty.json \
             | head -120 > /tmp/schema-diff.txt || true
           echo "has_diff=true" >> "$GITHUB_OUTPUT"
 
