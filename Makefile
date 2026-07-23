@@ -50,10 +50,11 @@ generate-docker:
 	docker pull ghcr.io/paperless-ngx/paperless-ngx:$(IMAGE_TAG)
 	@echo "Exporting schema via manage.py spectacular..."
 	docker run --rm \
+		--entrypoint python3 \
 		-e PAPERLESS_SECRET_KEY=changeme \
 		-e PAPERLESS_DBENGINE=sqlite \
 		ghcr.io/paperless-ngx/paperless-ngx:$(IMAGE_TAG) \
-		python3 /usr/src/paperless/src/manage.py spectacular \
+		/usr/src/paperless/src/manage.py spectacular \
 			--file /dev/stdout --format openapi-json 2>/dev/null \
 		> schema/paperless.json
 	@echo "Fixing schema inconsistencies..."
