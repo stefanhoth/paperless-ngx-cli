@@ -45,13 +45,14 @@ generate:
 generate-docker:
 	$(eval VERSION ?= $(shell curl -sf https://api.github.com/repos/paperless-ngx/paperless-ngx/releases/latest \
 		| python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])"))
-	@echo "Pulling ghcr.io/paperless-ngx/paperless-ngx:$(VERSION)..."
-	docker pull ghcr.io/paperless-ngx/paperless-ngx:$(VERSION)
+	$(eval IMAGE_TAG := $(patsubst v%,%,$(VERSION)))
+	@echo "Pulling ghcr.io/paperless-ngx/paperless-ngx:$(IMAGE_TAG)..."
+	docker pull ghcr.io/paperless-ngx/paperless-ngx:$(IMAGE_TAG)
 	@echo "Exporting schema via manage.py spectacular..."
 	docker run --rm \
 		-e PAPERLESS_SECRET_KEY=changeme \
 		-e PAPERLESS_DBENGINE=sqlite \
-		ghcr.io/paperless-ngx/paperless-ngx:$(VERSION) \
+		ghcr.io/paperless-ngx/paperless-ngx:$(IMAGE_TAG) \
 		python3 /usr/src/paperless/src/manage.py spectacular \
 			--file /dev/stdout --format openapi-json 2>/dev/null \
 		> schema/paperless.json
