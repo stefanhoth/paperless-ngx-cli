@@ -15,11 +15,15 @@ upstream = os.environ.get("UPSTREAM_VERSION", "unknown")
 has_diff = os.environ.get("HAS_DIFF", "").lower() == "true"
 today = datetime.date.today().isoformat()
 
+MAX_DIFF_CHARS = 40_000  # keep well under GitHub's 65536-char issue body limit
+
 diff_section = ""
 if has_diff:
     try:
         with open("/tmp/schema-diff.txt") as f:
             diff = f.read().strip()
+        if len(diff) > MAX_DIFF_CHARS:
+            diff = diff[:MAX_DIFF_CHARS] + "\n... (truncated, diff too large for issue body)"
         if diff:
             diff_section = f"""
 ### Schema diff (first 120 lines)
