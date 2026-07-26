@@ -25,18 +25,18 @@ The client is generated from Paperless-NGX's own OpenAPI spec, so commands and t
 
 | CLI version | Status | Paperless-NGX | API version |
 |---|---|---|---|
-| **v1.x** | ✅ Active | 2.x stable | v9 |
-| v2.x | Planned | 3.x (not yet stable) | v10 |
+| **v2.x** | ✅ Active | 3.x stable | v10 |
+| v1.x | 🛠 Bug fixes only | 2.x | v9 |
 
 **One major CLI version per Paperless API version.** The CLI pins to a specific API version and sends `Accept: application/json; version=N` with every request, so responses are always in the expected format even when the server supports multiple API versions.
 
-When Paperless-NGX ships a stable 3.x series with API v10, CLI v2.0.0 will follow. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
+CLI v2.x targets Paperless-NGX 3.x (API v10). If your server still runs 2.x, stay on CLI v1.x — v2.x sends `version=10`, which a 2.x server rejects with HTTP 406. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
 
 Run `paperless version` to verify compatibility — it prints the CLI's target API version and warns if your server reports a different API version in its response headers.
 
 ## Requirements
 
-- A running Paperless-NGX 2.x instance
+- A running Paperless-NGX 3.x instance (for 2.x servers, use CLI v1.x)
 
 ## Installation
 

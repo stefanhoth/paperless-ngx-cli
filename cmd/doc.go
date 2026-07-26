@@ -31,10 +31,7 @@ var docCmd = &cobra.Command{
 		c, _ := mustClient()
 		params := &api.DocumentsRetrieveParams{FullPerms: &fullPerms}
 		resp, err := c.DocumentsRetrieveWithResponse(ctx(), id, params)
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "Fehler: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 
 		d := resp.JSON200
 		date := "—"

@@ -4,7 +4,7 @@
 
 - Go 1.21+
 - Docker (for schema generation without a running Paperless instance)
-- A running Paperless-NGX 2.x instance (optional — only needed for `make generate`)
+- A running Paperless-NGX 3.x instance (optional — only needed for `make generate`)
 
 ## Building
 
@@ -58,7 +58,7 @@ Paperless-NGX OpenAPI schema. Regenerate whenever Paperless ships a new version:
 
 ```bash
 # No running instance needed — pulls the official Docker image and exports the schema:
-make generate-docker VERSION=v2.20.15
+make generate-docker VERSION=v3.0.3
 make build
 
 # Or, if you have a running Paperless instance:

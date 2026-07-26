@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -18,10 +17,7 @@ var statusCmd = &cobra.Command{
 	Run: func(_ *cobra.Command, _ []string) {
 		c, _ := mustClient()
 		resp, err := c.StatisticsRetrieveWithResponse(ctx())
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 		if resp.JSON200 == nil {
 			fmt.Println("No data.")
 			return

@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -27,10 +26,7 @@ var docsCmd = &cobra.Command{
 			Ordering: &ordering,
 		}
 		resp, err := c.DocumentsListWithResponse(ctx(), params)
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 
 		fmt.Printf("%-6s  %-12s  %-25s  %s\n", "ID", "Date", "Correspondent", "Title")
 		fmt.Println(strings.Repeat("─", 90))

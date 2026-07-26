@@ -10,6 +10,27 @@ code or product but don't warrant a full [ADR](adr/).
   the call in bold, and the why. **Add the entry in the same PR that makes
   the decision.**
 
+## 2026-07-26
+
+- **Bumped `APIVersion` to 10 for Paperless-NGX 3.x — the CLI's first major
+  version bump under [ADR-0002](adr/0002-one-major-version-per-api-version.md).**
+  Paperless 3.x still accepts `version=9`, but a v9 client gets the legacy
+  response shapes (unpaginated tasks, old saved-view fields), so pinning to
+  v10 keeps the generated client and the server in agreement. Consequence:
+  CLI v2.x cannot talk to a 2.x server at all — those reject `version=10`
+  with HTTP 406.
+- **Moved `bulk reprocess|delete|merge|rotate` off `/documents/bulk_edit/`
+  onto the dedicated endpoints added in API v10.** Upstream still accepts
+  them on `bulk_edit` but logs them as deprecated, and they are scheduled to
+  go away when v9 is dropped. The metadata operations (`add-tag`,
+  `remove-tag`, `set-correspondent`, `set-type`) stay on `bulk_edit`, which
+  remains their only endpoint.
+- **Replaced the copy-pasted `if err != nil || resp.StatusCode() != 200`
+  blocks with `exitOnAPIError`.** They printed `error: <nil>` for every HTTP
+  failure — which the version bump would have made the standard experience
+  for anyone pointing v2.x at a 2.x server. The helper names the status and
+  special-cases 406 with a "server does not support API v10" hint.
+
 ## 2026-07-15
 
 - **Kept manual `git tag` releases instead of switching to semantic-release

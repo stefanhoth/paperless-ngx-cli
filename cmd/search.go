@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -30,10 +29,7 @@ var searchCmd = &cobra.Command{
 			Ordering: &ordering,
 		}
 		resp, err := c.DocumentsListWithResponse(ctx(), params)
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 
 		if len(resp.JSON200.Results) == 0 {
 			fmt.Printf("No results for: %s\n", query)
