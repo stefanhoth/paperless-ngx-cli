@@ -32,6 +32,8 @@ The client is generated from Paperless-NGX's own OpenAPI spec, so commands and t
 
 CLI v2.x targets Paperless-NGX 3.x (API v10). If your server still runs 2.x, stay on CLI v1.x — v2.x sends `version=10`, which a 2.x server rejects with HTTP 406. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
 
+Paperless-NGX 3.x also ships opt-in LLM features (per-document suggestions, document chat). If you run [paperless-gpt](https://github.com/icereed/paperless-gpt) next to your instance, [docs/paperless-3-ai.md](docs/paperless-3-ai.md) covers what changes for you — short version: nothing, until you switch them on.
+
 Run `paperless version` to verify compatibility — it prints the CLI's target API version and warns if your server reports a different API version in its response headers.
 
 ## Requirements
