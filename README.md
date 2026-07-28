@@ -103,6 +103,17 @@ paperless bulk set-correspondent 5 3    # set correspondent ID 3
 paperless bulk rotate 99 90
 ```
 
+### AI Suggestions & Chat
+
+Requires Paperless-NGX 3.x with AI enabled server-side — see
+[docs/paperless-3-ai.md](docs/paperless-3-ai.md).
+
+```bash
+paperless suggest 1234                                    # title/tag/correspondent suggestions
+paperless chat "What is the invoice total?" --doc 1234     # ask about one document
+paperless chat "Which documents mention BubbleTax?"        # ask across all documents
+```
+
 ### Raw API Escape Hatch
 
 For anything not covered by the commands above, `paperless api` is a

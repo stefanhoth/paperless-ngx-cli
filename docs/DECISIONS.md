@@ -10,6 +10,19 @@ code or product but don't warrant a full [ADR](adr/).
   the call in bold, and the why. **Add the entry in the same PR that makes
   the decision.**
 
+## 2026-07-28
+
+- **Added `paperless suggest` and `paperless chat` as dedicated commands for
+  the v10 AI endpoints, rather than leaving them on the `paperless api`
+  passthrough.** Both endpoints return non-JSON error bodies on failure (plain
+  text `"AI is required for this feature"` on HTTP 400), so `apiError` from
+  `cmd/bulk.go` — already built for that shape — is reused instead of
+  `exitOnAPIError`, which assumes JSON. `chat`'s response arrives as
+  `text/event-stream` with no `data:` framing (confirmed against upstream's
+  `stream_chat_with_documents`, which just yields raw text chunks); since the
+  generated client always buffers the full response before returning, the CLI
+  prints it as plain text rather than pretending to stream.
+
 ## 2026-07-26
 
 - **Bumped `APIVersion` to 10 for Paperless-NGX 3.x — the CLI's first major

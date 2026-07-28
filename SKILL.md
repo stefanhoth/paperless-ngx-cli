@@ -55,6 +55,20 @@ paperless bulk set-type <ids> <type_id>
 
 Use `tags`, `correspondents`, or `types` to look up numeric IDs first.
 
+## AI Suggestions & Chat
+
+Requires Paperless-NGX 3.x with AI enabled server-side (off by default). Exits
+non-zero with `"AI is required for this feature"` when it isn't.
+
+```
+paperless suggest <id>                     Title/tag/correspondent/type/storage-path/date suggestions
+paperless chat <question> [--doc <id>]     Ask about one document, or all documents if --doc is omitted
+```
+
+`suggest` prints existing entity IDs the AI matched, plus free-text names
+(marked `(new)`) for entities that don't exist yet — create them before
+applying the suggestion via `bulk` or `api`.
+
 ## Raw API Escape Hatch
 
 For anything the dedicated commands above don't cover (e.g. setting a single

@@ -95,21 +95,17 @@ Two practical things if you enable both against one Ollama:
 
 ## Reaching the endpoints from this CLI
 
-There are no dedicated commands for the AI endpoints — they're reachable
-through the raw passthrough:
-
 ```bash
-# Suggestions for one document (plain JSON)
-paperless api /documents/1234/ai_suggestions/ | jq
-
-# Ask about one document
-paperless api /documents/chat/ --field q="What is the invoice total?" --field document_id=1234
+paperless suggest 1234                                          # AI suggestions for one document
+paperless chat "What is the invoice total?" --doc 1234           # ask about one document
+paperless chat "Which documents mention BubbleTax?"               # ask across all documents
 ```
 
-Two caveats on the chat call: `--field` sends every value as a JSON string, so
-`document_id` arrives as `"1234"` and is coerced server-side; and the
-passthrough reads the whole response before printing, so the `text/event-stream`
-answer arrives in one go at the end rather than token by token.
+`suggest` prints existing entity IDs the AI matched alongside free-text names
+for entities that don't exist yet (marked `(new)`). `chat` prints the answer
+once it's complete — the server sends it as `text/event-stream`, but the CLI
+reads the whole response before printing, so it arrives in one go rather than
+token by token.
 
-While AI is disabled server-side, both return HTTP 400 and the CLI exits
-non-zero.
+While AI is disabled server-side, both exit non-zero with the server's
+`"AI is required for this feature"` message.
