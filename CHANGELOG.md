@@ -1,6 +1,33 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [2.0.0] - 2026-08-03
+
+### Bug Fixes
+
+- **release:** Open a PR for the changelog instead of pushing to main (#29)
+- **deps:** Update module github.com/oapi-codegen/runtime to v1.6.0 (#30)
+- **ci:** Strip v-prefix before pulling ghcr.io paperless-ngx image (#32)
+- **ci:** Bypass s6-overlay entrypoint for one-off manage.py commands (#33)
+- **ci:** Pretty-print schema before diffing, cap issue body size (#34)
+
+### Features
+
+- Target Paperless-NGX 3.x and API v10 (#36)
+
+## [1.1.2] - 2026-07-16
+
+### Bug Fixes
+
+- **deps:** Bump go directive to 1.26.5 (#13)
+- Replace unresolvable :pinDigests preset in renovate.json (#23)
+- **deps:** Update module github.com/oapi-codegen/runtime to v1.5.0 (#25)
+
+### Features
+
+- **lint:** Add golangci-lint, gofumpt, and pre-commit hook (#9)
+- Add `skill install` command (#27)
+
 ## [1.1.1] - 2026-07-15
 
 ### Bug Fixes
