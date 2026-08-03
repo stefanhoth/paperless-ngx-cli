@@ -24,10 +24,7 @@ var versionCmd = &cobra.Command{
 
 		c, _ := mustClient()
 		resp, err := c.RemoteVersionRetrieveWithResponse(ctx())
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 
 		serverAPIVersion := resp.HTTPResponse.Header.Get("X-Api-Version")
 		if serverAPIVersion != "" && serverAPIVersion != fmt.Sprintf("%d", APIVersion) {

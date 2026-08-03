@@ -13,7 +13,7 @@ import (
 
 // APIVersion is the Paperless-NGX REST API version this CLI targets.
 // A new major CLI version is released for each new API version.
-const APIVersion = 9
+const APIVersion = 10
 
 var rootCmd = &cobra.Command{
 	Use:   "paperless",
@@ -54,6 +54,30 @@ func mustClient() (*api.ClientWithResponses, config) {
 
 func ctx() context.Context {
 	return context.Background()
+}
+
+// apiResponse is the part of a generated response type needed to report a
+// failed request.
+type apiResponse interface {
+	StatusCode() int
+	Status() string
+}
+
+// exitOnAPIError aborts with a readable message when the request failed or the
+// server answered with anything but 200. HTTP 406 means the server does not
+// speak the API version this CLI targets.
+func exitOnAPIError(err error, resp apiResponse) {
+	switch {
+	case err != nil:
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+	case resp.StatusCode() == http.StatusOK:
+		return
+	case resp.StatusCode() == http.StatusNotAcceptable:
+		fmt.Fprintf(os.Stderr, "error: server does not support API v%d — this CLI requires Paperless-NGX 3.x\n", APIVersion)
+	default:
+		fmt.Fprintf(os.Stderr, "error: API returned %s\n", resp.Status())
+	}
+	os.Exit(1)
 }
 
 func derefStr(s *string) string {

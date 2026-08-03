@@ -19,7 +19,7 @@ var bulkCmd = &cobra.Command{
 	Short: "Bulk operations on documents",
 	Long: `Operations:
   reprocess         <ids>                   Re-process (OCR etc.)
-  delete            <ids>                   Delete
+  delete            <ids>                   Move to trash
   merge             <ids>                   Merge into one document
   rotate            <ids> <90|180|270>      Rotate
   add-tag           <ids> <tag_id>          Add tag
@@ -37,78 +37,105 @@ ids: comma-separated, e.g. 1,2,3`,
 			os.Exit(1)
 		}
 
-		var method api.MethodEnum
-		params := map[string]interface{}{}
-
-		switch op {
-		case "reprocess":
-			method = api.MethodEnumReprocess
-		case "delete":
-			method = api.MethodEnumDelete
-		case "merge":
-			method = api.MethodEnumMerge
-		case "rotate":
-			if len(args) < 3 {
-				fmt.Fprintln(os.Stderr, "usage: bulk rotate <ids> <degrees>")
-				os.Exit(1)
-			}
-			deg, _ := strconv.Atoi(args[2])
-			method = api.MethodEnumRotate
-			params["degrees"] = deg
-		case "add-tag":
-			if len(args) < 3 {
-				fmt.Fprintln(os.Stderr, "usage: bulk add-tag <ids> <tag_id>")
-				os.Exit(1)
-			}
-			tagID, _ := strconv.Atoi(args[2])
-			method = api.MethodEnumAddTag
-			params["tag"] = tagID
-		case "remove-tag":
-			if len(args) < 3 {
-				fmt.Fprintln(os.Stderr, "usage: bulk remove-tag <ids> <tag_id>")
-				os.Exit(1)
-			}
-			tagID, _ := strconv.Atoi(args[2])
-			method = api.MethodEnumRemoveTag
-			params["tag"] = tagID
-		case "set-correspondent":
-			if len(args) < 3 {
-				fmt.Fprintln(os.Stderr, "usage: bulk set-correspondent <ids> <id>")
-				os.Exit(1)
-			}
-			corrID, _ := strconv.Atoi(args[2])
-			method = api.MethodEnumSetCorrespondent
-			params["correspondent"] = corrID
-		case "set-type":
-			if len(args) < 3 {
-				fmt.Fprintln(os.Stderr, "usage: bulk set-type <ids> <id>")
-				os.Exit(1)
-			}
-			typeID, _ := strconv.Atoi(args[2])
-			method = api.MethodEnumSetDocumentType
-			params["document_type"] = typeID
-		default:
-			fmt.Fprintf(os.Stderr, "unknown operation: %s\n", op)
-			os.Exit(1)
-		}
-
 		c, _ := mustClient()
-		body := api.BulkEditJSONRequestBody{
-			Documents:  &ids,
-			Method:     &method,
-			Parameters: &params,
-		}
-		resp, err := c.BulkEditWithResponse(ctx(), body)
-		if err != nil {
+		if err := runBulk(c, op, ids, args); err != nil {
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
-		if resp.StatusCode() >= 400 {
-			fmt.Fprintf(os.Stderr, "API error %d: %s\n", resp.StatusCode(), string(resp.Body))
 			os.Exit(1)
 		}
 		fmt.Printf("OK — %d document(s), operation: %s\n", len(ids), op)
 	},
+}
+
+// runBulk sends the operation to the API. Since API v10 the document actions
+// (reprocess, delete, merge, rotate) have dedicated endpoints — on bulk_edit
+// they are deprecated. The metadata operations still go through bulk_edit.
+func runBulk(c *api.ClientWithResponses, op string, ids []int, args []string) error {
+	switch op {
+	case "reprocess":
+		resp, err := c.DocumentsReprocessWithResponse(ctx(), api.DocumentsReprocessJSONRequestBody{Documents: &ids})
+		if err != nil {
+			return err
+		}
+		return apiError(resp.StatusCode(), resp.Body)
+
+	case "delete":
+		resp, err := c.DocumentsDeleteWithResponse(ctx(), api.DocumentsDeleteJSONRequestBody{Documents: &ids})
+		if err != nil {
+			return err
+		}
+		return apiError(resp.StatusCode(), resp.Body)
+
+	case "merge":
+		resp, err := c.DocumentsMergeWithResponse(ctx(), api.DocumentsMergeJSONRequestBody{Documents: &ids})
+		if err != nil {
+			return err
+		}
+		return apiError(resp.StatusCode(), resp.Body)
+
+	case "rotate":
+		degrees := bulkArg(args, "bulk rotate <ids> <degrees>")
+		resp, err := c.DocumentsRotateWithResponse(ctx(), api.DocumentsRotateJSONRequestBody{Documents: &ids, Degrees: degrees})
+		if err != nil {
+			return err
+		}
+		return apiError(resp.StatusCode(), resp.Body)
+
+	default:
+		return bulkEdit(c, op, ids, args)
+	}
+}
+
+// bulkEdit sends the metadata operations through the bulk_edit endpoint.
+func bulkEdit(c *api.ClientWithResponses, op string, ids []int, args []string) error {
+	var method api.MethodEnum
+	params := map[string]interface{}{}
+
+	switch op {
+	case "add-tag":
+		method = api.MethodEnumAddTag
+		params["tag"] = bulkArg(args, "bulk add-tag <ids> <tag_id>")
+	case "remove-tag":
+		method = api.MethodEnumRemoveTag
+		params["tag"] = bulkArg(args, "bulk remove-tag <ids> <tag_id>")
+	case "set-correspondent":
+		method = api.MethodEnumSetCorrespondent
+		params["correspondent"] = bulkArg(args, "bulk set-correspondent <ids> <id>")
+	case "set-type":
+		method = api.MethodEnumSetDocumentType
+		params["document_type"] = bulkArg(args, "bulk set-type <ids> <id>")
+	default:
+		fmt.Fprintf(os.Stderr, "unknown operation: %s\n", op)
+		os.Exit(1)
+	}
+
+	resp, err := c.BulkEditWithResponse(ctx(), api.BulkEditJSONRequestBody{
+		Documents:  &ids,
+		Method:     &method,
+		Parameters: &params,
+	})
+	if err != nil {
+		return err
+	}
+	return apiError(resp.StatusCode(), resp.Body)
+}
+
+// bulkArg returns the operation's numeric parameter (args[2]), exiting with
+// the given usage hint when it is missing.
+func bulkArg(args []string, usage string) int {
+	if len(args) < 3 {
+		fmt.Fprintln(os.Stderr, "usage: "+usage)
+		os.Exit(1)
+	}
+	n, _ := strconv.Atoi(args[2])
+	return n
+}
+
+// apiError turns a non-2xx response into an error, and nil otherwise.
+func apiError(status int, body []byte) error {
+	if status >= 400 {
+		return fmt.Errorf("API error %d: %s", status, string(body))
+	}
+	return nil
 }
 
 func parseIDs(s string) []int {

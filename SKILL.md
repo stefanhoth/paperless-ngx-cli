@@ -8,6 +8,9 @@ description: >
 
 # Paperless-NGX CLI
 
+Targets Paperless-NGX 3.x (REST API v10). Against a 2.x server the CLI exits
+with an API version error — CLI v1.x is the one to use there.
+
 Assumes the `paperless` binary is available in PATH and configured. Configuration
 is read from env vars or `~/.config/paperless-ngx-cli/config` (env takes precedence):
 
@@ -41,7 +44,7 @@ IDs are comma-separated (`1,2,3`). Operations run asynchronously.
 
 ```
 paperless bulk reprocess <ids>
-paperless bulk delete <ids>
+paperless bulk delete <ids>            Moves to trash
 paperless bulk merge <ids>
 paperless bulk rotate <ids> <90|180|270>
 paperless bulk add-tag <ids> <tag_id>
@@ -51,6 +54,20 @@ paperless bulk set-type <ids> <type_id>
 ```
 
 Use `tags`, `correspondents`, or `types` to look up numeric IDs first.
+
+## AI Suggestions & Chat
+
+Requires Paperless-NGX 3.x with AI enabled server-side (off by default). Exits
+non-zero with `"AI is required for this feature"` when it isn't.
+
+```
+paperless suggest <id>                     Title/tag/correspondent/type/storage-path/date suggestions
+paperless chat <question> [--doc <id>]     Ask about one document, or all documents if --doc is omitted
+```
+
+`suggest` prints existing entity IDs the AI matched, plus free-text names
+(marked `(new)`) for entities that don't exist yet — create them before
+applying the suggestion via `bulk` or `api`.
 
 ## Raw API Escape Hatch
 

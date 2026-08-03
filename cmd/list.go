@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/stefanhoth/paperless-ngx-cli/api"
@@ -22,10 +21,7 @@ var tagsCmd = &cobra.Command{
 		n := 200
 		name := "name"
 		resp, err := c.TagsListWithResponse(ctx(), &api.TagsListParams{PageSize: &n, Ordering: &name})
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 		for _, t := range resp.JSON200.Results {
 			count := ""
 			if t.DocumentCount != nil {
@@ -45,10 +41,7 @@ var correspondentsCmd = &cobra.Command{
 		n := 200
 		name := "name"
 		resp, err := c.CorrespondentsListWithResponse(ctx(), &api.CorrespondentsListParams{PageSize: &n, Ordering: &name})
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 		for _, r := range resp.JSON200.Results {
 			count := ""
 			if r.DocumentCount != nil {
@@ -68,10 +61,7 @@ var typesCmd = &cobra.Command{
 		n := 200
 		name := "name"
 		resp, err := c.DocumentTypesListWithResponse(ctx(), &api.DocumentTypesListParams{PageSize: &n, Ordering: &name})
-		if err != nil || resp.StatusCode() != 200 {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			os.Exit(1)
-		}
+		exitOnAPIError(err, resp)
 		for _, t := range resp.JSON200.Results {
 			count := ""
 			if t.DocumentCount != nil {

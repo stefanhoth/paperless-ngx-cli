@@ -25,18 +25,20 @@ The client is generated from Paperless-NGX's own OpenAPI spec, so commands and t
 
 | CLI version | Status | Paperless-NGX | API version |
 |---|---|---|---|
-| **v1.x** | ✅ Active | 2.x stable | v9 |
-| v2.x | Planned | 3.x (not yet stable) | v10 |
+| **v2.x** | ✅ Active | 3.x stable | v10 |
+| v1.x | 🛠 Bug fixes only | 2.x | v9 |
 
 **One major CLI version per Paperless API version.** The CLI pins to a specific API version and sends `Accept: application/json; version=N` with every request, so responses are always in the expected format even when the server supports multiple API versions.
 
-When Paperless-NGX ships a stable 3.x series with API v10, CLI v2.0.0 will follow. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
+CLI v2.x targets Paperless-NGX 3.x (API v10). If your server still runs 2.x, stay on CLI v1.x — v2.x sends `version=10`, which a 2.x server rejects with HTTP 406. Older major versions receive no backported features, but may receive critical bug fixes for a short transition window.
+
+Paperless-NGX 3.x also ships opt-in LLM features (per-document suggestions, document chat). If you run [paperless-gpt](https://github.com/icereed/paperless-gpt) next to your instance, [docs/paperless-3-ai.md](docs/paperless-3-ai.md) covers what changes for you — short version: nothing, until you switch them on.
 
 Run `paperless version` to verify compatibility — it prints the CLI's target API version and warns if your server reports a different API version in its response headers.
 
 ## Requirements
 
-- A running Paperless-NGX 2.x instance
+- A running Paperless-NGX 3.x instance (for 2.x servers, use CLI v1.x)
 
 ## Installation
 
@@ -99,6 +101,17 @@ paperless bulk delete 42
 paperless bulk add-tag 10,11,12 7       # add tag ID 7
 paperless bulk set-correspondent 5 3    # set correspondent ID 3
 paperless bulk rotate 99 90
+```
+
+### AI Suggestions & Chat
+
+Requires Paperless-NGX 3.x with AI enabled server-side — see
+[docs/paperless-3-ai.md](docs/paperless-3-ai.md).
+
+```bash
+paperless suggest 1234                                    # title/tag/correspondent suggestions
+paperless chat "What is the invoice total?" --doc 1234     # ask about one document
+paperless chat "Which documents mention BubbleTax?"        # ask across all documents
 ```
 
 ### Raw API Escape Hatch
