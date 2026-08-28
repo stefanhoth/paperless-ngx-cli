@@ -2,6 +2,10 @@ BINARY  := paperless
 PREFIX  ?= /usr/local
 DESTDIR ?=
 
+# Pinned: a floating version regenerates a structurally different client.
+# Keep in sync with the version stamped in api/paperless.gen.go's header.
+OAPI_CODEGEN := go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.8.0
+
 .PHONY: build install generate clean check format lint test
 
 build:
@@ -33,7 +37,7 @@ generate:
 	@echo "Fixing schema inconsistencies..."
 	python3 scripts/fix-schema.py
 	@echo "Generating API client..."
-	oapi-codegen --config oapi-codegen.yaml schema/paperless.json
+	$(OAPI_CODEGEN) --config oapi-codegen.yaml schema/paperless.json
 	@echo "Updating tracked version..."
 	curl -sf https://api.github.com/repos/paperless-ngx/paperless-ngx/releases/latest \
 		| python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])" \
@@ -60,7 +64,7 @@ generate-docker:
 	@echo "Fixing schema inconsistencies..."
 	python3 scripts/fix-schema.py
 	@echo "Generating API client..."
-	oapi-codegen --config oapi-codegen.yaml schema/paperless.json
+	$(OAPI_CODEGEN) --config oapi-codegen.yaml schema/paperless.json
 	@echo "$(VERSION)" > .paperless-version
 	@echo "Done. Tracked version: $(VERSION)"
 
