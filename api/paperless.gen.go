@@ -297,6 +297,189 @@ func (e FileVersionEnum) Valid() bool {
 	}
 }
 
+// Defines values for IconEnum.
+const (
+	IconEnumArchive                IconEnum = "archive"
+	IconEnumBank                   IconEnum = "bank"
+	IconEnumBasket                 IconEnum = "basket"
+	IconEnumBell                   IconEnum = "bell"
+	IconEnumBookmark               IconEnum = "bookmark"
+	IconEnumBoxes                  IconEnum = "boxes"
+	IconEnumBriefcase              IconEnum = "briefcase"
+	IconEnumBuilding               IconEnum = "building"
+	IconEnumCalculator             IconEnum = "calculator"
+	IconEnumCalendar               IconEnum = "calendar"
+	IconEnumCamera                 IconEnum = "camera"
+	IconEnumCardChecklist          IconEnum = "card-checklist"
+	IconEnumCash                   IconEnum = "cash"
+	IconEnumChatLeftText           IconEnum = "chat-left-text"
+	IconEnumCheckCircle            IconEnum = "check-circle"
+	IconEnumClipboard              IconEnum = "clipboard"
+	IconEnumClockHistory           IconEnum = "clock-history"
+	IconEnumCreditCard             IconEnum = "credit-card"
+	IconEnumDownload               IconEnum = "download"
+	IconEnumEnvelope               IconEnum = "envelope"
+	IconEnumExclamationTriangle    IconEnum = "exclamation-triangle"
+	IconEnumFileEarmark            IconEnum = "file-earmark"
+	IconEnumFileEarmarkCheck       IconEnum = "file-earmark-check"
+	IconEnumFileEarmarkLock        IconEnum = "file-earmark-lock"
+	IconEnumFileEarmarkMedical     IconEnum = "file-earmark-medical"
+	IconEnumFileEarmarkPerson      IconEnum = "file-earmark-person"
+	IconEnumFileEarmarkSpreadsheet IconEnum = "file-earmark-spreadsheet"
+	IconEnumFileText               IconEnum = "file-text"
+	IconEnumFiles                  IconEnum = "files"
+	IconEnumFolder                 IconEnum = "folder"
+	IconEnumFunnel                 IconEnum = "funnel"
+	IconEnumGear                   IconEnum = "gear"
+	IconEnumGlobe2                 IconEnum = "globe2"
+	IconEnumHash                   IconEnum = "hash"
+	IconEnumHeart                  IconEnum = "heart"
+	IconEnumHouse                  IconEnum = "house"
+	IconEnumInbox                  IconEnum = "inbox"
+	IconEnumJournals               IconEnum = "journals"
+	IconEnumListTask               IconEnum = "list-task"
+	IconEnumNewspaper              IconEnum = "newspaper"
+	IconEnumPaperclip              IconEnum = "paperclip"
+	IconEnumPeople                 IconEnum = "people"
+	IconEnumPerson                 IconEnum = "person"
+	IconEnumPrinter                IconEnum = "printer"
+	IconEnumReceipt                IconEnum = "receipt"
+	IconEnumSafe                   IconEnum = "safe"
+	IconEnumSearch                 IconEnum = "search"
+	IconEnumSend                   IconEnum = "send"
+	IconEnumShop                   IconEnum = "shop"
+	IconEnumStack                  IconEnum = "stack"
+	IconEnumStars                  IconEnum = "stars"
+	IconEnumTag                    IconEnum = "tag"
+	IconEnumTags                   IconEnum = "tags"
+	IconEnumTelephone              IconEnum = "telephone"
+	IconEnumTruck                  IconEnum = "truck"
+	IconEnumUpcScan                IconEnum = "upc-scan"
+	IconEnumWallet2                IconEnum = "wallet2"
+)
+
+// Valid indicates whether the value is a known member of the IconEnum enum.
+func (e IconEnum) Valid() bool {
+	switch e {
+	case IconEnumArchive:
+		return true
+	case IconEnumBank:
+		return true
+	case IconEnumBasket:
+		return true
+	case IconEnumBell:
+		return true
+	case IconEnumBookmark:
+		return true
+	case IconEnumBoxes:
+		return true
+	case IconEnumBriefcase:
+		return true
+	case IconEnumBuilding:
+		return true
+	case IconEnumCalculator:
+		return true
+	case IconEnumCalendar:
+		return true
+	case IconEnumCamera:
+		return true
+	case IconEnumCardChecklist:
+		return true
+	case IconEnumCash:
+		return true
+	case IconEnumChatLeftText:
+		return true
+	case IconEnumCheckCircle:
+		return true
+	case IconEnumClipboard:
+		return true
+	case IconEnumClockHistory:
+		return true
+	case IconEnumCreditCard:
+		return true
+	case IconEnumDownload:
+		return true
+	case IconEnumEnvelope:
+		return true
+	case IconEnumExclamationTriangle:
+		return true
+	case IconEnumFileEarmark:
+		return true
+	case IconEnumFileEarmarkCheck:
+		return true
+	case IconEnumFileEarmarkLock:
+		return true
+	case IconEnumFileEarmarkMedical:
+		return true
+	case IconEnumFileEarmarkPerson:
+		return true
+	case IconEnumFileEarmarkSpreadsheet:
+		return true
+	case IconEnumFileText:
+		return true
+	case IconEnumFiles:
+		return true
+	case IconEnumFolder:
+		return true
+	case IconEnumFunnel:
+		return true
+	case IconEnumGear:
+		return true
+	case IconEnumGlobe2:
+		return true
+	case IconEnumHash:
+		return true
+	case IconEnumHeart:
+		return true
+	case IconEnumHouse:
+		return true
+	case IconEnumInbox:
+		return true
+	case IconEnumJournals:
+		return true
+	case IconEnumListTask:
+		return true
+	case IconEnumNewspaper:
+		return true
+	case IconEnumPaperclip:
+		return true
+	case IconEnumPeople:
+		return true
+	case IconEnumPerson:
+		return true
+	case IconEnumPrinter:
+		return true
+	case IconEnumReceipt:
+		return true
+	case IconEnumSafe:
+		return true
+	case IconEnumSearch:
+		return true
+	case IconEnumSend:
+		return true
+	case IconEnumShop:
+		return true
+	case IconEnumStack:
+		return true
+	case IconEnumStars:
+		return true
+	case IconEnumTag:
+		return true
+	case IconEnumTags:
+		return true
+	case IconEnumTelephone:
+		return true
+	case IconEnumTruck:
+		return true
+	case IconEnumUpcScan:
+		return true
+	case IconEnumWallet2:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ImapSecurityEnum.
 const (
 	ImapSecurityEnumN1 ImapSecurityEnum = 1
@@ -503,22 +686,22 @@ func (e ModeEnum) Valid() bool {
 
 // Defines values for ObjectTypeEnum.
 const (
-	Correspondents ObjectTypeEnum = "correspondents"
-	DocumentTypes  ObjectTypeEnum = "document_types"
-	StoragePaths   ObjectTypeEnum = "storage_paths"
-	Tags           ObjectTypeEnum = "tags"
+	ObjectTypeEnumCorrespondents ObjectTypeEnum = "correspondents"
+	ObjectTypeEnumDocumentTypes  ObjectTypeEnum = "document_types"
+	ObjectTypeEnumStoragePaths   ObjectTypeEnum = "storage_paths"
+	ObjectTypeEnumTags           ObjectTypeEnum = "tags"
 )
 
 // Valid indicates whether the value is a known member of the ObjectTypeEnum enum.
 func (e ObjectTypeEnum) Valid() bool {
 	switch e {
-	case Correspondents:
+	case ObjectTypeEnumCorrespondents:
 		return true
-	case DocumentTypes:
+	case ObjectTypeEnumDocumentTypes:
 		return true
-	case StoragePaths:
+	case ObjectTypeEnumStoragePaths:
 		return true
-	case Tags:
+	case ObjectTypeEnumTags:
 		return true
 	default:
 		return false
@@ -591,6 +774,39 @@ func (e PdfLayoutEnum) Valid() bool {
 	case PdfLayoutEnumN3:
 		return true
 	case PdfLayoutEnumN4:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RemoteOcrEngineEnum.
+const (
+	Azureai RemoteOcrEngineEnum = "azureai"
+)
+
+// Valid indicates whether the value is a known member of the RemoteOcrEngineEnum enum.
+func (e RemoteOcrEngineEnum) Valid() bool {
+	switch e {
+	case Azureai:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RemoteOcrModeEnum.
+const (
+	RemoteOcrModeEnumAlways       RemoteOcrModeEnum = "always"
+	RemoteOcrModeEnumWorkflowOnly RemoteOcrModeEnum = "workflow_only"
+)
+
+// Valid indicates whether the value is a known member of the RemoteOcrModeEnum enum.
+func (e RemoteOcrModeEnum) Valid() bool {
+	switch e {
+	case RemoteOcrModeEnumAlways:
+		return true
+	case RemoteOcrModeEnumWorkflowOnly:
 		return true
 	default:
 		return false
@@ -860,23 +1076,26 @@ func (e TaskSerializerV10StatusEnum) Valid() bool {
 
 // Defines values for TaskTypeEnum.
 const (
-	TaskTypeEnumBuildShareLink    TaskTypeEnum = "build_share_link"
-	TaskTypeEnumBulkDelete        TaskTypeEnum = "bulk_delete"
-	TaskTypeEnumBulkUpdate        TaskTypeEnum = "bulk_update"
-	TaskTypeEnumCheckWorkflows    TaskTypeEnum = "check_workflows"
-	TaskTypeEnumConsumeFile       TaskTypeEnum = "consume_file"
-	TaskTypeEnumEmptyTrash        TaskTypeEnum = "empty_trash"
-	TaskTypeEnumIndexOptimize     TaskTypeEnum = "index_optimize"
-	TaskTypeEnumLlmIndex          TaskTypeEnum = "llm_index"
-	TaskTypeEnumMailFetch         TaskTypeEnum = "mail_fetch"
-	TaskTypeEnumReprocessDocument TaskTypeEnum = "reprocess_document"
-	TaskTypeEnumSanityCheck       TaskTypeEnum = "sanity_check"
-	TaskTypeEnumTrainClassifier   TaskTypeEnum = "train_classifier"
+	TaskTypeEnumApplyAiSuggestions TaskTypeEnum = "apply_ai_suggestions"
+	TaskTypeEnumBuildShareLink     TaskTypeEnum = "build_share_link"
+	TaskTypeEnumBulkDelete         TaskTypeEnum = "bulk_delete"
+	TaskTypeEnumBulkUpdate         TaskTypeEnum = "bulk_update"
+	TaskTypeEnumCheckWorkflows     TaskTypeEnum = "check_workflows"
+	TaskTypeEnumConsumeFile        TaskTypeEnum = "consume_file"
+	TaskTypeEnumEmptyTrash         TaskTypeEnum = "empty_trash"
+	TaskTypeEnumIndexOptimize      TaskTypeEnum = "index_optimize"
+	TaskTypeEnumLlmIndex           TaskTypeEnum = "llm_index"
+	TaskTypeEnumMailFetch          TaskTypeEnum = "mail_fetch"
+	TaskTypeEnumReprocessDocument  TaskTypeEnum = "reprocess_document"
+	TaskTypeEnumSanityCheck        TaskTypeEnum = "sanity_check"
+	TaskTypeEnumTrainClassifier    TaskTypeEnum = "train_classifier"
 )
 
 // Valid indicates whether the value is a known member of the TaskTypeEnum enum.
 func (e TaskTypeEnum) Valid() bool {
 	switch e {
+	case TaskTypeEnumApplyAiSuggestions:
+		return true
 	case TaskTypeEnumBuildShareLink:
 		return true
 	case TaskTypeEnumBulkDelete:
@@ -986,6 +1205,8 @@ const (
 	WorkflowActionTypeEnumN4 WorkflowActionTypeEnum = 4
 	WorkflowActionTypeEnumN5 WorkflowActionTypeEnum = 5
 	WorkflowActionTypeEnumN6 WorkflowActionTypeEnum = 6
+	WorkflowActionTypeEnumN7 WorkflowActionTypeEnum = 7
+	WorkflowActionTypeEnumN8 WorkflowActionTypeEnum = 8
 )
 
 // Valid indicates whether the value is a known member of the WorkflowActionTypeEnum enum.
@@ -1002,6 +1223,10 @@ func (e WorkflowActionTypeEnum) Valid() bool {
 	case WorkflowActionTypeEnumN5:
 		return true
 	case WorkflowActionTypeEnumN6:
+		return true
+	case WorkflowActionTypeEnumN7:
+		return true
+	case WorkflowActionTypeEnumN8:
 		return true
 	default:
 		return false
@@ -1115,23 +1340,26 @@ func (e TasksListParamsStatus) Valid() bool {
 
 // Defines values for TasksListParamsTaskType.
 const (
-	TasksListParamsTaskTypeBuildShareLink    TasksListParamsTaskType = "build_share_link"
-	TasksListParamsTaskTypeBulkDelete        TasksListParamsTaskType = "bulk_delete"
-	TasksListParamsTaskTypeBulkUpdate        TasksListParamsTaskType = "bulk_update"
-	TasksListParamsTaskTypeCheckWorkflows    TasksListParamsTaskType = "check_workflows"
-	TasksListParamsTaskTypeConsumeFile       TasksListParamsTaskType = "consume_file"
-	TasksListParamsTaskTypeEmptyTrash        TasksListParamsTaskType = "empty_trash"
-	TasksListParamsTaskTypeIndexOptimize     TasksListParamsTaskType = "index_optimize"
-	TasksListParamsTaskTypeLlmIndex          TasksListParamsTaskType = "llm_index"
-	TasksListParamsTaskTypeMailFetch         TasksListParamsTaskType = "mail_fetch"
-	TasksListParamsTaskTypeReprocessDocument TasksListParamsTaskType = "reprocess_document"
-	TasksListParamsTaskTypeSanityCheck       TasksListParamsTaskType = "sanity_check"
-	TasksListParamsTaskTypeTrainClassifier   TasksListParamsTaskType = "train_classifier"
+	TasksListParamsTaskTypeApplyAiSuggestions TasksListParamsTaskType = "apply_ai_suggestions"
+	TasksListParamsTaskTypeBuildShareLink     TasksListParamsTaskType = "build_share_link"
+	TasksListParamsTaskTypeBulkDelete         TasksListParamsTaskType = "bulk_delete"
+	TasksListParamsTaskTypeBulkUpdate         TasksListParamsTaskType = "bulk_update"
+	TasksListParamsTaskTypeCheckWorkflows     TasksListParamsTaskType = "check_workflows"
+	TasksListParamsTaskTypeConsumeFile        TasksListParamsTaskType = "consume_file"
+	TasksListParamsTaskTypeEmptyTrash         TasksListParamsTaskType = "empty_trash"
+	TasksListParamsTaskTypeIndexOptimize      TasksListParamsTaskType = "index_optimize"
+	TasksListParamsTaskTypeLlmIndex           TasksListParamsTaskType = "llm_index"
+	TasksListParamsTaskTypeMailFetch          TasksListParamsTaskType = "mail_fetch"
+	TasksListParamsTaskTypeReprocessDocument  TasksListParamsTaskType = "reprocess_document"
+	TasksListParamsTaskTypeSanityCheck        TasksListParamsTaskType = "sanity_check"
+	TasksListParamsTaskTypeTrainClassifier    TasksListParamsTaskType = "train_classifier"
 )
 
 // Valid indicates whether the value is a known member of the TasksListParamsTaskType enum.
 func (e TasksListParamsTaskType) Valid() bool {
 	switch e {
+	case TasksListParamsTaskTypeApplyAiSuggestions:
+		return true
 	case TasksListParamsTaskTypeBuildShareLink:
 		return true
 	case TasksListParamsTaskTypeBulkDelete:
@@ -1223,23 +1451,26 @@ func (e TasksActiveListParamsStatus) Valid() bool {
 
 // Defines values for TasksActiveListParamsTaskType.
 const (
-	TasksActiveListParamsTaskTypeBuildShareLink    TasksActiveListParamsTaskType = "build_share_link"
-	TasksActiveListParamsTaskTypeBulkDelete        TasksActiveListParamsTaskType = "bulk_delete"
-	TasksActiveListParamsTaskTypeBulkUpdate        TasksActiveListParamsTaskType = "bulk_update"
-	TasksActiveListParamsTaskTypeCheckWorkflows    TasksActiveListParamsTaskType = "check_workflows"
-	TasksActiveListParamsTaskTypeConsumeFile       TasksActiveListParamsTaskType = "consume_file"
-	TasksActiveListParamsTaskTypeEmptyTrash        TasksActiveListParamsTaskType = "empty_trash"
-	TasksActiveListParamsTaskTypeIndexOptimize     TasksActiveListParamsTaskType = "index_optimize"
-	TasksActiveListParamsTaskTypeLlmIndex          TasksActiveListParamsTaskType = "llm_index"
-	TasksActiveListParamsTaskTypeMailFetch         TasksActiveListParamsTaskType = "mail_fetch"
-	TasksActiveListParamsTaskTypeReprocessDocument TasksActiveListParamsTaskType = "reprocess_document"
-	TasksActiveListParamsTaskTypeSanityCheck       TasksActiveListParamsTaskType = "sanity_check"
-	TasksActiveListParamsTaskTypeTrainClassifier   TasksActiveListParamsTaskType = "train_classifier"
+	TasksActiveListParamsTaskTypeApplyAiSuggestions TasksActiveListParamsTaskType = "apply_ai_suggestions"
+	TasksActiveListParamsTaskTypeBuildShareLink     TasksActiveListParamsTaskType = "build_share_link"
+	TasksActiveListParamsTaskTypeBulkDelete         TasksActiveListParamsTaskType = "bulk_delete"
+	TasksActiveListParamsTaskTypeBulkUpdate         TasksActiveListParamsTaskType = "bulk_update"
+	TasksActiveListParamsTaskTypeCheckWorkflows     TasksActiveListParamsTaskType = "check_workflows"
+	TasksActiveListParamsTaskTypeConsumeFile        TasksActiveListParamsTaskType = "consume_file"
+	TasksActiveListParamsTaskTypeEmptyTrash         TasksActiveListParamsTaskType = "empty_trash"
+	TasksActiveListParamsTaskTypeIndexOptimize      TasksActiveListParamsTaskType = "index_optimize"
+	TasksActiveListParamsTaskTypeLlmIndex           TasksActiveListParamsTaskType = "llm_index"
+	TasksActiveListParamsTaskTypeMailFetch          TasksActiveListParamsTaskType = "mail_fetch"
+	TasksActiveListParamsTaskTypeReprocessDocument  TasksActiveListParamsTaskType = "reprocess_document"
+	TasksActiveListParamsTaskTypeSanityCheck        TasksActiveListParamsTaskType = "sanity_check"
+	TasksActiveListParamsTaskTypeTrainClassifier    TasksActiveListParamsTaskType = "train_classifier"
 )
 
 // Valid indicates whether the value is a known member of the TasksActiveListParamsTaskType enum.
 func (e TasksActiveListParamsTaskType) Valid() bool {
 	switch e {
+	case TasksActiveListParamsTaskTypeApplyAiSuggestions:
+		return true
 	case TasksActiveListParamsTaskTypeBuildShareLink:
 		return true
 	case TasksActiveListParamsTaskTypeBulkDelete:
@@ -1331,23 +1562,26 @@ func (e TasksSummaryListParamsStatus) Valid() bool {
 
 // Defines values for TasksSummaryListParamsTaskType.
 const (
-	TasksSummaryListParamsTaskTypeBuildShareLink    TasksSummaryListParamsTaskType = "build_share_link"
-	TasksSummaryListParamsTaskTypeBulkDelete        TasksSummaryListParamsTaskType = "bulk_delete"
-	TasksSummaryListParamsTaskTypeBulkUpdate        TasksSummaryListParamsTaskType = "bulk_update"
-	TasksSummaryListParamsTaskTypeCheckWorkflows    TasksSummaryListParamsTaskType = "check_workflows"
-	TasksSummaryListParamsTaskTypeConsumeFile       TasksSummaryListParamsTaskType = "consume_file"
-	TasksSummaryListParamsTaskTypeEmptyTrash        TasksSummaryListParamsTaskType = "empty_trash"
-	TasksSummaryListParamsTaskTypeIndexOptimize     TasksSummaryListParamsTaskType = "index_optimize"
-	TasksSummaryListParamsTaskTypeLlmIndex          TasksSummaryListParamsTaskType = "llm_index"
-	TasksSummaryListParamsTaskTypeMailFetch         TasksSummaryListParamsTaskType = "mail_fetch"
-	TasksSummaryListParamsTaskTypeReprocessDocument TasksSummaryListParamsTaskType = "reprocess_document"
-	TasksSummaryListParamsTaskTypeSanityCheck       TasksSummaryListParamsTaskType = "sanity_check"
-	TasksSummaryListParamsTaskTypeTrainClassifier   TasksSummaryListParamsTaskType = "train_classifier"
+	TasksSummaryListParamsTaskTypeApplyAiSuggestions TasksSummaryListParamsTaskType = "apply_ai_suggestions"
+	TasksSummaryListParamsTaskTypeBuildShareLink     TasksSummaryListParamsTaskType = "build_share_link"
+	TasksSummaryListParamsTaskTypeBulkDelete         TasksSummaryListParamsTaskType = "bulk_delete"
+	TasksSummaryListParamsTaskTypeBulkUpdate         TasksSummaryListParamsTaskType = "bulk_update"
+	TasksSummaryListParamsTaskTypeCheckWorkflows     TasksSummaryListParamsTaskType = "check_workflows"
+	TasksSummaryListParamsTaskTypeConsumeFile        TasksSummaryListParamsTaskType = "consume_file"
+	TasksSummaryListParamsTaskTypeEmptyTrash         TasksSummaryListParamsTaskType = "empty_trash"
+	TasksSummaryListParamsTaskTypeIndexOptimize      TasksSummaryListParamsTaskType = "index_optimize"
+	TasksSummaryListParamsTaskTypeLlmIndex           TasksSummaryListParamsTaskType = "llm_index"
+	TasksSummaryListParamsTaskTypeMailFetch          TasksSummaryListParamsTaskType = "mail_fetch"
+	TasksSummaryListParamsTaskTypeReprocessDocument  TasksSummaryListParamsTaskType = "reprocess_document"
+	TasksSummaryListParamsTaskTypeSanityCheck        TasksSummaryListParamsTaskType = "sanity_check"
+	TasksSummaryListParamsTaskTypeTrainClassifier    TasksSummaryListParamsTaskType = "train_classifier"
 )
 
 // Valid indicates whether the value is a known member of the TasksSummaryListParamsTaskType enum.
 func (e TasksSummaryListParamsTaskType) Valid() bool {
 	switch e {
+	case TasksSummaryListParamsTaskTypeApplyAiSuggestions:
+		return true
 	case TasksSummaryListParamsTaskTypeBuildShareLink:
 		return true
 	case TasksSummaryListParamsTaskTypeBulkDelete:
@@ -1484,6 +1718,10 @@ type ApplicationConfiguration struct {
 	Mode                     *ApplicationConfiguration_Mode                    `json:"mode,omitempty"`
 	OutputType               *ApplicationConfiguration_OutputType              `json:"output_type,omitempty"`
 	Pages                    *int64                                            `json:"pages,omitempty"`
+	RemoteOcrApiKey          *string                                           `json:"remote_ocr_api_key,omitempty"`
+	RemoteOcrEndpoint        *string                                           `json:"remote_ocr_endpoint,omitempty"`
+	RemoteOcrEngine          *ApplicationConfiguration_RemoteOcrEngine         `json:"remote_ocr_engine,omitempty"`
+	RemoteOcrMode            *ApplicationConfiguration_RemoteOcrMode           `json:"remote_ocr_mode,omitempty"`
 	RotatePages              *bool                                             `json:"rotate_pages,omitempty"`
 	RotatePagesThreshold     *float64                                          `json:"rotate_pages_threshold,omitempty"`
 	UnpaperClean             *ApplicationConfiguration_UnpaperClean            `json:"unpaper_clean,omitempty"`
@@ -1517,6 +1755,16 @@ type ApplicationConfiguration_Mode struct {
 
 // ApplicationConfiguration_OutputType defines model for ApplicationConfiguration.OutputType.
 type ApplicationConfiguration_OutputType struct {
+	union json.RawMessage
+}
+
+// ApplicationConfiguration_RemoteOcrEngine defines model for ApplicationConfiguration.RemoteOcrEngine.
+type ApplicationConfiguration_RemoteOcrEngine struct {
+	union json.RawMessage
+}
+
+// ApplicationConfiguration_RemoteOcrMode defines model for ApplicationConfiguration.RemoteOcrMode.
+type ApplicationConfiguration_RemoteOcrMode struct {
 	union json.RawMessage
 }
 
@@ -1562,6 +1810,10 @@ type ApplicationConfigurationRequest struct {
 	Mode                     *ApplicationConfigurationRequest_Mode                    `json:"mode,omitempty"`
 	OutputType               *ApplicationConfigurationRequest_OutputType              `json:"output_type,omitempty"`
 	Pages                    *int64                                                   `json:"pages,omitempty"`
+	RemoteOcrApiKey          *string                                                  `json:"remote_ocr_api_key,omitempty"`
+	RemoteOcrEndpoint        *string                                                  `json:"remote_ocr_endpoint,omitempty"`
+	RemoteOcrEngine          *ApplicationConfigurationRequest_RemoteOcrEngine         `json:"remote_ocr_engine,omitempty"`
+	RemoteOcrMode            *ApplicationConfigurationRequest_RemoteOcrMode           `json:"remote_ocr_mode,omitempty"`
 	RotatePages              *bool                                                    `json:"rotate_pages,omitempty"`
 	RotatePagesThreshold     *float64                                                 `json:"rotate_pages_threshold,omitempty"`
 	UnpaperClean             *ApplicationConfigurationRequest_UnpaperClean            `json:"unpaper_clean,omitempty"`
@@ -1595,6 +1847,16 @@ type ApplicationConfigurationRequest_Mode struct {
 
 // ApplicationConfigurationRequest_OutputType defines model for ApplicationConfigurationRequest.OutputType.
 type ApplicationConfigurationRequest_OutputType struct {
+	union json.RawMessage
+}
+
+// ApplicationConfigurationRequest_RemoteOcrEngine defines model for ApplicationConfigurationRequest.RemoteOcrEngine.
+type ApplicationConfigurationRequest_RemoteOcrEngine struct {
+	union json.RawMessage
+}
+
+// ApplicationConfigurationRequest_RemoteOcrMode defines model for ApplicationConfigurationRequest.RemoteOcrMode.
+type ApplicationConfigurationRequest_RemoteOcrMode struct {
 	union json.RawMessage
 }
 
@@ -2147,6 +2409,65 @@ type GroupRequest struct {
 	Permissions []string `json:"permissions"`
 }
 
+// IconEnum * `archive` - Archive
+// * `bank` - Bank
+// * `basket` - Basket
+// * `bell` - Bell
+// * `bookmark` - Bookmark
+// * `boxes` - Boxes
+// * `briefcase` - Briefcase
+// * `building` - Building
+// * `calculator` - Calculator
+// * `calendar` - Calendar
+// * `camera` - Camera
+// * `card-checklist` - Checklist
+// * `cash` - Cash
+// * `chat-left-text` - Chat
+// * `check-circle` - Check
+// * `clipboard` - Clipboard
+// * `clock-history` - Clock
+// * `credit-card` - Credit card
+// * `download` - Download
+// * `envelope` - Envelope
+// * `exclamation-triangle` - Warning
+// * `file-earmark` - File
+// * `file-earmark-check` - Checked file
+// * `file-earmark-lock` - Locked file
+// * `file-earmark-medical` - Medical file
+// * `file-earmark-person` - Person file
+// * `file-earmark-spreadsheet` - Spreadsheet
+// * `file-text` - Text file
+// * `files` - Files
+// * `folder` - Folder
+// * `funnel` - Filter
+// * `gear` - Gear
+// * `globe2` - Globe
+// * `hash` - Hash
+// * `heart` - Heart
+// * `house` - House
+// * `inbox` - Inbox
+// * `journals` - Journals
+// * `list-task` - Task list
+// * `newspaper` - Newspaper
+// * `paperclip` - Attachment
+// * `people` - People
+// * `person` - Person
+// * `printer` - Printer
+// * `receipt` - Receipt
+// * `safe` - Safe
+// * `search` - Search
+// * `send` - Send
+// * `shop` - Shop
+// * `stack` - Stack
+// * `stars` - Stars
+// * `tag` - Tag
+// * `tags` - Tags
+// * `telephone` - Telephone
+// * `truck` - Truck
+// * `upc-scan` - Barcode
+// * `wallet2` - Wallet
+type IconEnum string
+
 // ImapSecurityEnum * `1` - No encryption
 // * `2` - Use SSL
 // * `3` - Use STARTTLS
@@ -2356,6 +2677,18 @@ type MailRuleRequest struct {
 // * `5` - Fuzzy word
 // * `6` - Automatic
 type MatchingAlgorithm int
+
+// MergeDocumentsAsVersionsRequest defines model for MergeDocumentsAsVersionsRequest.
+type MergeDocumentsAsVersionsRequest struct {
+	Documents      *[]int  `json:"documents,omitempty"`
+	RootDocumentId int     `json:"root_document_id"`
+	VersionLabel   *string `json:"version_label,omitempty"`
+}
+
+// MergeDocumentsAsVersionsResult defines model for MergeDocumentsAsVersionsResult.
+type MergeDocumentsAsVersionsResult struct {
+	Result string `json:"result"`
+}
 
 // MergeDocumentsRequest defines model for MergeDocumentsRequest.
 type MergeDocumentsRequest struct {
@@ -2744,6 +3077,10 @@ type PatchedApplicationConfigurationRequest struct {
 	Mode                     *PatchedApplicationConfigurationRequest_Mode                    `json:"mode,omitempty"`
 	OutputType               *PatchedApplicationConfigurationRequest_OutputType              `json:"output_type,omitempty"`
 	Pages                    *int64                                                          `json:"pages,omitempty"`
+	RemoteOcrApiKey          *string                                                         `json:"remote_ocr_api_key,omitempty"`
+	RemoteOcrEndpoint        *string                                                         `json:"remote_ocr_endpoint,omitempty"`
+	RemoteOcrEngine          *PatchedApplicationConfigurationRequest_RemoteOcrEngine         `json:"remote_ocr_engine,omitempty"`
+	RemoteOcrMode            *PatchedApplicationConfigurationRequest_RemoteOcrMode           `json:"remote_ocr_mode,omitempty"`
 	RotatePages              *bool                                                           `json:"rotate_pages,omitempty"`
 	RotatePagesThreshold     *float64                                                        `json:"rotate_pages_threshold,omitempty"`
 	UnpaperClean             *PatchedApplicationConfigurationRequest_UnpaperClean            `json:"unpaper_clean,omitempty"`
@@ -2777,6 +3114,16 @@ type PatchedApplicationConfigurationRequest_Mode struct {
 
 // PatchedApplicationConfigurationRequest_OutputType defines model for PatchedApplicationConfigurationRequest.OutputType.
 type PatchedApplicationConfigurationRequest_OutputType struct {
+	union json.RawMessage
+}
+
+// PatchedApplicationConfigurationRequest_RemoteOcrEngine defines model for PatchedApplicationConfigurationRequest.RemoteOcrEngine.
+type PatchedApplicationConfigurationRequest_RemoteOcrEngine struct {
+	union json.RawMessage
+}
+
+// PatchedApplicationConfigurationRequest_RemoteOcrMode defines model for PatchedApplicationConfigurationRequest.RemoteOcrMode.
+type PatchedApplicationConfigurationRequest_RemoteOcrMode struct {
 	union json.RawMessage
 }
 
@@ -2971,20 +3318,90 @@ type PatchedMailRuleRequest struct {
 
 // PatchedProfileRequest defines model for PatchedProfileRequest.
 type PatchedProfileRequest struct {
-	Email     *openapi_types.Email `json:"email,omitempty"`
-	FirstName *string              `json:"first_name,omitempty"`
-	LastName  *string              `json:"last_name,omitempty"`
-	Password  *string              `json:"password,omitempty"`
+	Email     *PatchedProfileRequest_Email `json:"email,omitempty"`
+	FirstName *string                      `json:"first_name,omitempty"`
+	LastName  *string                      `json:"last_name,omitempty"`
+	Password  *string                      `json:"password,omitempty"`
+}
+
+// PatchedProfileRequestEmail0 defines model for PatchedProfileRequest.Email.0.
+type PatchedProfileRequestEmail0 = openapi_types.Email
+
+// PatchedProfileRequestEmail1 defines model for PatchedProfileRequest.Email.1.
+type PatchedProfileRequestEmail1 = string
+
+// PatchedProfileRequest_Email defines model for PatchedProfileRequest.Email.
+type PatchedProfileRequest_Email struct {
+	union json.RawMessage
 }
 
 // PatchedSavedViewRequest defines model for PatchedSavedViewRequest.
 type PatchedSavedViewRequest struct {
-	DisplayFields  interface{}                          `json:"display_fields,omitempty"`
-	DisplayMode    *PatchedSavedViewRequest_DisplayMode `json:"display_mode,omitempty"`
-	FilterRules    *[]SavedViewFilterRuleRequest        `json:"filter_rules,omitempty"`
-	Name           *string                              `json:"name,omitempty"`
-	Owner          *int                                 `json:"owner,omitempty"`
-	PageSize       *int64                               `json:"page_size,omitempty"`
+	DisplayFields interface{}                          `json:"display_fields,omitempty"`
+	DisplayMode   *PatchedSavedViewRequest_DisplayMode `json:"display_mode,omitempty"`
+	FilterRules   *[]SavedViewFilterRuleRequest        `json:"filter_rules,omitempty"`
+
+	// Icon * `archive` - Archive
+	// * `bank` - Bank
+	// * `basket` - Basket
+	// * `bell` - Bell
+	// * `bookmark` - Bookmark
+	// * `boxes` - Boxes
+	// * `briefcase` - Briefcase
+	// * `building` - Building
+	// * `calculator` - Calculator
+	// * `calendar` - Calendar
+	// * `camera` - Camera
+	// * `card-checklist` - Checklist
+	// * `cash` - Cash
+	// * `chat-left-text` - Chat
+	// * `check-circle` - Check
+	// * `clipboard` - Clipboard
+	// * `clock-history` - Clock
+	// * `credit-card` - Credit card
+	// * `download` - Download
+	// * `envelope` - Envelope
+	// * `exclamation-triangle` - Warning
+	// * `file-earmark` - File
+	// * `file-earmark-check` - Checked file
+	// * `file-earmark-lock` - Locked file
+	// * `file-earmark-medical` - Medical file
+	// * `file-earmark-person` - Person file
+	// * `file-earmark-spreadsheet` - Spreadsheet
+	// * `file-text` - Text file
+	// * `files` - Files
+	// * `folder` - Folder
+	// * `funnel` - Filter
+	// * `gear` - Gear
+	// * `globe2` - Globe
+	// * `hash` - Hash
+	// * `heart` - Heart
+	// * `house` - House
+	// * `inbox` - Inbox
+	// * `journals` - Journals
+	// * `list-task` - Task list
+	// * `newspaper` - Newspaper
+	// * `paperclip` - Attachment
+	// * `people` - People
+	// * `person` - Person
+	// * `printer` - Printer
+	// * `receipt` - Receipt
+	// * `safe` - Safe
+	// * `search` - Search
+	// * `send` - Send
+	// * `shop` - Shop
+	// * `stack` - Stack
+	// * `stars` - Stars
+	// * `tag` - Tag
+	// * `tags` - Tags
+	// * `telephone` - Telephone
+	// * `truck` - Truck
+	// * `upc-scan` - Barcode
+	// * `wallet2` - Wallet
+	Icon           *IconEnum `json:"icon,omitempty"`
+	Name           *string   `json:"name,omitempty"`
+	Owner          *int      `json:"owner,omitempty"`
+	PageSize       *int64    `json:"page_size,omitempty"`
 	SetPermissions *struct {
 		Change *struct {
 			Groups *[]int `json:"groups,omitempty"`
@@ -3060,9 +3477,9 @@ type PatchedTagRequest struct {
 
 // PatchedUserRequest defines model for PatchedUserRequest.
 type PatchedUserRequest struct {
-	DateJoined *time.Time           `json:"date_joined,omitempty"`
-	Email      *openapi_types.Email `json:"email,omitempty"`
-	FirstName  *string              `json:"first_name,omitempty"`
+	DateJoined *time.Time                `json:"date_joined,omitempty"`
+	Email      *PatchedUserRequest_Email `json:"email,omitempty"`
+	FirstName  *string                   `json:"first_name,omitempty"`
 
 	// Groups The groups this user belongs to. A user will get all permissions granted to each of their groups.
 	Groups *[]int `json:"groups,omitempty"`
@@ -3083,12 +3500,31 @@ type PatchedUserRequest struct {
 	Username *string `json:"username,omitempty"`
 }
 
+// PatchedUserRequestEmail0 defines model for PatchedUserRequest.Email.0.
+type PatchedUserRequestEmail0 = openapi_types.Email
+
+// PatchedUserRequestEmail1 defines model for PatchedUserRequest.Email.1.
+type PatchedUserRequestEmail1 = string
+
+// PatchedUserRequest_Email defines model for PatchedUserRequest.Email.
+type PatchedUserRequest_Email struct {
+	union json.RawMessage
+}
+
 // PatchedWorkflowActionRequest defines model for PatchedWorkflowActionRequest.
 type PatchedWorkflowActionRequest struct {
-	AssignChangeGroups  *[]int `json:"assign_change_groups,omitempty"`
-	AssignChangeUsers   *[]int `json:"assign_change_users,omitempty"`
-	AssignCorrespondent *int   `json:"assign_correspondent,omitempty"`
-	AssignCustomFields  *[]int `json:"assign_custom_fields,omitempty"`
+	// AiCreateMissing Create suggested tags, correspondents, document types and storage paths that do not already exist instead of skipping them.
+	AiCreateMissing *bool `json:"ai_create_missing,omitempty"`
+
+	// AiOverwriteExisting Apply suggestions even if the document already has a value for that field. Tags are always added to, never replaced.
+	AiOverwriteExisting *bool `json:"ai_overwrite_existing,omitempty"`
+
+	// AiSuggestionFields Which of the AI-suggested fields to apply to the document.
+	AiSuggestionFields  interface{} `json:"ai_suggestion_fields,omitempty"`
+	AssignChangeGroups  *[]int      `json:"assign_change_groups,omitempty"`
+	AssignChangeUsers   *[]int      `json:"assign_change_users,omitempty"`
+	AssignCorrespondent *int        `json:"assign_correspondent,omitempty"`
+	AssignCustomFields  *[]int      `json:"assign_custom_fields,omitempty"`
 
 	// AssignCustomFieldsValues Optional values to assign to the custom fields.
 	AssignCustomFieldsValues interface{} `json:"assign_custom_fields_values,omitempty"`
@@ -3222,20 +3658,38 @@ type ProcessedMail struct {
 
 // Profile defines model for Profile.
 type Profile struct {
-	AuthToken         *string              `json:"auth_token,omitempty"`
-	Email             *openapi_types.Email `json:"email,omitempty"`
-	FirstName         *string              `json:"first_name,omitempty"`
-	HasUsablePassword *bool                `json:"has_usable_password,omitempty"`
-	IsMfaEnabled      *bool                `json:"is_mfa_enabled,omitempty"`
-	LastName          *string              `json:"last_name,omitempty"`
-	Password          *string              `json:"password,omitempty"`
-	SocialAccounts    *[]SocialAccount     `json:"social_accounts,omitempty"`
+	AuthToken         *string          `json:"auth_token,omitempty"`
+	Email             *Profile_Email   `json:"email,omitempty"`
+	FirstName         *string          `json:"first_name,omitempty"`
+	HasUsablePassword *bool            `json:"has_usable_password,omitempty"`
+	IsMfaEnabled      *bool            `json:"is_mfa_enabled,omitempty"`
+	LastName          *string          `json:"last_name,omitempty"`
+	Password          *string          `json:"password,omitempty"`
+	SocialAccounts    *[]SocialAccount `json:"social_accounts,omitempty"`
+}
+
+// ProfileEmail0 defines model for Profile.Email.0.
+type ProfileEmail0 = openapi_types.Email
+
+// ProfileEmail1 defines model for Profile.Email.1.
+type ProfileEmail1 = string
+
+// Profile_Email defines model for Profile.Email.
+type Profile_Email struct {
+	union json.RawMessage
 }
 
 // RebuildBundleError defines model for RebuildBundleError.
 type RebuildBundleError struct {
 	Detail string `json:"detail"`
 }
+
+// RemoteOcrEngineEnum * `azureai` - Azure AI Document Intelligence
+type RemoteOcrEngineEnum string
+
+// RemoteOcrModeEnum * `always` - All supported documents
+// * `workflow_only` - Only when a workflow enables it
+type RemoteOcrModeEnum string
 
 // RemovePasswordDocumentsRequest defines model for RemovePasswordDocumentsRequest.
 type RemovePasswordDocumentsRequest struct {
@@ -3258,6 +3712,7 @@ type ReprocessDocumentsRequest struct {
 	All       *bool                   `json:"all,omitempty"`
 	Documents *[]int                  `json:"documents,omitempty"`
 	Filters   *map[string]interface{} `json:"filters,omitempty"`
+	RemoteOcr *bool                   `json:"remote_ocr,omitempty"`
 }
 
 // ReprocessDocumentsResult defines model for ReprocessDocumentsResult.
@@ -3359,11 +3814,70 @@ type SavedView struct {
 	DisplayFields interface{}            `json:"display_fields,omitempty"`
 	DisplayMode   *SavedView_DisplayMode `json:"display_mode,omitempty"`
 	FilterRules   []SavedViewFilterRule  `json:"filter_rules"`
-	Id            *int                   `json:"id,omitempty"`
-	Name          string                 `json:"name"`
-	Owner         *int                   `json:"owner,omitempty"`
-	PageSize      *int64                 `json:"page_size,omitempty"`
-	Permissions   *struct {
+
+	// Icon * `archive` - Archive
+	// * `bank` - Bank
+	// * `basket` - Basket
+	// * `bell` - Bell
+	// * `bookmark` - Bookmark
+	// * `boxes` - Boxes
+	// * `briefcase` - Briefcase
+	// * `building` - Building
+	// * `calculator` - Calculator
+	// * `calendar` - Calendar
+	// * `camera` - Camera
+	// * `card-checklist` - Checklist
+	// * `cash` - Cash
+	// * `chat-left-text` - Chat
+	// * `check-circle` - Check
+	// * `clipboard` - Clipboard
+	// * `clock-history` - Clock
+	// * `credit-card` - Credit card
+	// * `download` - Download
+	// * `envelope` - Envelope
+	// * `exclamation-triangle` - Warning
+	// * `file-earmark` - File
+	// * `file-earmark-check` - Checked file
+	// * `file-earmark-lock` - Locked file
+	// * `file-earmark-medical` - Medical file
+	// * `file-earmark-person` - Person file
+	// * `file-earmark-spreadsheet` - Spreadsheet
+	// * `file-text` - Text file
+	// * `files` - Files
+	// * `folder` - Folder
+	// * `funnel` - Filter
+	// * `gear` - Gear
+	// * `globe2` - Globe
+	// * `hash` - Hash
+	// * `heart` - Heart
+	// * `house` - House
+	// * `inbox` - Inbox
+	// * `journals` - Journals
+	// * `list-task` - Task list
+	// * `newspaper` - Newspaper
+	// * `paperclip` - Attachment
+	// * `people` - People
+	// * `person` - Person
+	// * `printer` - Printer
+	// * `receipt` - Receipt
+	// * `safe` - Safe
+	// * `search` - Search
+	// * `send` - Send
+	// * `shop` - Shop
+	// * `stack` - Stack
+	// * `stars` - Stars
+	// * `tag` - Tag
+	// * `tags` - Tags
+	// * `telephone` - Telephone
+	// * `truck` - Truck
+	// * `upc-scan` - Barcode
+	// * `wallet2` - Wallet
+	Icon        *IconEnum `json:"icon,omitempty"`
+	Id          *int      `json:"id,omitempty"`
+	Name        string    `json:"name"`
+	Owner       *int      `json:"owner,omitempty"`
+	PageSize    *int64    `json:"page_size,omitempty"`
+	Permissions *struct {
 		Change *struct {
 			Groups *[]int `json:"groups,omitempty"`
 			Users  *[]int `json:"users,omitempty"`
@@ -3397,12 +3911,71 @@ type SavedViewFilterRuleRequest struct {
 
 // SavedViewRequest defines model for SavedViewRequest.
 type SavedViewRequest struct {
-	DisplayFields  interface{}                   `json:"display_fields,omitempty"`
-	DisplayMode    *SavedViewRequest_DisplayMode `json:"display_mode,omitempty"`
-	FilterRules    []SavedViewFilterRuleRequest  `json:"filter_rules"`
-	Name           string                        `json:"name"`
-	Owner          *int                          `json:"owner,omitempty"`
-	PageSize       *int64                        `json:"page_size,omitempty"`
+	DisplayFields interface{}                   `json:"display_fields,omitempty"`
+	DisplayMode   *SavedViewRequest_DisplayMode `json:"display_mode,omitempty"`
+	FilterRules   []SavedViewFilterRuleRequest  `json:"filter_rules"`
+
+	// Icon * `archive` - Archive
+	// * `bank` - Bank
+	// * `basket` - Basket
+	// * `bell` - Bell
+	// * `bookmark` - Bookmark
+	// * `boxes` - Boxes
+	// * `briefcase` - Briefcase
+	// * `building` - Building
+	// * `calculator` - Calculator
+	// * `calendar` - Calendar
+	// * `camera` - Camera
+	// * `card-checklist` - Checklist
+	// * `cash` - Cash
+	// * `chat-left-text` - Chat
+	// * `check-circle` - Check
+	// * `clipboard` - Clipboard
+	// * `clock-history` - Clock
+	// * `credit-card` - Credit card
+	// * `download` - Download
+	// * `envelope` - Envelope
+	// * `exclamation-triangle` - Warning
+	// * `file-earmark` - File
+	// * `file-earmark-check` - Checked file
+	// * `file-earmark-lock` - Locked file
+	// * `file-earmark-medical` - Medical file
+	// * `file-earmark-person` - Person file
+	// * `file-earmark-spreadsheet` - Spreadsheet
+	// * `file-text` - Text file
+	// * `files` - Files
+	// * `folder` - Folder
+	// * `funnel` - Filter
+	// * `gear` - Gear
+	// * `globe2` - Globe
+	// * `hash` - Hash
+	// * `heart` - Heart
+	// * `house` - House
+	// * `inbox` - Inbox
+	// * `journals` - Journals
+	// * `list-task` - Task list
+	// * `newspaper` - Newspaper
+	// * `paperclip` - Attachment
+	// * `people` - People
+	// * `person` - Person
+	// * `printer` - Printer
+	// * `receipt` - Receipt
+	// * `safe` - Safe
+	// * `search` - Search
+	// * `send` - Send
+	// * `shop` - Shop
+	// * `stack` - Stack
+	// * `stars` - Stars
+	// * `tag` - Tag
+	// * `tags` - Tags
+	// * `telephone` - Telephone
+	// * `truck` - Truck
+	// * `upc-scan` - Barcode
+	// * `wallet2` - Wallet
+	Icon           *IconEnum `json:"icon,omitempty"`
+	Name           string    `json:"name"`
+	Owner          *int      `json:"owner,omitempty"`
+	PageSize       *int64    `json:"page_size,omitempty"`
 	SetPermissions *struct {
 		Change *struct {
 			Groups *[]int `json:"groups,omitempty"`
@@ -3686,6 +4259,7 @@ type TaskSerializerV10 struct {
 	// * `reprocess_document` - Reprocess Document
 	// * `build_share_link` - Build Share Link
 	// * `bulk_delete` - Bulk Delete
+	// * `apply_ai_suggestions` - Apply AI Suggestions
 	TaskType        *TaskTypeEnum `json:"task_type,omitempty"`
 	TaskTypeDisplay *string       `json:"task_type_display,omitempty"`
 
@@ -3746,6 +4320,7 @@ type TaskSummary struct {
 // * `reprocess_document` - Reprocess Document
 // * `build_share_link` - Build Share Link
 // * `bulk_delete` - Bulk Delete
+// * `apply_ai_suggestions` - Apply AI Suggestions
 type TaskTypeEnum string
 
 // Tasks defines model for Tasks.
@@ -3812,9 +4387,9 @@ type UpdateDocumentVersionLabelResult struct {
 
 // User defines model for User.
 type User struct {
-	DateJoined *time.Time           `json:"date_joined,omitempty"`
-	Email      *openapi_types.Email `json:"email,omitempty"`
-	FirstName  *string              `json:"first_name,omitempty"`
+	DateJoined *time.Time  `json:"date_joined,omitempty"`
+	Email      *User_Email `json:"email,omitempty"`
+	FirstName  *string     `json:"first_name,omitempty"`
 
 	// Groups The groups this user belongs to. A user will get all permissions granted to each of their groups.
 	Groups               *[]int    `json:"groups,omitempty"`
@@ -3838,11 +4413,22 @@ type User struct {
 	Username string `json:"username"`
 }
 
+// UserEmail0 defines model for User.Email.0.
+type UserEmail0 = openapi_types.Email
+
+// UserEmail1 defines model for User.Email.1.
+type UserEmail1 = string
+
+// User_Email defines model for User.Email.
+type User_Email struct {
+	union json.RawMessage
+}
+
 // UserRequest defines model for UserRequest.
 type UserRequest struct {
-	DateJoined *time.Time           `json:"date_joined,omitempty"`
-	Email      *openapi_types.Email `json:"email,omitempty"`
-	FirstName  *string              `json:"first_name,omitempty"`
+	DateJoined *time.Time         `json:"date_joined,omitempty"`
+	Email      *UserRequest_Email `json:"email,omitempty"`
+	FirstName  *string            `json:"first_name,omitempty"`
 
 	// Groups The groups this user belongs to. A user will get all permissions granted to each of their groups.
 	Groups *[]int `json:"groups,omitempty"`
@@ -3863,6 +4449,17 @@ type UserRequest struct {
 	Username string `json:"username"`
 }
 
+// UserRequestEmail0 defines model for UserRequest.Email.0.
+type UserRequestEmail0 = openapi_types.Email
+
+// UserRequestEmail1 defines model for UserRequest.Email.1.
+type UserRequestEmail1 = string
+
+// UserRequest_Email defines model for UserRequest.Email.
+type UserRequest_Email struct {
+	union json.RawMessage
+}
+
 // Workflow defines model for Workflow.
 type Workflow struct {
 	Actions  []WorkflowAction  `json:"actions"`
@@ -3875,10 +4472,18 @@ type Workflow struct {
 
 // WorkflowAction defines model for WorkflowAction.
 type WorkflowAction struct {
-	AssignChangeGroups  *[]int `json:"assign_change_groups,omitempty"`
-	AssignChangeUsers   *[]int `json:"assign_change_users,omitempty"`
-	AssignCorrespondent *int   `json:"assign_correspondent,omitempty"`
-	AssignCustomFields  *[]int `json:"assign_custom_fields,omitempty"`
+	// AiCreateMissing Create suggested tags, correspondents, document types and storage paths that do not already exist instead of skipping them.
+	AiCreateMissing *bool `json:"ai_create_missing,omitempty"`
+
+	// AiOverwriteExisting Apply suggestions even if the document already has a value for that field. Tags are always added to, never replaced.
+	AiOverwriteExisting *bool `json:"ai_overwrite_existing,omitempty"`
+
+	// AiSuggestionFields Which of the AI-suggested fields to apply to the document.
+	AiSuggestionFields  interface{} `json:"ai_suggestion_fields,omitempty"`
+	AssignChangeGroups  *[]int      `json:"assign_change_groups,omitempty"`
+	AssignChangeUsers   *[]int      `json:"assign_change_users,omitempty"`
+	AssignCorrespondent *int        `json:"assign_correspondent,omitempty"`
+	AssignCustomFields  *[]int      `json:"assign_custom_fields,omitempty"`
 
 	// AssignCustomFieldsValues Optional values to assign to the custom fields.
 	AssignCustomFieldsValues interface{} `json:"assign_custom_fields_values,omitempty"`
@@ -3947,10 +4552,18 @@ type WorkflowActionEmailRequest struct {
 
 // WorkflowActionRequest defines model for WorkflowActionRequest.
 type WorkflowActionRequest struct {
-	AssignChangeGroups  *[]int `json:"assign_change_groups,omitempty"`
-	AssignChangeUsers   *[]int `json:"assign_change_users,omitempty"`
-	AssignCorrespondent *int   `json:"assign_correspondent,omitempty"`
-	AssignCustomFields  *[]int `json:"assign_custom_fields,omitempty"`
+	// AiCreateMissing Create suggested tags, correspondents, document types and storage paths that do not already exist instead of skipping them.
+	AiCreateMissing *bool `json:"ai_create_missing,omitempty"`
+
+	// AiOverwriteExisting Apply suggestions even if the document already has a value for that field. Tags are always added to, never replaced.
+	AiOverwriteExisting *bool `json:"ai_overwrite_existing,omitempty"`
+
+	// AiSuggestionFields Which of the AI-suggested fields to apply to the document.
+	AiSuggestionFields  interface{} `json:"ai_suggestion_fields,omitempty"`
+	AssignChangeGroups  *[]int      `json:"assign_change_groups,omitempty"`
+	AssignChangeUsers   *[]int      `json:"assign_change_users,omitempty"`
+	AssignCorrespondent *int        `json:"assign_correspondent,omitempty"`
+	AssignCustomFields  *[]int      `json:"assign_custom_fields,omitempty"`
 
 	// AssignCustomFieldsValues Optional values to assign to the custom fields.
 	AssignCustomFieldsValues interface{} `json:"assign_custom_fields_values,omitempty"`
@@ -3995,6 +4608,8 @@ type WorkflowActionRequest struct {
 // * `4` - Webhook
 // * `5` - Password removal
 // * `6` - Move to trash
+// * `7` - Remote OCR
+// * `8` - Apply AI suggestions
 type WorkflowActionTypeEnum int
 
 // WorkflowActionWebhook defines model for WorkflowActionWebhook.
@@ -4697,6 +5312,7 @@ type TasksListParams struct {
 	// * `reprocess_document` - Reprocess Document
 	// * `build_share_link` - Build Share Link
 	// * `bulk_delete` - Bulk Delete
+	// * `apply_ai_suggestions` - Apply AI Suggestions
 	TaskType *[]TasksListParamsTaskType `form:"task_type,omitempty" json:"task_type,omitempty"`
 
 	// TriggerSource Trigger Source
@@ -4767,6 +5383,7 @@ type TasksActiveListParams struct {
 	// * `reprocess_document` - Reprocess Document
 	// * `build_share_link` - Build Share Link
 	// * `bulk_delete` - Bulk Delete
+	// * `apply_ai_suggestions` - Apply AI Suggestions
 	TaskType *[]TasksActiveListParamsTaskType `form:"task_type,omitempty" json:"task_type,omitempty"`
 
 	// TriggerSource Trigger Source
@@ -4840,6 +5457,7 @@ type TasksSummaryListParams struct {
 	// * `reprocess_document` - Reprocess Document
 	// * `build_share_link` - Build Share Link
 	// * `bulk_delete` - Bulk Delete
+	// * `apply_ai_suggestions` - Apply AI Suggestions
 	TaskType *[]TasksSummaryListParamsTaskType `form:"task_type,omitempty" json:"task_type,omitempty"`
 
 	// TriggerSource Trigger Source
@@ -5049,6 +5667,9 @@ type EmailDocumentsMultipartRequestBody = EmailRequest
 
 // DocumentsMergeJSONRequestBody defines body for DocumentsMerge for application/json ContentType.
 type DocumentsMergeJSONRequestBody = MergeDocumentsRequest
+
+// DocumentsMergeAsVersionsJSONRequestBody defines body for DocumentsMergeAsVersions for application/json ContentType.
+type DocumentsMergeAsVersionsJSONRequestBody = MergeDocumentsAsVersionsRequest
 
 // DocumentsPostDocumentCreateMultipartRequestBody defines body for DocumentsPostDocumentCreate for multipart/form-data ContentType.
 type DocumentsPostDocumentCreateMultipartRequestBody = PostDocumentRequest
@@ -6061,6 +6682,182 @@ func (t *ApplicationConfiguration_OutputType) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsRemoteOcrEngineEnum returns the union data inside the ApplicationConfiguration_RemoteOcrEngine as a RemoteOcrEngineEnum
+func (t ApplicationConfiguration_RemoteOcrEngine) AsRemoteOcrEngineEnum() (RemoteOcrEngineEnum, error) {
+	var body RemoteOcrEngineEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrEngineEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrEngine as the provided RemoteOcrEngineEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) FromRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrEngineEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrEngine, using the provided RemoteOcrEngineEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) MergeRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the ApplicationConfiguration_RemoteOcrEngine as a BlankEnum
+func (t ApplicationConfiguration_RemoteOcrEngine) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrEngine as the provided BlankEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrEngine, using the provided BlankEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the ApplicationConfiguration_RemoteOcrEngine as a NullEnum
+func (t ApplicationConfiguration_RemoteOcrEngine) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrEngine as the provided NullEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrEngine, using the provided NullEnum
+func (t *ApplicationConfiguration_RemoteOcrEngine) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ApplicationConfiguration_RemoteOcrEngine) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ApplicationConfiguration_RemoteOcrEngine) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsRemoteOcrModeEnum returns the union data inside the ApplicationConfiguration_RemoteOcrMode as a RemoteOcrModeEnum
+func (t ApplicationConfiguration_RemoteOcrMode) AsRemoteOcrModeEnum() (RemoteOcrModeEnum, error) {
+	var body RemoteOcrModeEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrModeEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrMode as the provided RemoteOcrModeEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) FromRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrModeEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrMode, using the provided RemoteOcrModeEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) MergeRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the ApplicationConfiguration_RemoteOcrMode as a BlankEnum
+func (t ApplicationConfiguration_RemoteOcrMode) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrMode as the provided BlankEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrMode, using the provided BlankEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the ApplicationConfiguration_RemoteOcrMode as a NullEnum
+func (t ApplicationConfiguration_RemoteOcrMode) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the ApplicationConfiguration_RemoteOcrMode as the provided NullEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the ApplicationConfiguration_RemoteOcrMode, using the provided NullEnum
+func (t *ApplicationConfiguration_RemoteOcrMode) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ApplicationConfiguration_RemoteOcrMode) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ApplicationConfiguration_RemoteOcrMode) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsUnpaperCleanEnum returns the union data inside the ApplicationConfiguration_UnpaperClean as a UnpaperCleanEnum
 func (t ApplicationConfiguration_UnpaperClean) AsUnpaperCleanEnum() (UnpaperCleanEnum, error) {
 	var body UnpaperCleanEnum
@@ -6673,6 +7470,182 @@ func (t ApplicationConfigurationRequest_OutputType) MarshalJSON() ([]byte, error
 }
 
 func (t *ApplicationConfigurationRequest_OutputType) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsRemoteOcrEngineEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as a RemoteOcrEngineEnum
+func (t ApplicationConfigurationRequest_RemoteOcrEngine) AsRemoteOcrEngineEnum() (RemoteOcrEngineEnum, error) {
+	var body RemoteOcrEngineEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrEngineEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as the provided RemoteOcrEngineEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) FromRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrEngineEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine, using the provided RemoteOcrEngineEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) MergeRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as a BlankEnum
+func (t ApplicationConfigurationRequest_RemoteOcrEngine) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as the provided BlankEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine, using the provided BlankEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as a NullEnum
+func (t ApplicationConfigurationRequest_RemoteOcrEngine) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine as the provided NullEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrEngine, using the provided NullEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ApplicationConfigurationRequest_RemoteOcrEngine) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ApplicationConfigurationRequest_RemoteOcrEngine) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsRemoteOcrModeEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrMode as a RemoteOcrModeEnum
+func (t ApplicationConfigurationRequest_RemoteOcrMode) AsRemoteOcrModeEnum() (RemoteOcrModeEnum, error) {
+	var body RemoteOcrModeEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrModeEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrMode as the provided RemoteOcrModeEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) FromRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrModeEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrMode, using the provided RemoteOcrModeEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) MergeRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrMode as a BlankEnum
+func (t ApplicationConfigurationRequest_RemoteOcrMode) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrMode as the provided BlankEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrMode, using the provided BlankEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the ApplicationConfigurationRequest_RemoteOcrMode as a NullEnum
+func (t ApplicationConfigurationRequest_RemoteOcrMode) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the ApplicationConfigurationRequest_RemoteOcrMode as the provided NullEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the ApplicationConfigurationRequest_RemoteOcrMode, using the provided NullEnum
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t ApplicationConfigurationRequest_RemoteOcrMode) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *ApplicationConfigurationRequest_RemoteOcrMode) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -7521,6 +8494,182 @@ func (t *PatchedApplicationConfigurationRequest_OutputType) UnmarshalJSON(b []by
 	return err
 }
 
+// AsRemoteOcrEngineEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as a RemoteOcrEngineEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrEngine) AsRemoteOcrEngineEnum() (RemoteOcrEngineEnum, error) {
+	var body RemoteOcrEngineEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrEngineEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as the provided RemoteOcrEngineEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) FromRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrEngineEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine, using the provided RemoteOcrEngineEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) MergeRemoteOcrEngineEnum(v RemoteOcrEngineEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as a BlankEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrEngine) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as the provided BlankEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine, using the provided BlankEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as a NullEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrEngine) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine as the provided NullEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrEngine, using the provided NullEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PatchedApplicationConfigurationRequest_RemoteOcrEngine) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrEngine) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsRemoteOcrModeEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as a RemoteOcrModeEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrMode) AsRemoteOcrModeEnum() (RemoteOcrModeEnum, error) {
+	var body RemoteOcrModeEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRemoteOcrModeEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as the provided RemoteOcrModeEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) FromRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRemoteOcrModeEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode, using the provided RemoteOcrModeEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) MergeRemoteOcrModeEnum(v RemoteOcrModeEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBlankEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as a BlankEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrMode) AsBlankEnum() (BlankEnum, error) {
+	var body BlankEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBlankEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as the provided BlankEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) FromBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBlankEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode, using the provided BlankEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) MergeBlankEnum(v BlankEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsNullEnum returns the union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as a NullEnum
+func (t PatchedApplicationConfigurationRequest_RemoteOcrMode) AsNullEnum() (NullEnum, error) {
+	var body NullEnum
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromNullEnum overwrites any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode as the provided NullEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) FromNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeNullEnum performs a merge with any union data inside the PatchedApplicationConfigurationRequest_RemoteOcrMode, using the provided NullEnum
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) MergeNullEnum(v NullEnum) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PatchedApplicationConfigurationRequest_RemoteOcrMode) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PatchedApplicationConfigurationRequest_RemoteOcrMode) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsUnpaperCleanEnum returns the union data inside the PatchedApplicationConfigurationRequest_UnpaperClean as a UnpaperCleanEnum
 func (t PatchedApplicationConfigurationRequest_UnpaperClean) AsUnpaperCleanEnum() (UnpaperCleanEnum, error) {
 	var body UnpaperCleanEnum
@@ -7609,6 +8758,68 @@ func (t *PatchedApplicationConfigurationRequest_UnpaperClean) UnmarshalJSON(b []
 	return err
 }
 
+// AsPatchedProfileRequestEmail0 returns the union data inside the PatchedProfileRequest_Email as a PatchedProfileRequestEmail0
+func (t PatchedProfileRequest_Email) AsPatchedProfileRequestEmail0() (PatchedProfileRequestEmail0, error) {
+	var body PatchedProfileRequestEmail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPatchedProfileRequestEmail0 overwrites any union data inside the PatchedProfileRequest_Email as the provided PatchedProfileRequestEmail0
+func (t *PatchedProfileRequest_Email) FromPatchedProfileRequestEmail0(v PatchedProfileRequestEmail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePatchedProfileRequestEmail0 performs a merge with any union data inside the PatchedProfileRequest_Email, using the provided PatchedProfileRequestEmail0
+func (t *PatchedProfileRequest_Email) MergePatchedProfileRequestEmail0(v PatchedProfileRequestEmail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPatchedProfileRequestEmail1 returns the union data inside the PatchedProfileRequest_Email as a PatchedProfileRequestEmail1
+func (t PatchedProfileRequest_Email) AsPatchedProfileRequestEmail1() (PatchedProfileRequestEmail1, error) {
+	var body PatchedProfileRequestEmail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPatchedProfileRequestEmail1 overwrites any union data inside the PatchedProfileRequest_Email as the provided PatchedProfileRequestEmail1
+func (t *PatchedProfileRequest_Email) FromPatchedProfileRequestEmail1(v PatchedProfileRequestEmail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePatchedProfileRequestEmail1 performs a merge with any union data inside the PatchedProfileRequest_Email, using the provided PatchedProfileRequestEmail1
+func (t *PatchedProfileRequest_Email) MergePatchedProfileRequestEmail1(v PatchedProfileRequestEmail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PatchedProfileRequest_Email) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PatchedProfileRequest_Email) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsDisplayModeEnum returns the union data inside the PatchedSavedViewRequest_DisplayMode as a DisplayModeEnum
 func (t PatchedSavedViewRequest_DisplayMode) AsDisplayModeEnum() (DisplayModeEnum, error) {
 	var body DisplayModeEnum
@@ -7693,6 +8904,130 @@ func (t PatchedSavedViewRequest_DisplayMode) MarshalJSON() ([]byte, error) {
 }
 
 func (t *PatchedSavedViewRequest_DisplayMode) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsPatchedUserRequestEmail0 returns the union data inside the PatchedUserRequest_Email as a PatchedUserRequestEmail0
+func (t PatchedUserRequest_Email) AsPatchedUserRequestEmail0() (PatchedUserRequestEmail0, error) {
+	var body PatchedUserRequestEmail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPatchedUserRequestEmail0 overwrites any union data inside the PatchedUserRequest_Email as the provided PatchedUserRequestEmail0
+func (t *PatchedUserRequest_Email) FromPatchedUserRequestEmail0(v PatchedUserRequestEmail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePatchedUserRequestEmail0 performs a merge with any union data inside the PatchedUserRequest_Email, using the provided PatchedUserRequestEmail0
+func (t *PatchedUserRequest_Email) MergePatchedUserRequestEmail0(v PatchedUserRequestEmail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsPatchedUserRequestEmail1 returns the union data inside the PatchedUserRequest_Email as a PatchedUserRequestEmail1
+func (t PatchedUserRequest_Email) AsPatchedUserRequestEmail1() (PatchedUserRequestEmail1, error) {
+	var body PatchedUserRequestEmail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromPatchedUserRequestEmail1 overwrites any union data inside the PatchedUserRequest_Email as the provided PatchedUserRequestEmail1
+func (t *PatchedUserRequest_Email) FromPatchedUserRequestEmail1(v PatchedUserRequestEmail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergePatchedUserRequestEmail1 performs a merge with any union data inside the PatchedUserRequest_Email, using the provided PatchedUserRequestEmail1
+func (t *PatchedUserRequest_Email) MergePatchedUserRequestEmail1(v PatchedUserRequestEmail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t PatchedUserRequest_Email) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *PatchedUserRequest_Email) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsProfileEmail0 returns the union data inside the Profile_Email as a ProfileEmail0
+func (t Profile_Email) AsProfileEmail0() (ProfileEmail0, error) {
+	var body ProfileEmail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromProfileEmail0 overwrites any union data inside the Profile_Email as the provided ProfileEmail0
+func (t *Profile_Email) FromProfileEmail0(v ProfileEmail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeProfileEmail0 performs a merge with any union data inside the Profile_Email, using the provided ProfileEmail0
+func (t *Profile_Email) MergeProfileEmail0(v ProfileEmail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsProfileEmail1 returns the union data inside the Profile_Email as a ProfileEmail1
+func (t Profile_Email) AsProfileEmail1() (ProfileEmail1, error) {
+	var body ProfileEmail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromProfileEmail1 overwrites any union data inside the Profile_Email as the provided ProfileEmail1
+func (t *Profile_Email) FromProfileEmail1(v ProfileEmail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeProfileEmail1 performs a merge with any union data inside the Profile_Email, using the provided ProfileEmail1
+func (t *Profile_Email) MergeProfileEmail1(v ProfileEmail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t Profile_Email) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *Profile_Email) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -7869,6 +9204,130 @@ func (t SavedViewRequest_DisplayMode) MarshalJSON() ([]byte, error) {
 }
 
 func (t *SavedViewRequest_DisplayMode) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsUserEmail0 returns the union data inside the User_Email as a UserEmail0
+func (t User_Email) AsUserEmail0() (UserEmail0, error) {
+	var body UserEmail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUserEmail0 overwrites any union data inside the User_Email as the provided UserEmail0
+func (t *User_Email) FromUserEmail0(v UserEmail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUserEmail0 performs a merge with any union data inside the User_Email, using the provided UserEmail0
+func (t *User_Email) MergeUserEmail0(v UserEmail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsUserEmail1 returns the union data inside the User_Email as a UserEmail1
+func (t User_Email) AsUserEmail1() (UserEmail1, error) {
+	var body UserEmail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUserEmail1 overwrites any union data inside the User_Email as the provided UserEmail1
+func (t *User_Email) FromUserEmail1(v UserEmail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUserEmail1 performs a merge with any union data inside the User_Email, using the provided UserEmail1
+func (t *User_Email) MergeUserEmail1(v UserEmail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t User_Email) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *User_Email) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsUserRequestEmail0 returns the union data inside the UserRequest_Email as a UserRequestEmail0
+func (t UserRequest_Email) AsUserRequestEmail0() (UserRequestEmail0, error) {
+	var body UserRequestEmail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUserRequestEmail0 overwrites any union data inside the UserRequest_Email as the provided UserRequestEmail0
+func (t *UserRequest_Email) FromUserRequestEmail0(v UserRequestEmail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUserRequestEmail0 performs a merge with any union data inside the UserRequest_Email, using the provided UserRequestEmail0
+func (t *UserRequest_Email) MergeUserRequestEmail0(v UserRequestEmail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsUserRequestEmail1 returns the union data inside the UserRequest_Email as a UserRequestEmail1
+func (t UserRequest_Email) AsUserRequestEmail1() (UserRequestEmail1, error) {
+	var body UserRequestEmail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromUserRequestEmail1 overwrites any union data inside the UserRequest_Email as the provided UserRequestEmail1
+func (t *UserRequest_Email) FromUserRequestEmail1(v UserRequestEmail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeUserRequestEmail1 performs a merge with any union data inside the UserRequest_Email, using the provided UserRequestEmail1
+func (t *UserRequest_Email) MergeUserRequestEmail1(v UserRequestEmail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t UserRequest_Email) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *UserRequest_Email) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -8295,6 +9754,18 @@ type ClientInterface interface {
 	//
 	// Merge selected documents into a new document.
 	DocumentsMerge(ctx context.Context, body DocumentsMergeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DocumentsMergeAsVersionsWithBody performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request,
+	// with any type of body and a specified content type.
+	//
+	// Merge selected documents as versions of a chosen root document.
+	DocumentsMergeAsVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DocumentsMergeAsVersions performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request.
+	// Takes a body of the `application/json` content type.
+	//
+	// Merge selected documents as versions of a chosen root document.
+	DocumentsMergeAsVersions(ctx context.Context, body DocumentsMergeAsVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DocumentsNextAsnRetrieve performs a GET /api/documents/next_asn/ (the `DocumentsNextAsnRetrieve` operationId) request.
 	//
@@ -10490,6 +11961,38 @@ func (c *Client) DocumentsMergeWithBody(ctx context.Context, contentType string,
 // Merge selected documents into a new document.
 func (c *Client) DocumentsMerge(ctx context.Context, body DocumentsMergeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDocumentsMergeRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DocumentsMergeAsVersionsWithBody performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request,
+// with any type of body and a specified content type.
+//
+// Merge selected documents as versions of a chosen root document.
+func (c *Client) DocumentsMergeAsVersionsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDocumentsMergeAsVersionsRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DocumentsMergeAsVersions performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request.
+// Takes a body of the `application/json` content type.
+//
+// Merge selected documents as versions of a chosen root document.
+func (c *Client) DocumentsMergeAsVersions(ctx context.Context, body DocumentsMergeAsVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDocumentsMergeAsVersionsRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -17133,6 +18636,46 @@ func NewDocumentsMergeRequestWithBody(server string, contentType string, body io
 	}
 
 	operationPath := fmt.Sprintf("/api/documents/merge/")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDocumentsMergeAsVersionsRequest calls the generic DocumentsMergeAsVersions builder with application/json body
+func NewDocumentsMergeAsVersionsRequest(server string, body DocumentsMergeAsVersionsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDocumentsMergeAsVersionsRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewDocumentsMergeAsVersionsRequestWithBody constructs an http.Request for the DocumentsMergeAsVersions method, with any body, and a specified content type
+func NewDocumentsMergeAsVersionsRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/documents/merge_as_versions/")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -25396,6 +26939,20 @@ type ClientWithResponsesInterface interface {
 	// Merge selected documents into a new document.
 	DocumentsMergeWithResponse(ctx context.Context, body DocumentsMergeJSONRequestBody, reqEditors ...RequestEditorFn) (*DocumentsMergeResponse, error)
 
+	// DocumentsMergeAsVersionsWithBodyWithResponse performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request,
+	// with any type of body and a specified content type.
+	//
+	// Merge selected documents as versions of a chosen root document.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	DocumentsMergeAsVersionsWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DocumentsMergeAsVersionsResponse, error)
+
+	// DocumentsMergeAsVersionsWithResponse performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request.
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Merge selected documents as versions of a chosen root document.
+	DocumentsMergeAsVersionsWithResponse(ctx context.Context, body DocumentsMergeAsVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*DocumentsMergeAsVersionsResponse, error)
+
 	// DocumentsNextAsnRetrieveWithResponse performs a GET /api/documents/next_asn/ (the `DocumentsNextAsnRetrieve` operationId) request.
 	//
 	// Get the next available Archive Serial Number (ASN) for a new document.
@@ -28139,6 +29696,47 @@ func (r DocumentsMergeResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r DocumentsMergeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DocumentsMergeAsVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *MergeDocumentsAsVersionsResult
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r DocumentsMergeAsVersionsResponse) GetJSON200() *MergeDocumentsAsVersionsResult {
+	return r.JSON200
+}
+
+// GetBody returns the raw response body bytes
+func (r DocumentsMergeAsVersionsResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DocumentsMergeAsVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DocumentsMergeAsVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DocumentsMergeAsVersionsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -34287,6 +35885,32 @@ func (c *ClientWithResponses) DocumentsMergeWithResponse(ctx context.Context, bo
 	return ParseDocumentsMergeResponse(rsp)
 }
 
+// DocumentsMergeAsVersionsWithBodyWithResponse performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request,
+// with any type of body and a specified content type.
+//
+// Merge selected documents as versions of a chosen root document.
+//
+// Returns a wrapper object for the known response body format(s).
+func (c *ClientWithResponses) DocumentsMergeAsVersionsWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DocumentsMergeAsVersionsResponse, error) {
+	rsp, err := c.DocumentsMergeAsVersionsWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDocumentsMergeAsVersionsResponse(rsp)
+}
+
+// DocumentsMergeAsVersionsWithResponse performs a POST /api/documents/merge_as_versions/ (the `DocumentsMergeAsVersions` operationId) request.
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Merge selected documents as versions of a chosen root document.
+func (c *ClientWithResponses) DocumentsMergeAsVersionsWithResponse(ctx context.Context, body DocumentsMergeAsVersionsJSONRequestBody, reqEditors ...RequestEditorFn) (*DocumentsMergeAsVersionsResponse, error) {
+	rsp, err := c.DocumentsMergeAsVersions(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDocumentsMergeAsVersionsResponse(rsp)
+}
+
 // DocumentsNextAsnRetrieveWithResponse performs a GET /api/documents/next_asn/ (the `DocumentsNextAsnRetrieve` operationId) request.
 //
 // Get the next available Archive Serial Number (ASN) for a new document.
@@ -37965,6 +39589,32 @@ func ParseDocumentsMergeResponse(rsp *http.Response) (*DocumentsMergeResponse, e
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest MergeDocumentsResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDocumentsMergeAsVersionsResponse parses an HTTP response from a DocumentsMergeAsVersionsWithResponse call
+func ParseDocumentsMergeAsVersionsResponse(rsp *http.Response) (*DocumentsMergeAsVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DocumentsMergeAsVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest MergeDocumentsAsVersionsResult
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
