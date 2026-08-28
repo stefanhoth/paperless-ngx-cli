@@ -1,6 +1,17 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [2.1.0] - 2026-08-28
+
+### Bug Fixes
+
+- **ci:** Bump go directive to 1.26.7 for stdlib security fixes (#41)
+- **deps:** Update module github.com/oapi-codegen/runtime to v1.7.0 (#39)
+
+### Features
+
+- Update generated client for Paperless-NGX v3.1.0 (#42)
+
 ## [2.0.0] - 2026-08-03
 
 ### Bug Fixes
