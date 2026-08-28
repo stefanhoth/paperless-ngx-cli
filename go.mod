@@ -1,6 +1,6 @@
 module github.com/stefanhoth/paperless-ngx-cli
 
-go 1.26.5
+go 1.26.7
 
 require (
 	github.com/oapi-codegen/runtime v1.6.0
