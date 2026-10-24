@@ -3415,16 +3415,6 @@ type PatchedSavedViewRequest_DisplayMode struct {
 	union json.RawMessage
 }
 
-// PatchedShareLinkBundleRequest defines model for PatchedShareLinkBundleRequest.
-type PatchedShareLinkBundleRequest struct {
-	DocumentIds    *[]int `json:"document_ids,omitempty"`
-	ExpirationDays *int   `json:"expiration_days,omitempty"`
-
-	// FileVersion * `archive` - Archive
-	// * `original` - Original
-	FileVersion *FileVersionEnum `json:"file_version,omitempty"`
-}
-
 // PatchedStoragePathRequest defines model for PatchedStoragePathRequest.
 type PatchedStoragePathRequest struct {
 	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
@@ -5895,24 +5885,6 @@ type ShareLinkBundlesCreateFormdataRequestBody = ShareLinkBundleRequest
 
 // ShareLinkBundlesCreateMultipartRequestBody defines body for ShareLinkBundlesCreate for multipart/form-data ContentType.
 type ShareLinkBundlesCreateMultipartRequestBody = ShareLinkBundleRequest
-
-// ShareLinkBundlesPartialUpdateJSONRequestBody defines body for ShareLinkBundlesPartialUpdate for application/json ContentType.
-type ShareLinkBundlesPartialUpdateJSONRequestBody = PatchedShareLinkBundleRequest
-
-// ShareLinkBundlesPartialUpdateFormdataRequestBody defines body for ShareLinkBundlesPartialUpdate for application/x-www-form-urlencoded ContentType.
-type ShareLinkBundlesPartialUpdateFormdataRequestBody = PatchedShareLinkBundleRequest
-
-// ShareLinkBundlesPartialUpdateMultipartRequestBody defines body for ShareLinkBundlesPartialUpdate for multipart/form-data ContentType.
-type ShareLinkBundlesPartialUpdateMultipartRequestBody = PatchedShareLinkBundleRequest
-
-// ShareLinkBundlesUpdateJSONRequestBody defines body for ShareLinkBundlesUpdate for application/json ContentType.
-type ShareLinkBundlesUpdateJSONRequestBody = ShareLinkBundleRequest
-
-// ShareLinkBundlesUpdateFormdataRequestBody defines body for ShareLinkBundlesUpdate for application/x-www-form-urlencoded ContentType.
-type ShareLinkBundlesUpdateFormdataRequestBody = ShareLinkBundleRequest
-
-// ShareLinkBundlesUpdateMultipartRequestBody defines body for ShareLinkBundlesUpdate for multipart/form-data ContentType.
-type ShareLinkBundlesUpdateMultipartRequestBody = ShareLinkBundleRequest
 
 // ShareLinkBundlesRebuildJSONRequestBody defines body for ShareLinkBundlesRebuild for application/json ContentType.
 type ShareLinkBundlesRebuildJSONRequestBody = ShareLinkBundleRequest
@@ -10439,42 +10411,6 @@ type ClientInterface interface {
 	// Pass a user object to serializer.
 	ShareLinkBundlesRetrieve(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ShareLinkBundlesPartialUpdateWithBody performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request,
-	// with any type of body and a specified content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesPartialUpdateWithBody(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ShareLinkBundlesPartialUpdate performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-	// Takes a body of the `application/json` content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesPartialUpdate(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ShareLinkBundlesPartialUpdateWithFormdataBody performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-	// Takes a body of the `application/x-www-form-urlencoded` content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesPartialUpdateWithFormdataBody(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ShareLinkBundlesUpdateWithBody performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request,
-	// with any type of body and a specified content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesUpdateWithBody(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ShareLinkBundlesUpdate performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-	// Takes a body of the `application/json` content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesUpdate(ctx context.Context, id int, body ShareLinkBundlesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ShareLinkBundlesUpdateWithFormdataBody performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-	// Takes a body of the `application/x-www-form-urlencoded` content type.
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesUpdateWithFormdataBody(ctx context.Context, id int, body ShareLinkBundlesUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// ShareLinkBundlesRebuildWithBody performs a POST /api/share_link_bundles/{id}/rebuild/ (the `ShareLinkBundlesRebuild` operationId) request,
 	// with any type of body and a specified content type.
 	//
@@ -13892,102 +13828,6 @@ func (c *Client) ShareLinkBundlesDestroy(ctx context.Context, id int, reqEditors
 // Pass a user object to serializer.
 func (c *Client) ShareLinkBundlesRetrieve(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewShareLinkBundlesRetrieveRequest(c.Server, id)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesPartialUpdateWithBody performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request,
-// with any type of body and a specified content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesPartialUpdateWithBody(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesPartialUpdateRequestWithBody(c.Server, id, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesPartialUpdate performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-// Takes a body of the `application/json` content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesPartialUpdate(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesPartialUpdateRequest(c.Server, id, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesPartialUpdateWithFormdataBody performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-// Takes a body of the `application/x-www-form-urlencoded` content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesPartialUpdateWithFormdataBody(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesPartialUpdateRequestWithFormdataBody(c.Server, id, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesUpdateWithBody performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request,
-// with any type of body and a specified content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesUpdateWithBody(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesUpdateRequestWithBody(c.Server, id, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesUpdate performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-// Takes a body of the `application/json` content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesUpdate(ctx context.Context, id int, body ShareLinkBundlesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesUpdateRequest(c.Server, id, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-// ShareLinkBundlesUpdateWithFormdataBody performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-// Takes a body of the `application/x-www-form-urlencoded` content type.
-//
-// Pass a user object to serializer.
-func (c *Client) ShareLinkBundlesUpdateWithFormdataBody(ctx context.Context, id int, body ShareLinkBundlesUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewShareLinkBundlesUpdateRequestWithFormdataBody(c.Server, id, body)
 	if err != nil {
 		return nil, err
 	}
@@ -22551,122 +22391,6 @@ func NewShareLinkBundlesRetrieveRequest(server string, id int) (*http.Request, e
 	return req, nil
 }
 
-// NewShareLinkBundlesPartialUpdateRequest calls the generic ShareLinkBundlesPartialUpdate builder with application/json body
-func NewShareLinkBundlesPartialUpdateRequest(server string, id int, body ShareLinkBundlesPartialUpdateJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewShareLinkBundlesPartialUpdateRequestWithBody(server, id, "application/json", bodyReader)
-}
-
-// NewShareLinkBundlesPartialUpdateRequestWithFormdataBody calls the generic ShareLinkBundlesPartialUpdate builder with application/x-www-form-urlencoded body
-func NewShareLinkBundlesPartialUpdateRequestWithFormdataBody(server string, id int, body ShareLinkBundlesPartialUpdateFormdataRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	bodyStr, err := runtime.MarshalForm(body, nil)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = strings.NewReader(bodyStr.Encode())
-	return NewShareLinkBundlesPartialUpdateRequestWithBody(server, id, "application/x-www-form-urlencoded", bodyReader)
-}
-
-// NewShareLinkBundlesPartialUpdateRequestWithBody constructs an http.Request for the ShareLinkBundlesPartialUpdate method, with any body, and a specified content type
-func NewShareLinkBundlesPartialUpdateRequestWithBody(server string, id int, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/api/share_link_bundles/%s/", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewShareLinkBundlesUpdateRequest calls the generic ShareLinkBundlesUpdate builder with application/json body
-func NewShareLinkBundlesUpdateRequest(server string, id int, body ShareLinkBundlesUpdateJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewShareLinkBundlesUpdateRequestWithBody(server, id, "application/json", bodyReader)
-}
-
-// NewShareLinkBundlesUpdateRequestWithFormdataBody calls the generic ShareLinkBundlesUpdate builder with application/x-www-form-urlencoded body
-func NewShareLinkBundlesUpdateRequestWithFormdataBody(server string, id int, body ShareLinkBundlesUpdateFormdataRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	bodyStr, err := runtime.MarshalForm(body, nil)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = strings.NewReader(bodyStr.Encode())
-	return NewShareLinkBundlesUpdateRequestWithBody(server, id, "application/x-www-form-urlencoded", bodyReader)
-}
-
-// NewShareLinkBundlesUpdateRequestWithBody constructs an http.Request for the ShareLinkBundlesUpdate method, with any body, and a specified content type
-func NewShareLinkBundlesUpdateRequestWithBody(server string, id int, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/api/share_link_bundles/%s/", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
 // NewShareLinkBundlesRebuildRequest calls the generic ShareLinkBundlesRebuild builder with application/json body
 func NewShareLinkBundlesRebuildRequest(server string, id int, body ShareLinkBundlesRebuildJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -27771,46 +27495,6 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	ShareLinkBundlesRetrieveWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*ShareLinkBundlesRetrieveResponse, error)
 
-	// ShareLinkBundlesPartialUpdateWithBodyWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request,
-	// with any type of body and a specified content type.
-	//
-	// Pass a user object to serializer.
-	//
-	// Returns a wrapper object for the known response body format(s).
-	ShareLinkBundlesPartialUpdateWithBodyWithResponse(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error)
-
-	// ShareLinkBundlesPartialUpdateWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesPartialUpdateWithResponse(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error)
-
-	// ShareLinkBundlesPartialUpdateWithFormdataBodyWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-	// Takes a body of the `application/x-www-form-urlencoded` content type, and returns a wrapper object for the known response body format(s).
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesPartialUpdateWithFormdataBodyWithResponse(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error)
-
-	// ShareLinkBundlesUpdateWithBodyWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request,
-	// with any type of body and a specified content type.
-	//
-	// Pass a user object to serializer.
-	//
-	// Returns a wrapper object for the known response body format(s).
-	ShareLinkBundlesUpdateWithBodyWithResponse(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error)
-
-	// ShareLinkBundlesUpdateWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesUpdateWithResponse(ctx context.Context, id int, body ShareLinkBundlesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error)
-
-	// ShareLinkBundlesUpdateWithFormdataBodyWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-	// Takes a body of the `application/x-www-form-urlencoded` content type, and returns a wrapper object for the known response body format(s).
-	//
-	// Pass a user object to serializer.
-	ShareLinkBundlesUpdateWithFormdataBodyWithResponse(ctx context.Context, id int, body ShareLinkBundlesUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error)
-
 	// ShareLinkBundlesRebuildWithBodyWithResponse performs a POST /api/share_link_bundles/{id}/rebuild/ (the `ShareLinkBundlesRebuild` operationId) request,
 	// with any type of body and a specified content type.
 	//
@@ -32705,88 +32389,6 @@ func (r ShareLinkBundlesRetrieveResponse) ContentType() string {
 	return ""
 }
 
-type ShareLinkBundlesPartialUpdateResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *ShareLinkBundle
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ShareLinkBundlesPartialUpdateResponse) GetJSON200() *ShareLinkBundle {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r ShareLinkBundlesPartialUpdateResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ShareLinkBundlesPartialUpdateResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ShareLinkBundlesPartialUpdateResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ShareLinkBundlesPartialUpdateResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ShareLinkBundlesUpdateResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *ShareLinkBundle
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ShareLinkBundlesUpdateResponse) GetJSON200() *ShareLinkBundle {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r ShareLinkBundlesUpdateResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ShareLinkBundlesUpdateResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ShareLinkBundlesUpdateResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ShareLinkBundlesUpdateResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
 type ShareLinkBundlesRebuildResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -37465,82 +37067,6 @@ func (c *ClientWithResponses) ShareLinkBundlesRetrieveWithResponse(ctx context.C
 	return ParseShareLinkBundlesRetrieveResponse(rsp)
 }
 
-// ShareLinkBundlesPartialUpdateWithBodyWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request,
-// with any type of body and a specified content type.
-//
-// Pass a user object to serializer.
-//
-// Returns a wrapper object for the known response body format(s).
-func (c *ClientWithResponses) ShareLinkBundlesPartialUpdateWithBodyWithResponse(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesPartialUpdateWithBody(ctx, id, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesPartialUpdateResponse(rsp)
-}
-
-// ShareLinkBundlesPartialUpdateWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Pass a user object to serializer.
-func (c *ClientWithResponses) ShareLinkBundlesPartialUpdateWithResponse(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesPartialUpdate(ctx, id, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesPartialUpdateResponse(rsp)
-}
-
-// ShareLinkBundlesPartialUpdateWithFormdataBodyWithResponse performs a PATCH /api/share_link_bundles/{id}/ (the `ShareLinkBundlesPartialUpdate` operationId) request.
-// Takes a body of the `application/x-www-form-urlencoded` content type, and returns a wrapper object for the known response body format(s).
-//
-// Pass a user object to serializer.
-func (c *ClientWithResponses) ShareLinkBundlesPartialUpdateWithFormdataBodyWithResponse(ctx context.Context, id int, body ShareLinkBundlesPartialUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesPartialUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesPartialUpdateWithFormdataBody(ctx, id, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesPartialUpdateResponse(rsp)
-}
-
-// ShareLinkBundlesUpdateWithBodyWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request,
-// with any type of body and a specified content type.
-//
-// Pass a user object to serializer.
-//
-// Returns a wrapper object for the known response body format(s).
-func (c *ClientWithResponses) ShareLinkBundlesUpdateWithBodyWithResponse(ctx context.Context, id int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesUpdateWithBody(ctx, id, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesUpdateResponse(rsp)
-}
-
-// ShareLinkBundlesUpdateWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
-//
-// Pass a user object to serializer.
-func (c *ClientWithResponses) ShareLinkBundlesUpdateWithResponse(ctx context.Context, id int, body ShareLinkBundlesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesUpdate(ctx, id, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesUpdateResponse(rsp)
-}
-
-// ShareLinkBundlesUpdateWithFormdataBodyWithResponse performs a PUT /api/share_link_bundles/{id}/ (the `ShareLinkBundlesUpdate` operationId) request.
-// Takes a body of the `application/x-www-form-urlencoded` content type, and returns a wrapper object for the known response body format(s).
-//
-// Pass a user object to serializer.
-func (c *ClientWithResponses) ShareLinkBundlesUpdateWithFormdataBodyWithResponse(ctx context.Context, id int, body ShareLinkBundlesUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*ShareLinkBundlesUpdateResponse, error) {
-	rsp, err := c.ShareLinkBundlesUpdateWithFormdataBody(ctx, id, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseShareLinkBundlesUpdateResponse(rsp)
-}
-
 // ShareLinkBundlesRebuildWithBodyWithResponse performs a POST /api/share_link_bundles/{id}/rebuild/ (the `ShareLinkBundlesRebuild` operationId) request,
 // with any type of body and a specified content type.
 //
@@ -41545,58 +41071,6 @@ func ParseShareLinkBundlesRetrieveResponse(rsp *http.Response) (*ShareLinkBundle
 	}
 
 	response := &ShareLinkBundlesRetrieveResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ShareLinkBundle
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseShareLinkBundlesPartialUpdateResponse parses an HTTP response from a ShareLinkBundlesPartialUpdateWithResponse call
-func ParseShareLinkBundlesPartialUpdateResponse(rsp *http.Response) (*ShareLinkBundlesPartialUpdateResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ShareLinkBundlesPartialUpdateResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ShareLinkBundle
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseShareLinkBundlesUpdateResponse parses an HTTP response from a ShareLinkBundlesUpdateWithResponse call
-func ParseShareLinkBundlesUpdateResponse(rsp *http.Response) (*ShareLinkBundlesUpdateResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ShareLinkBundlesUpdateResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
