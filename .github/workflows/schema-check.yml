@@ -20,31 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
-        with:
-          go-version-file: go.mod
-          cache: true
-
-      # Paperless release images are immutable, so a regenerated schema for a
-      # given version never changes — cache it across runs so a daily cron
-      # with a stuck/unresolved intermediate version doesn't re-pull and
-      # re-run spectacular for the same versions every single day. Keyed
-      # with run_id (falling back via restore-keys) because actions/cache
-      # only auto-saves on a miss: a static key would restore fine but would
-      # never persist a run's newly-added entries back.
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          path: /tmp/schema-cache
-          key: schema-cache-${{ hashFiles('scripts/fix-schema.py') }}-${{ github.run_id }}
-          restore-keys: |
-            schema-cache-${{ hashFiles('scripts/fix-schema.py') }}-
-
       - name: Get tracked and upstream versions
         id: versions
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p /tmp/schema-cache
           echo "tracked=$(cat .paperless-version)" >> "$GITHUB_OUTPUT"
           gh api repos/paperless-ngx/paperless-ngx/releases --paginate > /tmp/releases.json
           upstream=$(python3 scripts/paperless_versions.py latest --releases /tmp/releases.json)
@@ -57,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TRACKED: ${{ steps.versions.outputs.tracked }}
         run: |
-          gh issue list --label "schema-drift" --state open --json number,title \
+          gh issue list --label "schema-drift" --state open --limit 200 --json number,title \
             --jq '.[] | [.number, .title] | @tsv' > /tmp/open-issues.tsv || touch /tmp/open-issues.tsv
           while IFS=$'\t' read -r number title; do
             [ -z "$number" ] && continue
@@ -69,6 +49,35 @@ jobs:
                 --comment "Tracked version has reached or passed \`${issue_version}\`. Closing."
             fi
           done < /tmp/open-issues.tsv
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        if: steps.versions.outputs.tracked != steps.versions.outputs.upstream
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # Paperless release images are immutable, so a regenerated schema for a
+      # given version never changes — cache it across runs so a daily cron
+      # with a stuck/unresolved intermediate version doesn't re-pull and
+      # re-run spectacular for the same versions every single day.
+      #
+      # Split into restore+save (rather than the combined `actions/cache`)
+      # so the save still runs under `if: always()` below: the combined
+      # action only saves on a successful job, so a run that dies partway
+      # through the walk (e.g. one bad upstream image) would silently lose
+      # every version it already generated, and re-pull them all again
+      # tomorrow — the exact per-day repeat problem this cache exists to
+      # avoid. Keyed with run_id (falling back via restore-keys) because a
+      # static key would restore fine but, since a save is skipped whenever
+      # the key already exists, would never pick up a run's new entries.
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        id: schema-cache
+        if: steps.versions.outputs.tracked != steps.versions.outputs.upstream
+        with:
+          path: /tmp/schema-cache
+          key: schema-cache-${{ hashFiles('scripts/fix-schema.py') }}-${{ github.run_id }}
+          restore-keys: |
+            schema-cache-${{ hashFiles('scripts/fix-schema.py') }}-
 
       # Walks every release between tracked and upstream, diffing each one
       # against the release immediately before it (never the original
@@ -86,7 +95,8 @@ jobs:
           UPSTREAM: ${{ steps.versions.outputs.upstream }}
           REPO: ${{ github.repository }}
         run: |
-          set -e
+          set -eo pipefail
+          mkdir -p /tmp/schema-cache
           OAPI_CODEGEN=$(grep -oP '(?<=OAPI_CODEGEN := ).*' Makefile)
 
           git config user.name "github-actions[bot]"
@@ -132,7 +142,9 @@ jobs:
 
           python3 scripts/paperless_versions.py walk \
             --releases /tmp/releases.json --tracked "${TRACKED}" --upstream "${UPSTREAM}" \
-          | while IFS=$'\t' read -r version prev_version; do
+            > /tmp/walk.tsv
+
+          while IFS=$'\t' read -r version prev_version; do
             echo "=== ${version} (base: ${prev_version}) ==="
             this_schema="/tmp/schema-cache/${version}.json"
             gen_schema "${version}" "$this_schema"
@@ -147,10 +159,14 @@ jobs:
             fi
             echo "Schema changed: ${prev_version} -> ${version}"
 
-            existing=$(gh issue list --label "schema-drift" --state open --json title \
+            # --state all: a closed-but-unresolved issue (e.g. someone
+            # closed it without bumping .paperless-version) still counts as
+            # handled — otherwise this would recreate the issue and
+            # force-push over its branch every day.
+            existing=$(gh issue list --label "schema-drift" --state all --limit 200 --json title \
               --jq "[.[] | select(.title == \"New Paperless-NGX release: ${version}\")] | length")
             if [ "$existing" -gt 0 ]; then
-              echo "  issue already open for ${version}, not regenerating"
+              echo "  issue already exists for ${version}, not regenerating"
               prev_schema="$this_schema"
               continue
             fi
@@ -178,4 +194,13 @@ jobs:
               --label "schema-drift"
 
             prev_schema="$this_schema"
-          done
+          done < /tmp/walk.tsv
+
+      # if: always() — a run that dies partway through the walk (one bad
+      # upstream image, a transient `gh`/docker failure) still keeps
+      # whatever it already generated, so tomorrow's run doesn't re-pull it.
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        if: always() && steps.versions.outputs.tracked != steps.versions.outputs.upstream
+        with:
+          path: /tmp/schema-cache
+          key: ${{ steps.schema-cache.outputs.cache-primary-key }}
