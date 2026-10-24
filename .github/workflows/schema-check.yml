@@ -10,12 +10,16 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
-  check:
+  plan:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      has_matrix: ${{ steps.matrix.outputs.has_matrix }}
+      tracked: ${{ steps.tracked.outputs.version }}
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -33,105 +37,188 @@ jobs:
         id: tracked
         run: echo "version=$(cat .paperless-version)" >> "$GITHUB_OUTPUT"
 
-      - name: Detect version change
-        id: compare
+      - name: Build the walk from tracked to upstream
+        id: matrix
         env:
-          UPSTREAM: ${{ steps.upstream.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TRACKED: ${{ steps.tracked.outputs.version }}
+          UPSTREAM: ${{ steps.upstream.outputs.version }}
         run: |
           echo "Tracked: ${TRACKED}  /  Upstream: ${UPSTREAM}"
           if [ "${TRACKED}" = "${UPSTREAM}" ]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "matrix={\"include\":[]}" >> "$GITHUB_OUTPUT"
+            echo "has_matrix=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          gh api repos/paperless-ngx/paperless-ngx/releases --paginate > /tmp/releases.json
+          python3 scripts/paperless_versions.py matrix \
+            --releases /tmp/releases.json --tracked "${TRACKED}" --upstream "${UPSTREAM}" \
+            > /tmp/matrix.json
+          echo "matrix=$(cat /tmp/matrix.json)" >> "$GITHUB_OUTPUT"
+          count=$(python3 -c "import json; print(len(json.load(open('/tmp/matrix.json'))['include']))")
+          echo "has_matrix=$([ "$count" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      # Once .paperless-version moves past a release, any still-open issue
+      # about it is moot — close it rather than letting it nag forever.
+      - name: Close issues for versions already caught up
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRACKED: ${{ steps.tracked.outputs.version }}
+        run: |
+          gh issue list --label "schema-drift" --state open --json number,title \
+            --jq '.[] | [.number, .title] | @tsv' > /tmp/open-issues.tsv || touch /tmp/open-issues.tsv
+          while IFS=$'\t' read -r number title; do
+            [ -z "$number" ] && continue
+            issue_version=$(echo "$title" | grep -oP 'v\d+\.\d+\.\d+' | head -1) || true
+            [ -z "$issue_version" ] && continue
+            cmp=$(python3 scripts/paperless_versions.py cmp "$issue_version" "$TRACKED") || continue
+            if [ "$cmp" -le 0 ]; then
+              gh issue close "$number" \
+                --comment "Tracked version has reached or passed \`${issue_version}\`. Closing."
+            fi
+          done < /tmp/open-issues.tsv
+
+  process:
+    needs: plan
+    if: needs.plan.outputs.has_matrix == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Skip if an open issue already covers this version
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ matrix.version }}
+        run: |
+          gh issue list --label "schema-drift" --state open --json number,title \
+            --jq '.[] | [.number, .title] | @tsv' > /tmp/open-issues.tsv || touch /tmp/open-issues.tsv
+          number=""
+          while IFS=$'\t' read -r candidate title; do
+            [ -z "$candidate" ] && continue
+            case "$title" in
+              *"$VERSION"*) number="$candidate" ;;
+            esac
+          done < /tmp/open-issues.tsv
+          if [ -n "$number" ]; then
+            gh issue comment "$number" \
+              --body "Still unresolved as of $(date -u +%Y-%m-%d)."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Full schema diff via Docker
-        id: schema_diff
-        if: steps.compare.outputs.changed == 'true'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        if: steps.existing.outputs.skip == 'false'
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Generate the previous version's schema (diff base)
+        id: prev_schema
+        if: steps.existing.outputs.skip == 'false'
         env:
-          UPSTREAM: ${{ steps.upstream.outputs.version }}
+          PREV_VERSION: ${{ matrix.prev_version }}
+          TRACKED: ${{ needs.plan.outputs.tracked }}
         run: |
-          # ghcr.io image tags drop the "v" prefix used by GitHub release tag_names.
-          IMAGE_TAG="${UPSTREAM#v}"
+          if [ "${PREV_VERSION}" = "${TRACKED}" ]; then
+            # Already the committed, patched schema — no need to regenerate it.
+            cp schema/paperless.json /tmp/prev-schema-patched.json
+          else
+            IMAGE_TAG="${PREV_VERSION#v}"
+            docker pull "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}"
+            docker run --rm \
+              --entrypoint python3 \
+              -e PAPERLESS_SECRET_KEY=changeme \
+              -e PAPERLESS_DBENGINE=sqlite \
+              "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}" \
+              /usr/src/paperless/src/manage.py spectacular \
+                --file /dev/stdout --format openapi-json 2>/dev/null \
+              > /tmp/prev-schema-raw.json
+            python3 scripts/fix-schema.py \
+              --input /tmp/prev-schema-raw.json --output /tmp/prev-schema-patched.json
+          fi
+          python3 -m json.tool /tmp/prev-schema-patched.json > /tmp/prev-schema-pretty.json
+
+      - name: Generate this version's schema
+        id: this_schema
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          VERSION: ${{ matrix.version }}
+        run: |
+          IMAGE_TAG="${VERSION#v}"
           docker pull "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}"
-          # --entrypoint python3 skips the image's s6-overlay /init, which
-          # otherwise runs full container startup (migrations, Redis wait,
-          # etc.) before our command and fails when there's no Redis/DB
-          # service attached to this one-off run.
-          set +e
           docker run --rm \
             --entrypoint python3 \
             -e PAPERLESS_SECRET_KEY=changeme \
             -e PAPERLESS_DBENGINE=sqlite \
             "ghcr.io/paperless-ngx/paperless-ngx:${IMAGE_TAG}" \
             /usr/src/paperless/src/manage.py spectacular \
-              --file /dev/stdout --format openapi-json \
-          > /tmp/new-schema-raw.json 2> /tmp/spectacular-stderr.log
-          docker_exit=$?
-          set -e
-          if [ "${docker_exit}" -ne 0 ]; then
-            echo "manage.py spectacular failed with exit code ${docker_exit}:"
-            cat /tmp/spectacular-stderr.log
-            exit 1
-          fi
+              --file /dev/stdout --format openapi-json 2>/dev/null \
+            > /tmp/this-schema-raw.json
           python3 scripts/fix-schema.py \
-            --input /tmp/new-schema-raw.json \
-            --output /tmp/new-schema-patched.json
-          # schema/paperless.json and the freshly generated file are both
-          # minified to a single line, so a line-based diff between them
-          # is just two giant lines. Pretty-print both to temp copies so
-          # the diff (and the `head -120` cap) is actually line-by-line.
-          python3 -m json.tool schema/paperless.json > /tmp/old-schema-pretty.json
-          python3 -m json.tool /tmp/new-schema-patched.json > /tmp/new-schema-pretty.json
-          diff -u /tmp/old-schema-pretty.json /tmp/new-schema-pretty.json \
-            | head -120 > /tmp/schema-diff.txt || true
-          echo "has_diff=true" >> "$GITHUB_OUTPUT"
+            --input /tmp/this-schema-raw.json --output /tmp/this-schema-patched.json
+          python3 -m json.tool /tmp/this-schema-patched.json > /tmp/this-schema-pretty.json
 
-      - name: Check for existing open drift issue
-        if: steps.compare.outputs.changed == 'true'
-        id: existing_issue
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Diff against the previous release
+        id: diff
+        if: steps.existing.outputs.skip == 'false'
         run: |
-          issue_number=$(gh issue list \
-            --label "schema-drift" \
-            --state open \
-            --json number \
-            --jq '.[0].number // empty')
-          echo "number=${issue_number}" >> "$GITHUB_OUTPUT"
+          diff -u /tmp/prev-schema-pretty.json /tmp/this-schema-pretty.json \
+            > /tmp/schema-diff.txt || true
+          if [ -s /tmp/schema-diff.txt ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Regenerate the client and push a branch for this version
+        id: branch
+        if: steps.existing.outputs.skip == 'false' && steps.diff.outputs.changed == 'true'
+        env:
+          VERSION: ${{ matrix.version }}
+        run: |
+          cp /tmp/this-schema-patched.json schema/paperless.json
+          echo "${VERSION}" > .paperless-version
+          # Keep the generator version in sync with the Makefile's own pin
+          # rather than duplicating it here.
+          OAPI_CODEGEN=$(grep -oP '(?<=OAPI_CODEGEN := ).*' Makefile)
+          ${OAPI_CODEGEN} --config oapi-codegen.yaml schema/paperless.json
+
+          branch="schema-drift/${VERSION}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add schema/paperless.json api/paperless.gen.go .paperless-version
+          git commit -m "chore: regenerate client for Paperless-NGX ${VERSION}" \
+            -m "Auto-generated by the schema-drift workflow. See the linked issue for the schema diff against the previous tracked release."
+          git push origin "$branch" --force
+          echo "branch=${branch}" >> "$GITHUB_OUTPUT"
 
       - name: Build issue body
-        if: steps.compare.outputs.changed == 'true'
+        if: steps.existing.outputs.skip == 'false' && steps.diff.outputs.changed == 'true'
         env:
-          TRACKED_VERSION: ${{ steps.tracked.outputs.version }}
-          UPSTREAM_VERSION: ${{ steps.upstream.outputs.version }}
-          HAS_DIFF: ${{ steps.schema_diff.outputs.has_diff }}
+          VERSION: ${{ matrix.version }}
+          PREV_VERSION: ${{ matrix.prev_version }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          DIFF_FILE: /tmp/schema-diff.txt
         run: python3 scripts/build-issue-body.py
 
-      - name: Create or update drift issue
-        if: steps.compare.outputs.changed == 'true'
+      - name: Create issue
+        if: steps.existing.outputs.skip == 'false' && steps.diff.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          UPSTREAM_VERSION: ${{ steps.upstream.outputs.version }}
-          EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
+          VERSION: ${{ matrix.version }}
         run: |
-          SAFE_VERSION=$(printf '%s' "$UPSTREAM_VERSION" | tr -cd '[:alnum:] ._()-')
-          if [ -n "$EXISTING_ISSUE" ]; then
-            gh issue comment "$EXISTING_ISSUE" \
-              --body "Still unresolved as of $(date -u +%Y-%m-%d). Latest upstream: \`${SAFE_VERSION}\`."
-          else
-            gh issue create \
-              --title "New Paperless-NGX release: ${SAFE_VERSION}" \
-              --body-file /tmp/issue-body.md \
-              --label "schema-drift"
-          fi
-
-      - name: Close resolved drift issue
-        if: steps.compare.outputs.changed == 'false' && steps.existing_issue.outputs.number != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EXISTING_ISSUE: ${{ steps.existing_issue.outputs.number }}
-        run: |
-          gh issue close "$EXISTING_ISSUE" \
-            --comment "Tracked version is now in sync with upstream. Closing."
+          SAFE_VERSION=$(printf '%s' "$VERSION" | tr -cd '[:alnum:] ._()-')
+          gh issue create \
+            --title "New Paperless-NGX release: ${SAFE_VERSION}" \
+            --body-file /tmp/issue-body.md \
+            --label "schema-drift"

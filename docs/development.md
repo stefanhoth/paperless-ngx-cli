@@ -70,8 +70,12 @@ make build
 - Renames response types that conflict with oapi-codegen's generated wrapper names
 - Fixes `Tag.children` — the API returns objects, but the schema declares integer IDs
 
-A daily CI workflow (`schema-check.yml`) detects new Paperless releases and opens a GitHub
-issue when the schema needs updating.
+A daily CI workflow (`schema-check.yml`) walks every Paperless release between the tracked
+version and the latest one, diffing each against the release right before it (not the original
+tracked base), and opens a separate GitHub issue for each one that actually changes the schema.
+Each issue links to a `schema-drift/vX.Y.Z` branch where the schema and generated client are
+already regenerated, so implementing it is reviewing and opening a PR, not redoing the
+Docker-pull/`spectacular`/`oapi-codegen` work.
 
 ## Releasing
 
