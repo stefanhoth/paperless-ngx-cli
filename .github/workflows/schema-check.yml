@@ -70,7 +70,7 @@ jobs:
       # avoid. Keyed with run_id (falling back via restore-keys) because a
       # static key would restore fine but, since a save is skipped whenever
       # the key already exists, would never pick up a run's new entries.
-      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: schema-cache
         if: steps.versions.outputs.tracked != steps.versions.outputs.upstream
         with:
@@ -199,7 +199,7 @@ jobs:
       # if: always() — a run that dies partway through the walk (one bad
       # upstream image, a transient `gh`/docker failure) still keeps
       # whatever it already generated, so tomorrow's run doesn't re-pull it.
-      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         if: always() && steps.versions.outputs.tracked != steps.versions.outputs.upstream
         with:
           path: /tmp/schema-cache
