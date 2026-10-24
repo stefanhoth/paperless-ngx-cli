@@ -1,6 +1,17 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [2.5.1] - 2026-10-24
+
+### Bug Fixes
+
+- **release:** Migrate homebrew cask hook to install_steps (#58)
+- **status:** Print counts without scientific notation (#59)
+
+### Features
+
+- **ci:** Open one schema-drift issue per intermediate version, with branch (#55)
+
 ## [2.5.0] - 2026-10-24
 
 ### Features
