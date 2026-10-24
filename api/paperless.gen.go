@@ -2506,11 +2506,9 @@ type MailAccount struct {
 	CharacterSet *string `json:"character_set,omitempty"`
 
 	// Expiration The expiration date of the refresh token.
-	Expiration *time.Time `json:"expiration,omitempty"`
-	Id         *int       `json:"id,omitempty"`
-
-	// ImapPort This is usually 143 for unencrypted and STARTTLS connections, and 993 for SSL connections.
-	ImapPort      *int64            `json:"imap_port,omitempty"`
+	Expiration    *time.Time        `json:"expiration,omitempty"`
+	Id            *int              `json:"id,omitempty"`
+	ImapPort      int               `json:"imap_port"`
 	ImapSecurity  *ImapSecurityEnum `json:"imap_security,omitempty"`
 	ImapServer    string            `json:"imap_server"`
 	IsToken       *bool             `json:"is_token,omitempty"`
@@ -2534,10 +2532,8 @@ type MailAccountRequest struct {
 	CharacterSet *string `json:"character_set,omitempty"`
 
 	// Expiration The expiration date of the refresh token.
-	Expiration *time.Time `json:"expiration,omitempty"`
-
-	// ImapPort This is usually 143 for unencrypted and STARTTLS connections, and 993 for SSL connections.
-	ImapPort       *int64            `json:"imap_port,omitempty"`
+	Expiration     *time.Time        `json:"expiration,omitempty"`
+	ImapPort       int               `json:"imap_port"`
 	ImapSecurity   *ImapSecurityEnum `json:"imap_security,omitempty"`
 	ImapServer     string            `json:"imap_server"`
 	IsToken        *bool             `json:"is_token,omitempty"`
@@ -3239,10 +3235,8 @@ type PatchedMailAccountRequest struct {
 	CharacterSet *string `json:"character_set,omitempty"`
 
 	// Expiration The expiration date of the refresh token.
-	Expiration *time.Time `json:"expiration,omitempty"`
-
-	// ImapPort This is usually 143 for unencrypted and STARTTLS connections, and 993 for SSL connections.
-	ImapPort       *int64            `json:"imap_port,omitempty"`
+	Expiration     *time.Time        `json:"expiration,omitempty"`
+	ImapPort       *int              `json:"imap_port,omitempty"`
 	ImapSecurity   *ImapSecurityEnum `json:"imap_security,omitempty"`
 	ImapServer     *string           `json:"imap_server,omitempty"`
 	IsToken        *bool             `json:"is_token,omitempty"`
