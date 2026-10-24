@@ -123,6 +123,147 @@ func (e AttachmentTypeEnum) Valid() bool {
 	}
 }
 
+// Defines values for BarcodeFormatEnum.
+const (
+	Aztec          BarcodeFormatEnum = "Aztec"
+	AztecCode      BarcodeFormatEnum = "AztecCode"
+	AztecRune      BarcodeFormatEnum = "AztecRune"
+	Codabar        BarcodeFormatEnum = "Codabar"
+	Code128        BarcodeFormatEnum = "Code128"
+	Code32         BarcodeFormatEnum = "Code32"
+	Code39         BarcodeFormatEnum = "Code39"
+	Code39Ext      BarcodeFormatEnum = "Code39Ext"
+	Code39Std      BarcodeFormatEnum = "Code39Std"
+	Code93         BarcodeFormatEnum = "Code93"
+	CompactPDF417  BarcodeFormatEnum = "CompactPDF417"
+	DXFilmEdge     BarcodeFormatEnum = "DXFilmEdge"
+	DataBar        BarcodeFormatEnum = "DataBar"
+	DataBarExp     BarcodeFormatEnum = "DataBarExp"
+	DataBarExpStk  BarcodeFormatEnum = "DataBarExpStk"
+	DataBarLtd     BarcodeFormatEnum = "DataBarLtd"
+	DataBarOmni    BarcodeFormatEnum = "DataBarOmni"
+	DataBarStk     BarcodeFormatEnum = "DataBarStk"
+	DataBarStkOmni BarcodeFormatEnum = "DataBarStkOmni"
+	DataMatrix     BarcodeFormatEnum = "DataMatrix"
+	EAN13          BarcodeFormatEnum = "EAN13"
+	EAN2           BarcodeFormatEnum = "EAN2"
+	EAN5           BarcodeFormatEnum = "EAN5"
+	EAN8           BarcodeFormatEnum = "EAN8"
+	EANUPC         BarcodeFormatEnum = "EANUPC"
+	ISBN           BarcodeFormatEnum = "ISBN"
+	ITF            BarcodeFormatEnum = "ITF"
+	ITF14          BarcodeFormatEnum = "ITF14"
+	MaxiCode       BarcodeFormatEnum = "MaxiCode"
+	MicroPDF417    BarcodeFormatEnum = "MicroPDF417"
+	MicroQRCode    BarcodeFormatEnum = "MicroQRCode"
+	OtherBarcode   BarcodeFormatEnum = "OtherBarcode"
+	PDF417         BarcodeFormatEnum = "PDF417"
+	PZN            BarcodeFormatEnum = "PZN"
+	QRCode         BarcodeFormatEnum = "QRCode"
+	QRCodeModel1   BarcodeFormatEnum = "QRCodeModel1"
+	QRCodeModel2   BarcodeFormatEnum = "QRCodeModel2"
+	RMQRCode       BarcodeFormatEnum = "RMQRCode"
+	Telepen        BarcodeFormatEnum = "Telepen"
+	TelepenAlpha   BarcodeFormatEnum = "TelepenAlpha"
+	TelepenNumeric BarcodeFormatEnum = "TelepenNumeric"
+	UPCA           BarcodeFormatEnum = "UPCA"
+	UPCE           BarcodeFormatEnum = "UPCE"
+)
+
+// Valid indicates whether the value is a known member of the BarcodeFormatEnum enum.
+func (e BarcodeFormatEnum) Valid() bool {
+	switch e {
+	case Aztec:
+		return true
+	case AztecCode:
+		return true
+	case AztecRune:
+		return true
+	case Codabar:
+		return true
+	case Code128:
+		return true
+	case Code32:
+		return true
+	case Code39:
+		return true
+	case Code39Ext:
+		return true
+	case Code39Std:
+		return true
+	case Code93:
+		return true
+	case CompactPDF417:
+		return true
+	case DXFilmEdge:
+		return true
+	case DataBar:
+		return true
+	case DataBarExp:
+		return true
+	case DataBarExpStk:
+		return true
+	case DataBarLtd:
+		return true
+	case DataBarOmni:
+		return true
+	case DataBarStk:
+		return true
+	case DataBarStkOmni:
+		return true
+	case DataMatrix:
+		return true
+	case EAN13:
+		return true
+	case EAN2:
+		return true
+	case EAN5:
+		return true
+	case EAN8:
+		return true
+	case EANUPC:
+		return true
+	case ISBN:
+		return true
+	case ITF:
+		return true
+	case ITF14:
+		return true
+	case MaxiCode:
+		return true
+	case MicroPDF417:
+		return true
+	case MicroQRCode:
+		return true
+	case OtherBarcode:
+		return true
+	case PDF417:
+		return true
+	case PZN:
+		return true
+	case QRCode:
+		return true
+	case QRCodeModel1:
+		return true
+	case QRCodeModel2:
+		return true
+	case RMQRCode:
+		return true
+	case Telepen:
+		return true
+	case TelepenAlpha:
+		return true
+	case TelepenNumeric:
+		return true
+	case UPCA:
+		return true
+	case UPCE:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ColorConversionStrategyEnum.
 const (
 	CMYK                      ColorConversionStrategyEnum = "CMYK"
@@ -1696,6 +1837,7 @@ type ApplicationConfiguration struct {
 	BarcodeEnableTiffSupport      *bool                                             `json:"barcode_enable_tiff_support,omitempty"`
 	BarcodeMaxPages               *int64                                            `json:"barcode_max_pages,omitempty"`
 	BarcodeRetainSplitPages       *bool                                             `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues            *bool                                             `json:"barcode_store_values,omitempty"`
 	BarcodeString                 *string                                           `json:"barcode_string,omitempty"`
 	BarcodeTagMapping             interface{}                                       `json:"barcode_tag_mapping"`
 	BarcodeTagSplit               *bool                                             `json:"barcode_tag_split,omitempty"`
@@ -1710,6 +1852,7 @@ type ApplicationConfiguration struct {
 	LlmApiKey                     *string                                           `json:"llm_api_key,omitempty"`
 	LlmBackend                    *ApplicationConfiguration_LlmBackend              `json:"llm_backend,omitempty"`
 	LlmContextSize                *int64                                            `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey            *string                                           `json:"llm_embedding_api_key,omitempty"`
 	LlmEmbeddingBackend           *ApplicationConfiguration_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
 	LlmEmbeddingChunkSize         *int64                                            `json:"llm_embedding_chunk_size,omitempty"`
 	LlmEmbeddingEndpoint          *string                                           `json:"llm_embedding_endpoint,omitempty"`
@@ -1790,6 +1933,7 @@ type ApplicationConfigurationRequest struct {
 	BarcodeEnableTiffSupport *bool                                                    `json:"barcode_enable_tiff_support,omitempty"`
 	BarcodeMaxPages          *int64                                                   `json:"barcode_max_pages,omitempty"`
 	BarcodeRetainSplitPages  *bool                                                    `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues       *bool                                                    `json:"barcode_store_values,omitempty"`
 	BarcodeString            *string                                                  `json:"barcode_string,omitempty"`
 	BarcodeTagMapping        interface{}                                              `json:"barcode_tag_mapping"`
 	BarcodeTagSplit          *bool                                                    `json:"barcode_tag_split,omitempty"`
@@ -1802,6 +1946,7 @@ type ApplicationConfigurationRequest struct {
 	LlmApiKey                *string                                                  `json:"llm_api_key,omitempty"`
 	LlmBackend               *ApplicationConfigurationRequest_LlmBackend              `json:"llm_backend,omitempty"`
 	LlmContextSize           *int64                                                   `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey       *string                                                  `json:"llm_embedding_api_key,omitempty"`
 	LlmEmbeddingBackend      *ApplicationConfigurationRequest_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
 	LlmEmbeddingChunkSize    *int64                                                   `json:"llm_embedding_chunk_size,omitempty"`
 	LlmEmbeddingEndpoint     *string                                                  `json:"llm_embedding_endpoint,omitempty"`
@@ -1896,6 +2041,51 @@ type AssignTitleFromEnum int
 // AttachmentTypeEnum * `1` - Only process attachments.
 // * `2` - Process all files, including 'inline' attachments.
 type AttachmentTypeEnum int
+
+// BarcodeFormatEnum * `Codabar` - Codabar
+// * `Code39` - Code 39
+// * `Code39Std` - Code 39 Standard
+// * `Code39Ext` - Code 39 Extended
+// * `Code32` - Code 32
+// * `PZN` - Pharmazentralnummer
+// * `Code93` - Code 93
+// * `Code128` - Code 128
+// * `ITF` - ITF
+// * `ITF14` - ITF-14
+// * `DataBar` - DataBar
+// * `DataBarOmni` - DataBar Omni
+// * `DataBarStk` - DataBar Stacked
+// * `DataBarStkOmni` - DataBar Stacked Omni
+// * `DataBarLtd` - DataBar Limited
+// * `DataBarExp` - DataBar Expanded
+// * `DataBarExpStk` - DataBar Expanded Stacked
+// * `EANUPC` - EAN/UPC
+// * `EAN13` - EAN-13
+// * `EAN8` - EAN-8
+// * `EAN5` - EAN-5
+// * `EAN2` - EAN-2
+// * `ISBN` - ISBN
+// * `UPCA` - UPC-A
+// * `UPCE` - UPC-E
+// * `Telepen` - Telepen
+// * `TelepenAlpha` - Telepen Alpha
+// * `TelepenNumeric` - Telepen Numeric
+// * `OtherBarcode` - Other barcode
+// * `DXFilmEdge` - DX Film Edge
+// * `PDF417` - PDF417
+// * `CompactPDF417` - Compact PDF417
+// * `MicroPDF417` - MicroPDF417
+// * `Aztec` - Aztec
+// * `AztecCode` - Aztec Code
+// * `AztecRune` - Aztec Rune
+// * `QRCode` - QR Code
+// * `QRCodeModel1` - QR Code Model 1
+// * `QRCodeModel2` - QR Code Model 2
+// * `MicroQRCode` - Micro QR Code
+// * `RMQRCode` - rMQR Code
+// * `DataMatrix` - Data Matrix
+// * `MaxiCode` - MaxiCode
+type BarcodeFormatEnum string
 
 // BasicUser defines model for BasicUser.
 type BasicUser struct {
@@ -2228,6 +2418,58 @@ type Document struct {
 	Title         *string                `json:"title,omitempty"`
 	UserCanChange *bool                  `json:"user_can_change,omitempty"`
 	Versions      *[]DocumentVersionInfo `json:"versions,omitempty"`
+}
+
+// DocumentBarcode defines model for DocumentBarcode.
+type DocumentBarcode struct {
+	// Format * `Codabar` - Codabar
+	// * `Code39` - Code 39
+	// * `Code39Std` - Code 39 Standard
+	// * `Code39Ext` - Code 39 Extended
+	// * `Code32` - Code 32
+	// * `PZN` - Pharmazentralnummer
+	// * `Code93` - Code 93
+	// * `Code128` - Code 128
+	// * `ITF` - ITF
+	// * `ITF14` - ITF-14
+	// * `DataBar` - DataBar
+	// * `DataBarOmni` - DataBar Omni
+	// * `DataBarStk` - DataBar Stacked
+	// * `DataBarStkOmni` - DataBar Stacked Omni
+	// * `DataBarLtd` - DataBar Limited
+	// * `DataBarExp` - DataBar Expanded
+	// * `DataBarExpStk` - DataBar Expanded Stacked
+	// * `EANUPC` - EAN/UPC
+	// * `EAN13` - EAN-13
+	// * `EAN8` - EAN-8
+	// * `EAN5` - EAN-5
+	// * `EAN2` - EAN-2
+	// * `ISBN` - ISBN
+	// * `UPCA` - UPC-A
+	// * `UPCE` - UPC-E
+	// * `Telepen` - Telepen
+	// * `TelepenAlpha` - Telepen Alpha
+	// * `TelepenNumeric` - Telepen Numeric
+	// * `OtherBarcode` - Other barcode
+	// * `DXFilmEdge` - DX Film Edge
+	// * `PDF417` - PDF417
+	// * `CompactPDF417` - Compact PDF417
+	// * `MicroPDF417` - MicroPDF417
+	// * `Aztec` - Aztec
+	// * `AztecCode` - Aztec Code
+	// * `AztecRune` - Aztec Rune
+	// * `QRCode` - QR Code
+	// * `QRCodeModel1` - QR Code Model 1
+	// * `QRCodeModel2` - QR Code Model 2
+	// * `MicroQRCode` - Micro QR Code
+	// * `RMQRCode` - rMQR Code
+	// * `DataMatrix` - Data Matrix
+	// * `MaxiCode` - MaxiCode
+	Format BarcodeFormatEnum `json:"format"`
+
+	// Page Page of the original file, starting at 1
+	Page  int64  `json:"page"`
+	Value string `json:"value"`
 }
 
 // DocumentRequest Adds update nested feature
@@ -2671,6 +2913,7 @@ type Metadata struct {
 	ArchiveMediaFilename *string                 `json:"archive_media_filename,omitempty"`
 	ArchiveMetadata      *[]ArchiveMetadataEntry `json:"archive_metadata,omitempty"`
 	ArchiveSize          *int                    `json:"archive_size,omitempty"`
+	Barcodes             []DocumentBarcode       `json:"barcodes"`
 	HasArchiveVersion    bool                    `json:"has_archive_version"`
 	Lang                 string                  `json:"lang"`
 	MediaFilename        string                  `json:"media_filename"`
@@ -3013,6 +3256,7 @@ type PatchedApplicationConfigurationRequest struct {
 	BarcodeEnableTiffSupport *bool                                                           `json:"barcode_enable_tiff_support,omitempty"`
 	BarcodeMaxPages          *int64                                                          `json:"barcode_max_pages,omitempty"`
 	BarcodeRetainSplitPages  *bool                                                           `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues       *bool                                                           `json:"barcode_store_values,omitempty"`
 	BarcodeString            *string                                                         `json:"barcode_string,omitempty"`
 	BarcodeTagMapping        interface{}                                                     `json:"barcode_tag_mapping,omitempty"`
 	BarcodeTagSplit          *bool                                                           `json:"barcode_tag_split,omitempty"`
@@ -3025,6 +3269,7 @@ type PatchedApplicationConfigurationRequest struct {
 	LlmApiKey                *string                                                         `json:"llm_api_key,omitempty"`
 	LlmBackend               *PatchedApplicationConfigurationRequest_LlmBackend              `json:"llm_backend,omitempty"`
 	LlmContextSize           *int64                                                          `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey       *string                                                         `json:"llm_embedding_api_key,omitempty"`
 	LlmEmbeddingBackend      *PatchedApplicationConfigurationRequest_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
 	LlmEmbeddingChunkSize    *int64                                                          `json:"llm_embedding_chunk_size,omitempty"`
 	LlmEmbeddingEndpoint     *string                                                         `json:"llm_embedding_endpoint,omitempty"`
