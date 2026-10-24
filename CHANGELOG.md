@@ -1,6 +1,12 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [2.5.0] - 2026-10-24
+
+### Features
+
+- Update generated client for Paperless-NGX v3.3.0 (#51)
+
 ## [2.4.0] - 2026-10-24
 
 ### Bug Fixes
