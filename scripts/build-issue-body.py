@@ -70,12 +70,13 @@ Direct links to the regenerated files on that branch:
 - [`api/paperless.gen.go`]({raw_base}/api/paperless.gen.go)
 - [`.paperless-version`]({raw_base}/.paperless-version)
 
-> **Heads up if other schema-drift issues are open too:** each branch is cut \
-from `main` independently, so if an earlier version's PR merges first, this \
-branch will show a conflict on the generated files when you go to merge it — \
-resolve it by merging `main` in and re-running `make generate-docker VERSION={version}` \
-(never by hand-editing the generated files), the same way the predecessor \
-release was handled.
+> **Heads up if other schema-drift issues are open too:** the *diff above* is \
+against `{prev_version}` (the immediately preceding release), but this \
+*branch* is cut from `main` as it stands today — so if an earlier version's \
+PR merges first, this branch will show a conflict on the generated files when \
+you go to merge it. Resolve it by merging `main` in and re-running \
+`make generate-docker VERSION={version}` (never by hand-editing the generated \
+files), the same way the predecessor release was handled.
 
 **Detected:** {today}
 """

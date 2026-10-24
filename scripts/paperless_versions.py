@@ -2,14 +2,18 @@
 """Version-ordering helpers for the schema-drift workflow.
 
 Subcommands:
-  matrix --releases <file> --tracked <vX.Y.Z> --upstream <vX.Y.Z>
+  latest --releases <file>
       Reads a GitHub releases API response (JSON array, as from
       `gh api repos/paperless-ngx/paperless-ngx/releases --paginate`),
-      drops drafts/prereleases and non-`vMAJOR.MINOR.PATCH` tags, sorts
-      the rest by semver, and prints a JSON {"include": [...]} matrix
-      of every release strictly after `tracked` up to and including
-      `upstream`, each paired with the release immediately before it
-      in that sorted list (its diff base).
+      drops drafts/prereleases and non-`vMAJOR.MINOR.PATCH` tags, and
+      prints the highest remaining tag by semver. Avoids a separate
+      call to the /releases/latest endpoint.
+
+  walk --releases <file> --tracked <vX.Y.Z> --upstream <vX.Y.Z>
+      From the same releases list, prints one `version<TAB>prev_version`
+      line per release strictly after `tracked` up to and including
+      `upstream`, in order, each paired with the release immediately
+      before it in the sorted list (its diff base).
 
   cmp <vX.Y.Z> <vX.Y.Z>
       Prints -1, 0, or 1 (by semver, independent of any releases
@@ -43,7 +47,15 @@ def load_releases(path: str) -> list[str]:
     return [tag for _, tag in parsed]
 
 
-def cmd_matrix(args: argparse.Namespace) -> None:
+def cmd_latest(args: argparse.Namespace) -> None:
+    versions = load_releases(args.releases)
+    if not versions:
+        print("no stable vMAJOR.MINOR.PATCH releases found", file=sys.stderr)
+        sys.exit(1)
+    print(versions[-1])
+
+
+def cmd_walk(args: argparse.Namespace) -> None:
     versions = load_releases(args.releases)
     for label, tag in (("tracked", args.tracked), ("upstream", args.upstream)):
         if tag not in versions:
@@ -52,11 +64,8 @@ def cmd_matrix(args: argparse.Namespace) -> None:
 
     start = versions.index(args.tracked)
     end = versions.index(args.upstream)
-    include = [
-        {"version": versions[i], "prev_version": versions[i - 1]}
-        for i in range(start + 1, end + 1)
-    ]
-    json.dump({"include": include}, sys.stdout)
+    for i in range(start + 1, end + 1):
+        print(f"{versions[i]}\t{versions[i - 1]}")
 
 
 def cmd_cmp(args: argparse.Namespace) -> None:
@@ -71,11 +80,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    matrix_parser = sub.add_parser("matrix")
-    matrix_parser.add_argument("--releases", required=True)
-    matrix_parser.add_argument("--tracked", required=True)
-    matrix_parser.add_argument("--upstream", required=True)
-    matrix_parser.set_defaults(func=cmd_matrix)
+    latest_parser = sub.add_parser("latest")
+    latest_parser.add_argument("--releases", required=True)
+    latest_parser.set_defaults(func=cmd_latest)
+
+    walk_parser = sub.add_parser("walk")
+    walk_parser.add_argument("--releases", required=True)
+    walk_parser.add_argument("--tracked", required=True)
+    walk_parser.add_argument("--upstream", required=True)
+    walk_parser.set_defaults(func=cmd_walk)
 
     cmp_parser = sub.add_parser("cmp")
     cmp_parser.add_argument("v1")
