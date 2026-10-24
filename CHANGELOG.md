@@ -1,6 +1,16 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [2.4.0] - 2026-10-24
+
+### Bug Fixes
+
+- **deps:** Update module github.com/oapi-codegen/runtime to v1.8.0 (#47)
+
+### Features
+
+- Update generated client for Paperless-NGX v3.2.0 (#50)
+
 ## [2.3.0] - 2026-10-24
 
 ### Features
