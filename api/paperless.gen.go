@@ -123,6 +123,147 @@ func (e AttachmentTypeEnum) Valid() bool {
 	}
 }
 
+// Defines values for BarcodeFormatEnum.
+const (
+	Aztec          BarcodeFormatEnum = "Aztec"
+	AztecCode      BarcodeFormatEnum = "AztecCode"
+	AztecRune      BarcodeFormatEnum = "AztecRune"
+	Codabar        BarcodeFormatEnum = "Codabar"
+	Code128        BarcodeFormatEnum = "Code128"
+	Code32         BarcodeFormatEnum = "Code32"
+	Code39         BarcodeFormatEnum = "Code39"
+	Code39Ext      BarcodeFormatEnum = "Code39Ext"
+	Code39Std      BarcodeFormatEnum = "Code39Std"
+	Code93         BarcodeFormatEnum = "Code93"
+	CompactPDF417  BarcodeFormatEnum = "CompactPDF417"
+	DXFilmEdge     BarcodeFormatEnum = "DXFilmEdge"
+	DataBar        BarcodeFormatEnum = "DataBar"
+	DataBarExp     BarcodeFormatEnum = "DataBarExp"
+	DataBarExpStk  BarcodeFormatEnum = "DataBarExpStk"
+	DataBarLtd     BarcodeFormatEnum = "DataBarLtd"
+	DataBarOmni    BarcodeFormatEnum = "DataBarOmni"
+	DataBarStk     BarcodeFormatEnum = "DataBarStk"
+	DataBarStkOmni BarcodeFormatEnum = "DataBarStkOmni"
+	DataMatrix     BarcodeFormatEnum = "DataMatrix"
+	EAN13          BarcodeFormatEnum = "EAN13"
+	EAN2           BarcodeFormatEnum = "EAN2"
+	EAN5           BarcodeFormatEnum = "EAN5"
+	EAN8           BarcodeFormatEnum = "EAN8"
+	EANUPC         BarcodeFormatEnum = "EANUPC"
+	ISBN           BarcodeFormatEnum = "ISBN"
+	ITF            BarcodeFormatEnum = "ITF"
+	ITF14          BarcodeFormatEnum = "ITF14"
+	MaxiCode       BarcodeFormatEnum = "MaxiCode"
+	MicroPDF417    BarcodeFormatEnum = "MicroPDF417"
+	MicroQRCode    BarcodeFormatEnum = "MicroQRCode"
+	OtherBarcode   BarcodeFormatEnum = "OtherBarcode"
+	PDF417         BarcodeFormatEnum = "PDF417"
+	PZN            BarcodeFormatEnum = "PZN"
+	QRCode         BarcodeFormatEnum = "QRCode"
+	QRCodeModel1   BarcodeFormatEnum = "QRCodeModel1"
+	QRCodeModel2   BarcodeFormatEnum = "QRCodeModel2"
+	RMQRCode       BarcodeFormatEnum = "RMQRCode"
+	Telepen        BarcodeFormatEnum = "Telepen"
+	TelepenAlpha   BarcodeFormatEnum = "TelepenAlpha"
+	TelepenNumeric BarcodeFormatEnum = "TelepenNumeric"
+	UPCA           BarcodeFormatEnum = "UPCA"
+	UPCE           BarcodeFormatEnum = "UPCE"
+)
+
+// Valid indicates whether the value is a known member of the BarcodeFormatEnum enum.
+func (e BarcodeFormatEnum) Valid() bool {
+	switch e {
+	case Aztec:
+		return true
+	case AztecCode:
+		return true
+	case AztecRune:
+		return true
+	case Codabar:
+		return true
+	case Code128:
+		return true
+	case Code32:
+		return true
+	case Code39:
+		return true
+	case Code39Ext:
+		return true
+	case Code39Std:
+		return true
+	case Code93:
+		return true
+	case CompactPDF417:
+		return true
+	case DXFilmEdge:
+		return true
+	case DataBar:
+		return true
+	case DataBarExp:
+		return true
+	case DataBarExpStk:
+		return true
+	case DataBarLtd:
+		return true
+	case DataBarOmni:
+		return true
+	case DataBarStk:
+		return true
+	case DataBarStkOmni:
+		return true
+	case DataMatrix:
+		return true
+	case EAN13:
+		return true
+	case EAN2:
+		return true
+	case EAN5:
+		return true
+	case EAN8:
+		return true
+	case EANUPC:
+		return true
+	case ISBN:
+		return true
+	case ITF:
+		return true
+	case ITF14:
+		return true
+	case MaxiCode:
+		return true
+	case MicroPDF417:
+		return true
+	case MicroQRCode:
+		return true
+	case OtherBarcode:
+		return true
+	case PDF417:
+		return true
+	case PZN:
+		return true
+	case QRCode:
+		return true
+	case QRCodeModel1:
+		return true
+	case QRCodeModel2:
+		return true
+	case RMQRCode:
+		return true
+	case Telepen:
+		return true
+	case TelepenAlpha:
+		return true
+	case TelepenNumeric:
+		return true
+	case UPCA:
+		return true
+	case UPCE:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ColorConversionStrategyEnum.
 const (
 	CMYK                      ColorConversionStrategyEnum = "CMYK"
@@ -861,6 +1002,7 @@ const (
 	RuleTypeEnumN48 RuleTypeEnum = 48
 	RuleTypeEnumN49 RuleTypeEnum = 49
 	RuleTypeEnumN5  RuleTypeEnum = 5
+	RuleTypeEnumN50 RuleTypeEnum = 50
 	RuleTypeEnumN6  RuleTypeEnum = 6
 	RuleTypeEnumN7  RuleTypeEnum = 7
 	RuleTypeEnumN8  RuleTypeEnum = 8
@@ -961,6 +1103,8 @@ func (e RuleTypeEnum) Valid() bool {
 	case RuleTypeEnumN49:
 		return true
 	case RuleTypeEnumN5:
+		return true
+	case RuleTypeEnumN50:
 		return true
 	case RuleTypeEnumN6:
 		return true
@@ -1682,50 +1826,53 @@ type Actor struct {
 
 // ApplicationConfiguration defines model for ApplicationConfiguration.
 type ApplicationConfiguration struct {
-	AiEnabled                *bool                                             `json:"ai_enabled,omitempty"`
-	AppLogo                  *string                                           `json:"app_logo,omitempty"`
-	AppTitle                 *string                                           `json:"app_title,omitempty"`
-	ArchiveFileGeneration    *ApplicationConfiguration_ArchiveFileGeneration   `json:"archive_file_generation,omitempty"`
-	BarcodeAsnPrefix         *string                                           `json:"barcode_asn_prefix,omitempty"`
-	BarcodeDpi               *int64                                            `json:"barcode_dpi,omitempty"`
-	BarcodeEnableAsn         *bool                                             `json:"barcode_enable_asn,omitempty"`
-	BarcodeEnableTag         *bool                                             `json:"barcode_enable_tag,omitempty"`
-	BarcodeEnableTiffSupport *bool                                             `json:"barcode_enable_tiff_support,omitempty"`
-	BarcodeMaxPages          *int64                                            `json:"barcode_max_pages,omitempty"`
-	BarcodeRetainSplitPages  *bool                                             `json:"barcode_retain_split_pages,omitempty"`
-	BarcodeString            *string                                           `json:"barcode_string,omitempty"`
-	BarcodeTagMapping        interface{}                                       `json:"barcode_tag_mapping"`
-	BarcodeTagSplit          *bool                                             `json:"barcode_tag_split,omitempty"`
-	BarcodeUpscale           *float64                                          `json:"barcode_upscale,omitempty"`
-	BarcodesEnabled          *bool                                             `json:"barcodes_enabled,omitempty"`
-	ColorConversionStrategy  *ApplicationConfiguration_ColorConversionStrategy `json:"color_conversion_strategy,omitempty"`
-	Deskew                   *bool                                             `json:"deskew,omitempty"`
-	Id                       *int                                              `json:"id,omitempty"`
-	ImageDpi                 *int64                                            `json:"image_dpi,omitempty"`
-	Language                 *string                                           `json:"language,omitempty"`
-	LlmApiKey                *string                                           `json:"llm_api_key,omitempty"`
-	LlmBackend               *ApplicationConfiguration_LlmBackend              `json:"llm_backend,omitempty"`
-	LlmContextSize           *int64                                            `json:"llm_context_size,omitempty"`
-	LlmEmbeddingBackend      *ApplicationConfiguration_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
-	LlmEmbeddingChunkSize    *int64                                            `json:"llm_embedding_chunk_size,omitempty"`
-	LlmEmbeddingEndpoint     *string                                           `json:"llm_embedding_endpoint,omitempty"`
-	LlmEmbeddingModel        *string                                           `json:"llm_embedding_model,omitempty"`
-	LlmEndpoint              *string                                           `json:"llm_endpoint,omitempty"`
-	LlmModel                 *string                                           `json:"llm_model,omitempty"`
-	LlmOutputLanguage        *string                                           `json:"llm_output_language,omitempty"`
-	LlmRequestTimeout        *int64                                            `json:"llm_request_timeout,omitempty"`
-	MaxImagePixels           *float64                                          `json:"max_image_pixels,omitempty"`
-	Mode                     *ApplicationConfiguration_Mode                    `json:"mode,omitempty"`
-	OutputType               *ApplicationConfiguration_OutputType              `json:"output_type,omitempty"`
-	Pages                    *int64                                            `json:"pages,omitempty"`
-	RemoteOcrApiKey          *string                                           `json:"remote_ocr_api_key,omitempty"`
-	RemoteOcrEndpoint        *string                                           `json:"remote_ocr_endpoint,omitempty"`
-	RemoteOcrEngine          *ApplicationConfiguration_RemoteOcrEngine         `json:"remote_ocr_engine,omitempty"`
-	RemoteOcrMode            *ApplicationConfiguration_RemoteOcrMode           `json:"remote_ocr_mode,omitempty"`
-	RotatePages              *bool                                             `json:"rotate_pages,omitempty"`
-	RotatePagesThreshold     *float64                                          `json:"rotate_pages_threshold,omitempty"`
-	UnpaperClean             *ApplicationConfiguration_UnpaperClean            `json:"unpaper_clean,omitempty"`
-	UserArgs                 interface{}                                       `json:"user_args"`
+	AiEnabled                     *bool                                             `json:"ai_enabled,omitempty"`
+	AppLogo                       *string                                           `json:"app_logo,omitempty"`
+	AppTitle                      *string                                           `json:"app_title,omitempty"`
+	ArchiveFileGeneration         *ApplicationConfiguration_ArchiveFileGeneration   `json:"archive_file_generation,omitempty"`
+	BarcodeAsnPrefix              *string                                           `json:"barcode_asn_prefix,omitempty"`
+	BarcodeDpi                    *int64                                            `json:"barcode_dpi,omitempty"`
+	BarcodeEnableAsn              *bool                                             `json:"barcode_enable_asn,omitempty"`
+	BarcodeEnableTag              *bool                                             `json:"barcode_enable_tag,omitempty"`
+	BarcodeEnableTiffSupport      *bool                                             `json:"barcode_enable_tiff_support,omitempty"`
+	BarcodeMaxPages               *int64                                            `json:"barcode_max_pages,omitempty"`
+	BarcodeRetainSplitPages       *bool                                             `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues            *bool                                             `json:"barcode_store_values,omitempty"`
+	BarcodeString                 *string                                           `json:"barcode_string,omitempty"`
+	BarcodeTagMapping             interface{}                                       `json:"barcode_tag_mapping"`
+	BarcodeTagSplit               *bool                                             `json:"barcode_tag_split,omitempty"`
+	BarcodeUpscale                *float64                                          `json:"barcode_upscale,omitempty"`
+	BarcodesEnabled               *bool                                             `json:"barcodes_enabled,omitempty"`
+	ColorConversionStrategy       *ApplicationConfiguration_ColorConversionStrategy `json:"color_conversion_strategy,omitempty"`
+	Deskew                        *bool                                             `json:"deskew,omitempty"`
+	ExternallyConfiguredVariables *[]string                                         `json:"externally_configured_variables,omitempty"`
+	Id                            *int                                              `json:"id,omitempty"`
+	ImageDpi                      *int64                                            `json:"image_dpi,omitempty"`
+	Language                      *string                                           `json:"language,omitempty"`
+	LlmApiKey                     *string                                           `json:"llm_api_key,omitempty"`
+	LlmBackend                    *ApplicationConfiguration_LlmBackend              `json:"llm_backend,omitempty"`
+	LlmContextSize                *int64                                            `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey            *string                                           `json:"llm_embedding_api_key,omitempty"`
+	LlmEmbeddingBackend           *ApplicationConfiguration_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
+	LlmEmbeddingChunkSize         *int64                                            `json:"llm_embedding_chunk_size,omitempty"`
+	LlmEmbeddingEndpoint          *string                                           `json:"llm_embedding_endpoint,omitempty"`
+	LlmEmbeddingModel             *string                                           `json:"llm_embedding_model,omitempty"`
+	LlmEndpoint                   *string                                           `json:"llm_endpoint,omitempty"`
+	LlmModel                      *string                                           `json:"llm_model,omitempty"`
+	LlmOutputLanguage             *string                                           `json:"llm_output_language,omitempty"`
+	LlmRequestTimeout             *int64                                            `json:"llm_request_timeout,omitempty"`
+	MaxImagePixels                *float64                                          `json:"max_image_pixels,omitempty"`
+	Mode                          *ApplicationConfiguration_Mode                    `json:"mode,omitempty"`
+	OutputType                    *ApplicationConfiguration_OutputType              `json:"output_type,omitempty"`
+	Pages                         *int64                                            `json:"pages,omitempty"`
+	RemoteOcrApiKey               *string                                           `json:"remote_ocr_api_key,omitempty"`
+	RemoteOcrEndpoint             *string                                           `json:"remote_ocr_endpoint,omitempty"`
+	RemoteOcrEngine               *ApplicationConfiguration_RemoteOcrEngine         `json:"remote_ocr_engine,omitempty"`
+	RemoteOcrMode                 *ApplicationConfiguration_RemoteOcrMode           `json:"remote_ocr_mode,omitempty"`
+	RotatePages                   *bool                                             `json:"rotate_pages,omitempty"`
+	RotatePagesThreshold          *float64                                          `json:"rotate_pages_threshold,omitempty"`
+	UnpaperClean                  *ApplicationConfiguration_UnpaperClean            `json:"unpaper_clean,omitempty"`
+	UserArgs                      interface{}                                       `json:"user_args"`
 }
 
 // ApplicationConfiguration_ArchiveFileGeneration defines model for ApplicationConfiguration.ArchiveFileGeneration.
@@ -1786,6 +1933,7 @@ type ApplicationConfigurationRequest struct {
 	BarcodeEnableTiffSupport *bool                                                    `json:"barcode_enable_tiff_support,omitempty"`
 	BarcodeMaxPages          *int64                                                   `json:"barcode_max_pages,omitempty"`
 	BarcodeRetainSplitPages  *bool                                                    `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues       *bool                                                    `json:"barcode_store_values,omitempty"`
 	BarcodeString            *string                                                  `json:"barcode_string,omitempty"`
 	BarcodeTagMapping        interface{}                                              `json:"barcode_tag_mapping"`
 	BarcodeTagSplit          *bool                                                    `json:"barcode_tag_split,omitempty"`
@@ -1798,6 +1946,7 @@ type ApplicationConfigurationRequest struct {
 	LlmApiKey                *string                                                  `json:"llm_api_key,omitempty"`
 	LlmBackend               *ApplicationConfigurationRequest_LlmBackend              `json:"llm_backend,omitempty"`
 	LlmContextSize           *int64                                                   `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey       *string                                                  `json:"llm_embedding_api_key,omitempty"`
 	LlmEmbeddingBackend      *ApplicationConfigurationRequest_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
 	LlmEmbeddingChunkSize    *int64                                                   `json:"llm_embedding_chunk_size,omitempty"`
 	LlmEmbeddingEndpoint     *string                                                  `json:"llm_embedding_endpoint,omitempty"`
@@ -1893,6 +2042,51 @@ type AssignTitleFromEnum int
 // * `2` - Process all files, including 'inline' attachments.
 type AttachmentTypeEnum int
 
+// BarcodeFormatEnum * `Codabar` - Codabar
+// * `Code39` - Code 39
+// * `Code39Std` - Code 39 Standard
+// * `Code39Ext` - Code 39 Extended
+// * `Code32` - Code 32
+// * `PZN` - Pharmazentralnummer
+// * `Code93` - Code 93
+// * `Code128` - Code 128
+// * `ITF` - ITF
+// * `ITF14` - ITF-14
+// * `DataBar` - DataBar
+// * `DataBarOmni` - DataBar Omni
+// * `DataBarStk` - DataBar Stacked
+// * `DataBarStkOmni` - DataBar Stacked Omni
+// * `DataBarLtd` - DataBar Limited
+// * `DataBarExp` - DataBar Expanded
+// * `DataBarExpStk` - DataBar Expanded Stacked
+// * `EANUPC` - EAN/UPC
+// * `EAN13` - EAN-13
+// * `EAN8` - EAN-8
+// * `EAN5` - EAN-5
+// * `EAN2` - EAN-2
+// * `ISBN` - ISBN
+// * `UPCA` - UPC-A
+// * `UPCE` - UPC-E
+// * `Telepen` - Telepen
+// * `TelepenAlpha` - Telepen Alpha
+// * `TelepenNumeric` - Telepen Numeric
+// * `OtherBarcode` - Other barcode
+// * `DXFilmEdge` - DX Film Edge
+// * `PDF417` - PDF417
+// * `CompactPDF417` - Compact PDF417
+// * `MicroPDF417` - MicroPDF417
+// * `Aztec` - Aztec
+// * `AztecCode` - Aztec Code
+// * `AztecRune` - Aztec Rune
+// * `QRCode` - QR Code
+// * `QRCodeModel1` - QR Code Model 1
+// * `QRCodeModel2` - QR Code Model 2
+// * `MicroQRCode` - Micro QR Code
+// * `RMQRCode` - rMQR Code
+// * `DataMatrix` - Data Matrix
+// * `MaxiCode` - MaxiCode
+type BarcodeFormatEnum string
+
 // BasicUser defines model for BasicUser.
 type BasicUser struct {
 	FirstName *string `json:"first_name,omitempty"`
@@ -1919,12 +2113,13 @@ type BulkDeleteMailResponse struct {
 
 // BulkDownloadRequest defines model for BulkDownloadRequest.
 type BulkDownloadRequest struct {
-	All              *bool                   `json:"all,omitempty"`
-	Compression      *CompressionEnum        `json:"compression,omitempty"`
-	Content          *ContentEnum            `json:"content,omitempty"`
-	Documents        *[]int                  `json:"documents,omitempty"`
-	Filters          *map[string]interface{} `json:"filters,omitempty"`
-	FollowFormatting *bool                   `json:"follow_formatting,omitempty"`
+	All               *bool                   `json:"all,omitempty"`
+	Compression       *CompressionEnum        `json:"compression,omitempty"`
+	Content           *ContentEnum            `json:"content,omitempty"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
+	FollowFormatting  *bool                   `json:"follow_formatting,omitempty"`
 }
 
 // BulkEditDocumentsResult defines model for BulkEditDocumentsResult.
@@ -1941,17 +2136,18 @@ type BulkEditObjectsRequest struct {
 	Objects     *[]int                  `json:"objects,omitempty"`
 	Operation   *OperationEnum          `json:"operation,omitempty"`
 	Owner       *int                    `json:"owner,omitempty"`
-	Permissions *map[string]interface{} `json:"permissions,omitempty"`
+	Permissions *SetPermissionsRequest  `json:"permissions,omitempty"`
 }
 
 // BulkEditRequest defines model for BulkEditRequest.
 type BulkEditRequest struct {
-	All        *bool                   `json:"all,omitempty"`
-	Documents  *[]int                  `json:"documents,omitempty"`
-	Filters    *map[string]interface{} `json:"filters,omitempty"`
-	FromWebui  *bool                   `json:"from_webui,omitempty"`
-	Method     *MethodEnum             `json:"method,omitempty"`
-	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+	All               *bool                   `json:"all,omitempty"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
+	FromWebui         *bool                   `json:"from_webui,omitempty"`
+	Method            *MethodEnum             `json:"method,omitempty"`
+	Parameters        *map[string]interface{} `json:"parameters,omitempty"`
 }
 
 // BulkEditResult defines model for BulkEditResult.
@@ -2033,21 +2229,12 @@ type CorrespondentCounts struct {
 
 // CorrespondentRequest defines model for CorrespondentRequest.
 type CorrespondentRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              string             `json:"name"`
-	Owner             *int               `json:"owner,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              string                 `json:"name"`
+	Owner             *int                   `json:"owner,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // CustomField defines model for CustomField.
@@ -2173,9 +2360,10 @@ type Database struct {
 
 // DeleteDocumentsRequest defines model for DeleteDocumentsRequest.
 type DeleteDocumentsRequest struct {
-	All       *bool                   `json:"all,omitempty"`
-	Documents *[]int                  `json:"documents,omitempty"`
-	Filters   *map[string]interface{} `json:"filters,omitempty"`
+	All               *bool                   `json:"all,omitempty"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
 }
 
 // DeleteDocumentsResult defines model for DeleteDocumentsResult.
@@ -2232,9 +2420,56 @@ type Document struct {
 	Versions      *[]DocumentVersionInfo `json:"versions,omitempty"`
 }
 
-// DocumentListRequest defines model for DocumentListRequest.
-type DocumentListRequest struct {
-	Documents *[]int `json:"documents,omitempty"`
+// DocumentBarcode defines model for DocumentBarcode.
+type DocumentBarcode struct {
+	// Format * `Codabar` - Codabar
+	// * `Code39` - Code 39
+	// * `Code39Std` - Code 39 Standard
+	// * `Code39Ext` - Code 39 Extended
+	// * `Code32` - Code 32
+	// * `PZN` - Pharmazentralnummer
+	// * `Code93` - Code 93
+	// * `Code128` - Code 128
+	// * `ITF` - ITF
+	// * `ITF14` - ITF-14
+	// * `DataBar` - DataBar
+	// * `DataBarOmni` - DataBar Omni
+	// * `DataBarStk` - DataBar Stacked
+	// * `DataBarStkOmni` - DataBar Stacked Omni
+	// * `DataBarLtd` - DataBar Limited
+	// * `DataBarExp` - DataBar Expanded
+	// * `DataBarExpStk` - DataBar Expanded Stacked
+	// * `EANUPC` - EAN/UPC
+	// * `EAN13` - EAN-13
+	// * `EAN8` - EAN-8
+	// * `EAN5` - EAN-5
+	// * `EAN2` - EAN-2
+	// * `ISBN` - ISBN
+	// * `UPCA` - UPC-A
+	// * `UPCE` - UPC-E
+	// * `Telepen` - Telepen
+	// * `TelepenAlpha` - Telepen Alpha
+	// * `TelepenNumeric` - Telepen Numeric
+	// * `OtherBarcode` - Other barcode
+	// * `DXFilmEdge` - DX Film Edge
+	// * `PDF417` - PDF417
+	// * `CompactPDF417` - Compact PDF417
+	// * `MicroPDF417` - MicroPDF417
+	// * `Aztec` - Aztec
+	// * `AztecCode` - Aztec Code
+	// * `AztecRune` - Aztec Rune
+	// * `QRCode` - QR Code
+	// * `QRCodeModel1` - QR Code Model 1
+	// * `QRCodeModel2` - QR Code Model 2
+	// * `MicroQRCode` - Micro QR Code
+	// * `RMQRCode` - rMQR Code
+	// * `DataMatrix` - Data Matrix
+	// * `MaxiCode` - MaxiCode
+	Format BarcodeFormatEnum `json:"format"`
+
+	// Page Page of the original file, starting at 1
+	Page  int64  `json:"page"`
+	Value string `json:"value"`
 }
 
 // DocumentRequest Adds update nested feature
@@ -2249,28 +2484,26 @@ type DocumentRequest struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	CreatedDate     *openapi_types.Date           `json:"created_date,omitempty"`
 	CustomFields    *[]CustomFieldInstanceRequest `json:"custom_fields,omitempty"`
-	DeletedAt       *time.Time                    `json:"deleted_at,omitempty"`
 	DocumentType    *int                          `json:"document_type"`
 	Owner           *int                          `json:"owner,omitempty"`
 	RemoveInboxTags *bool                         `json:"remove_inbox_tags,omitempty"`
-	SetPermissions  *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	StoragePath *int    `json:"storage_path"`
-	Tags        []int   `json:"tags"`
-	Title       *string `json:"title,omitempty"`
+	SetPermissions  *SetPermissionsRequest        `json:"set_permissions,omitempty"`
+	StoragePath     *int                          `json:"storage_path"`
+	Tags            []int                         `json:"tags"`
+	Title           *string                       `json:"title,omitempty"`
 }
 
 // DocumentRootResponse defines model for DocumentRootResponse.
 type DocumentRootResponse struct {
 	RootId int `json:"root_id"`
+}
+
+// DocumentSelectionRequest defines model for DocumentSelectionRequest.
+type DocumentSelectionRequest struct {
+	All               *bool                   `json:"all,omitempty"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
 }
 
 // DocumentType defines model for DocumentType.
@@ -2304,21 +2537,12 @@ type DocumentTypeCounts struct {
 
 // DocumentTypeRequest defines model for DocumentTypeRequest.
 type DocumentTypeRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              string             `json:"name"`
-	Owner             *int               `json:"owner,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              string                 `json:"name"`
+	Owner             *int                   `json:"owner,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // DocumentVersionInfo defines model for DocumentVersionInfo.
@@ -2345,13 +2569,13 @@ type DuplicateDocumentSummary struct {
 
 // EditPdfDocumentsRequest defines model for EditPdfDocumentsRequest.
 type EditPdfDocumentsRequest struct {
-	DeleteOriginal  *bool         `json:"delete_original,omitempty"`
-	Documents       *[]int        `json:"documents,omitempty"`
-	FromWebui       *bool         `json:"from_webui,omitempty"`
-	IncludeMetadata *bool         `json:"include_metadata,omitempty"`
-	Operations      []interface{} `json:"operations"`
-	SourceMode      *string       `json:"source_mode,omitempty"`
-	UpdateDocument  *bool         `json:"update_document,omitempty"`
+	DeleteOriginal  *bool                     `json:"delete_original,omitempty"`
+	Documents       *[]int                    `json:"documents,omitempty"`
+	FromWebui       *bool                     `json:"from_webui,omitempty"`
+	IncludeMetadata *bool                     `json:"include_metadata,omitempty"`
+	Operations      []PdfEditOperationRequest `json:"operations"`
+	SourceMode      *string                   `json:"source_mode,omitempty"`
+	UpdateDocument  *bool                     `json:"update_document,omitempty"`
 }
 
 // EditPdfDocumentsResult defines model for EditPdfDocumentsResult.
@@ -2532,25 +2756,16 @@ type MailAccountRequest struct {
 	CharacterSet *string `json:"character_set,omitempty"`
 
 	// Expiration The expiration date of the refresh token.
-	Expiration     *time.Time        `json:"expiration,omitempty"`
-	ImapPort       int               `json:"imap_port"`
-	ImapSecurity   *ImapSecurityEnum `json:"imap_security,omitempty"`
-	ImapServer     string            `json:"imap_server"`
-	IsToken        *bool             `json:"is_token,omitempty"`
-	Name           string            `json:"name"`
-	Owner          *int              `json:"owner,omitempty"`
-	Password       string            `json:"password"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	Username string `json:"username"`
+	Expiration     *time.Time             `json:"expiration,omitempty"`
+	ImapPort       int                    `json:"imap_port"`
+	ImapSecurity   *ImapSecurityEnum      `json:"imap_security,omitempty"`
+	ImapServer     string                 `json:"imap_server"`
+	IsToken        *bool                  `json:"is_token,omitempty"`
+	Name           string                 `json:"name"`
+	Owner          *int                   `json:"owner,omitempty"`
+	Password       string                 `json:"password"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
+	Username       string                 `json:"username"`
 }
 
 // MailAccountTestModel defines model for MailAccountTestModel.
@@ -2645,21 +2860,12 @@ type MailRuleRequest struct {
 	Folder *string `json:"folder,omitempty"`
 
 	// MaximumAge Specified in days.
-	MaximumAge     *int64         `json:"maximum_age,omitempty"`
-	Name           string         `json:"name"`
-	Order          *int           `json:"order,omitempty"`
-	Owner          *int           `json:"owner,omitempty"`
-	PdfLayout      *PdfLayoutEnum `json:"pdf_layout,omitempty"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	MaximumAge     *int64                 `json:"maximum_age,omitempty"`
+	Name           string                 `json:"name"`
+	Order          *int                   `json:"order,omitempty"`
+	Owner          *int                   `json:"owner,omitempty"`
+	PdfLayout      *PdfLayoutEnum         `json:"pdf_layout,omitempty"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
 
 	// StopProcessing If True, no further rules will be processed after this one if any document is queued.
 	StopProcessing *bool `json:"stop_processing,omitempty"`
@@ -2707,6 +2913,7 @@ type Metadata struct {
 	ArchiveMediaFilename *string                 `json:"archive_media_filename,omitempty"`
 	ArchiveMetadata      *[]ArchiveMetadataEntry `json:"archive_metadata,omitempty"`
 	ArchiveSize          *int                    `json:"archive_size,omitempty"`
+	Barcodes             []DocumentBarcode       `json:"barcodes"`
 	HasArchiveVersion    bool                    `json:"has_archive_version"`
 	Lang                 string                  `json:"lang"`
 	MediaFilename        string                  `json:"media_filename"`
@@ -3049,6 +3256,7 @@ type PatchedApplicationConfigurationRequest struct {
 	BarcodeEnableTiffSupport *bool                                                           `json:"barcode_enable_tiff_support,omitempty"`
 	BarcodeMaxPages          *int64                                                          `json:"barcode_max_pages,omitempty"`
 	BarcodeRetainSplitPages  *bool                                                           `json:"barcode_retain_split_pages,omitempty"`
+	BarcodeStoreValues       *bool                                                           `json:"barcode_store_values,omitempty"`
 	BarcodeString            *string                                                         `json:"barcode_string,omitempty"`
 	BarcodeTagMapping        interface{}                                                     `json:"barcode_tag_mapping,omitempty"`
 	BarcodeTagSplit          *bool                                                           `json:"barcode_tag_split,omitempty"`
@@ -3061,6 +3269,7 @@ type PatchedApplicationConfigurationRequest struct {
 	LlmApiKey                *string                                                         `json:"llm_api_key,omitempty"`
 	LlmBackend               *PatchedApplicationConfigurationRequest_LlmBackend              `json:"llm_backend,omitempty"`
 	LlmContextSize           *int64                                                          `json:"llm_context_size,omitempty"`
+	LlmEmbeddingApiKey       *string                                                         `json:"llm_embedding_api_key,omitempty"`
 	LlmEmbeddingBackend      *PatchedApplicationConfigurationRequest_LlmEmbeddingBackend     `json:"llm_embedding_backend,omitempty"`
 	LlmEmbeddingChunkSize    *int64                                                          `json:"llm_embedding_chunk_size,omitempty"`
 	LlmEmbeddingEndpoint     *string                                                         `json:"llm_embedding_endpoint,omitempty"`
@@ -3130,21 +3339,12 @@ type PatchedApplicationConfigurationRequest_UnpaperClean struct {
 
 // PatchedCorrespondentRequest defines model for PatchedCorrespondentRequest.
 type PatchedCorrespondentRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              *string            `json:"name,omitempty"`
-	Owner             *int               `json:"owner,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              *string                `json:"name,omitempty"`
+	Owner             *int                   `json:"owner,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // PatchedCustomFieldRequest defines model for PatchedCustomFieldRequest.
@@ -3178,42 +3378,23 @@ type PatchedDocumentRequest struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	CreatedDate     *openapi_types.Date           `json:"created_date,omitempty"`
 	CustomFields    *[]CustomFieldInstanceRequest `json:"custom_fields,omitempty"`
-	DeletedAt       *time.Time                    `json:"deleted_at,omitempty"`
 	DocumentType    *int                          `json:"document_type,omitempty"`
 	Owner           *int                          `json:"owner,omitempty"`
 	RemoveInboxTags *bool                         `json:"remove_inbox_tags,omitempty"`
-	SetPermissions  *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	StoragePath *int    `json:"storage_path,omitempty"`
-	Tags        *[]int  `json:"tags,omitempty"`
-	Title       *string `json:"title,omitempty"`
+	SetPermissions  *SetPermissionsRequest        `json:"set_permissions,omitempty"`
+	StoragePath     *int                          `json:"storage_path,omitempty"`
+	Tags            *[]int                        `json:"tags,omitempty"`
+	Title           *string                       `json:"title,omitempty"`
 }
 
 // PatchedDocumentTypeRequest defines model for PatchedDocumentTypeRequest.
 type PatchedDocumentTypeRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              *string            `json:"name,omitempty"`
-	Owner             *int               `json:"owner,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              *string                `json:"name,omitempty"`
+	Owner             *int                   `json:"owner,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // PatchedDocumentVersionLabelRequest defines model for PatchedDocumentVersionLabelRequest.
@@ -3235,25 +3416,16 @@ type PatchedMailAccountRequest struct {
 	CharacterSet *string `json:"character_set,omitempty"`
 
 	// Expiration The expiration date of the refresh token.
-	Expiration     *time.Time        `json:"expiration,omitempty"`
-	ImapPort       *int              `json:"imap_port,omitempty"`
-	ImapSecurity   *ImapSecurityEnum `json:"imap_security,omitempty"`
-	ImapServer     *string           `json:"imap_server,omitempty"`
-	IsToken        *bool             `json:"is_token,omitempty"`
-	Name           *string           `json:"name,omitempty"`
-	Owner          *int              `json:"owner,omitempty"`
-	Password       *string           `json:"password,omitempty"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	Username *string `json:"username,omitempty"`
+	Expiration     *time.Time             `json:"expiration,omitempty"`
+	ImapPort       *int                   `json:"imap_port,omitempty"`
+	ImapSecurity   *ImapSecurityEnum      `json:"imap_security,omitempty"`
+	ImapServer     *string                `json:"imap_server,omitempty"`
+	IsToken        *bool                  `json:"is_token,omitempty"`
+	Name           *string                `json:"name,omitempty"`
+	Owner          *int                   `json:"owner,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
+	Username       *string                `json:"username,omitempty"`
 }
 
 // PatchedMailRuleRequest defines model for PatchedMailRuleRequest.
@@ -3290,21 +3462,12 @@ type PatchedMailRuleRequest struct {
 	Folder *string `json:"folder,omitempty"`
 
 	// MaximumAge Specified in days.
-	MaximumAge     *int64         `json:"maximum_age,omitempty"`
-	Name           *string        `json:"name,omitempty"`
-	Order          *int           `json:"order,omitempty"`
-	Owner          *int           `json:"owner,omitempty"`
-	PdfLayout      *PdfLayoutEnum `json:"pdf_layout,omitempty"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	MaximumAge     *int64                 `json:"maximum_age,omitempty"`
+	Name           *string                `json:"name,omitempty"`
+	Order          *int                   `json:"order,omitempty"`
+	Owner          *int                   `json:"owner,omitempty"`
+	PdfLayout      *PdfLayoutEnum         `json:"pdf_layout,omitempty"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
 
 	// StopProcessing If True, no further rules will be processed after this one if any document is queued.
 	StopProcessing *bool `json:"stop_processing,omitempty"`
@@ -3392,22 +3555,13 @@ type PatchedSavedViewRequest struct {
 	// * `truck` - Truck
 	// * `upc-scan` - Barcode
 	// * `wallet2` - Wallet
-	Icon           *IconEnum `json:"icon,omitempty"`
-	Name           *string   `json:"name,omitempty"`
-	Owner          *int      `json:"owner,omitempty"`
-	PageSize       *int64    `json:"page_size,omitempty"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	SortField   *string `json:"sort_field,omitempty"`
-	SortReverse *bool   `json:"sort_reverse,omitempty"`
+	Icon           *IconEnum              `json:"icon,omitempty"`
+	Name           *string                `json:"name,omitempty"`
+	Owner          *int                   `json:"owner,omitempty"`
+	PageSize       *int64                 `json:"page_size,omitempty"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
+	SortField      *string                `json:"sort_field,omitempty"`
+	SortReverse    *bool                  `json:"sort_reverse,omitempty"`
 }
 
 // PatchedSavedViewRequest_DisplayMode defines model for PatchedSavedViewRequest.DisplayMode.
@@ -3417,22 +3571,13 @@ type PatchedSavedViewRequest_DisplayMode struct {
 
 // PatchedStoragePathRequest defines model for PatchedStoragePathRequest.
 type PatchedStoragePathRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              *string            `json:"name,omitempty"`
-	Owner             *int               `json:"owner,omitempty"`
-	Path              *string            `json:"path,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              *string                `json:"name,omitempty"`
+	Owner             *int                   `json:"owner,omitempty"`
+	Path              *string                `json:"path,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // PatchedTagRequest defines model for PatchedTagRequest.
@@ -3440,23 +3585,14 @@ type PatchedTagRequest struct {
 	Color *string `json:"color,omitempty"`
 
 	// IsInboxTag Marks this tag as an inbox tag: All newly consumed documents will be tagged with inbox tags.
-	IsInboxTag        *bool              `json:"is_inbox_tag,omitempty"`
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              *string            `json:"name,omitempty"`
-	Owner             *int               `json:"owner,omitempty"`
-	Parent            *int               `json:"parent,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInboxTag        *bool                  `json:"is_inbox_tag,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              *string                `json:"name,omitempty"`
+	Owner             *int                   `json:"owner,omitempty"`
+	Parent            *int                   `json:"parent,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // PatchedUserRequest defines model for PatchedUserRequest.
@@ -3605,12 +3741,25 @@ type PatchedWorkflowTriggerRequest struct {
 	Type                          *WorkflowTriggerTypeEnum `json:"type,omitempty"`
 }
 
+// PdfEditOperationRequest defines model for PdfEditOperationRequest.
+type PdfEditOperationRequest struct {
+	Doc    *int `json:"doc,omitempty"`
+	Page   int  `json:"page"`
+	Rotate *int `json:"rotate,omitempty"`
+}
+
 // PdfLayoutEnum * `0` - System default
 // * `1` - Text, then HTML
 // * `2` - HTML, then text
 // * `3` - HTML only
 // * `4` - Text only
 type PdfLayoutEnum int
+
+// PermissionSetRequest defines model for PermissionSetRequest.
+type PermissionSetRequest struct {
+	Groups *[]int `json:"groups,omitempty"`
+	Users  *[]int `json:"users,omitempty"`
+}
 
 // PostDocumentRequest defines model for PostDocumentRequest.
 type PostDocumentRequest struct {
@@ -3693,10 +3842,11 @@ type RemovePasswordDocumentsResult struct {
 
 // ReprocessDocumentsRequest defines model for ReprocessDocumentsRequest.
 type ReprocessDocumentsRequest struct {
-	All       *bool                   `json:"all,omitempty"`
-	Documents *[]int                  `json:"documents,omitempty"`
-	Filters   *map[string]interface{} `json:"filters,omitempty"`
-	RemoteOcr *bool                   `json:"remote_ocr,omitempty"`
+	All               *bool                   `json:"all,omitempty"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
+	RemoteOcr         *bool                   `json:"remote_ocr,omitempty"`
 }
 
 // ReprocessDocumentsResult defines model for ReprocessDocumentsResult.
@@ -3706,12 +3856,13 @@ type ReprocessDocumentsResult struct {
 
 // RotateDocumentsRequest defines model for RotateDocumentsRequest.
 type RotateDocumentsRequest struct {
-	All        *bool                   `json:"all,omitempty"`
-	Degrees    int                     `json:"degrees"`
-	Documents  *[]int                  `json:"documents,omitempty"`
-	Filters    *map[string]interface{} `json:"filters,omitempty"`
-	FromWebui  *bool                   `json:"from_webui,omitempty"`
-	SourceMode *string                 `json:"source_mode,omitempty"`
+	All               *bool                   `json:"all,omitempty"`
+	Degrees           int                     `json:"degrees"`
+	Documents         *[]int                  `json:"documents,omitempty"`
+	ExcludedDocuments *[]int                  `json:"excluded_documents,omitempty"`
+	Filters           *map[string]interface{} `json:"filters,omitempty"`
+	FromWebui         *bool                   `json:"from_webui,omitempty"`
+	SourceMode        *string                 `json:"source_mode,omitempty"`
 }
 
 // RotateDocumentsResult defines model for RotateDocumentsResult.
@@ -3769,6 +3920,7 @@ type RotateDocumentsResult struct {
 // * `47` - mime type is
 // * `48` - simple title search
 // * `49` - simple text search
+// * `50` - has duplicates
 type RuleTypeEnum int
 
 // RunTask defines model for RunTask.
@@ -3956,22 +4108,13 @@ type SavedViewRequest struct {
 	// * `truck` - Truck
 	// * `upc-scan` - Barcode
 	// * `wallet2` - Wallet
-	Icon           *IconEnum `json:"icon,omitempty"`
-	Name           string    `json:"name"`
-	Owner          *int      `json:"owner,omitempty"`
-	PageSize       *int64    `json:"page_size,omitempty"`
-	SetPermissions *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
-	SortField   *string `json:"sort_field,omitempty"`
-	SortReverse *bool   `json:"sort_reverse,omitempty"`
+	Icon           *IconEnum              `json:"icon,omitempty"`
+	Name           string                 `json:"name"`
+	Owner          *int                   `json:"owner,omitempty"`
+	PageSize       *int64                 `json:"page_size,omitempty"`
+	SetPermissions *SetPermissionsRequest `json:"set_permissions,omitempty"`
+	SortField      *string                `json:"sort_field,omitempty"`
+	SortReverse    *bool                  `json:"sort_reverse,omitempty"`
 }
 
 // SavedViewRequest_DisplayMode defines model for SavedViewRequest.DisplayMode.
@@ -4011,11 +4154,18 @@ type SelectionData struct {
 	SelectedTags           []TagCounts           `json:"selected_tags"`
 }
 
+// SetPermissionsRequest defines model for SetPermissionsRequest.
+type SetPermissionsRequest struct {
+	Change *PermissionSetRequest `json:"change,omitempty"`
+	View   *PermissionSetRequest `json:"view,omitempty"`
+}
+
 // ShareLink defines model for ShareLink.
 type ShareLink struct {
-	Created    *time.Time `json:"created,omitempty"`
-	Document   *int       `json:"document,omitempty"`
-	Expiration *time.Time `json:"expiration,omitempty"`
+	Created       *time.Time `json:"created,omitempty"`
+	Document      *int       `json:"document,omitempty"`
+	DocumentTitle *string    `json:"document_title,omitempty"`
+	Expiration    *time.Time `json:"expiration,omitempty"`
 
 	// FileVersion * `archive` - Archive
 	// * `original` - Original
@@ -4109,22 +4259,13 @@ type StoragePathCounts struct {
 
 // StoragePathRequest defines model for StoragePathRequest.
 type StoragePathRequest struct {
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              string             `json:"name"`
-	Owner             *int               `json:"owner,omitempty"`
-	Path              string             `json:"path"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              string                 `json:"name"`
+	Owner             *int                   `json:"owner,omitempty"`
+	Path              string                 `json:"path"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // StoragePathTestRequest defines model for StoragePathTestRequest.
@@ -4186,23 +4327,14 @@ type TagRequest struct {
 	Color *string `json:"color,omitempty"`
 
 	// IsInboxTag Marks this tag as an inbox tag: All newly consumed documents will be tagged with inbox tags.
-	IsInboxTag        *bool              `json:"is_inbox_tag,omitempty"`
-	IsInsensitive     *bool              `json:"is_insensitive,omitempty"`
-	Match             *string            `json:"match,omitempty"`
-	MatchingAlgorithm *MatchingAlgorithm `json:"matching_algorithm,omitempty"`
-	Name              string             `json:"name"`
-	Owner             *int               `json:"owner,omitempty"`
-	Parent            *int               `json:"parent,omitempty"`
-	SetPermissions    *struct {
-		Change *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"change,omitempty"`
-		View *struct {
-			Groups *[]int `json:"groups,omitempty"`
-			Users  *[]int `json:"users,omitempty"`
-		} `json:"view,omitempty"`
-	} `json:"set_permissions,omitempty"`
+	IsInboxTag        *bool                  `json:"is_inbox_tag,omitempty"`
+	IsInsensitive     *bool                  `json:"is_insensitive,omitempty"`
+	Match             *string                `json:"match,omitempty"`
+	MatchingAlgorithm *MatchingAlgorithm     `json:"matching_algorithm,omitempty"`
+	Name              string                 `json:"name"`
+	Owner             *int                   `json:"owner,omitempty"`
+	Parent            *int                   `json:"parent,omitempty"`
+	SetPermissions    *SetPermissionsRequest `json:"set_permissions,omitempty"`
 }
 
 // TaskSerializerV10 Task serializer for API v10+ using new field names.
@@ -4879,6 +5011,7 @@ type DocumentsListParams struct {
 
 	// HasCustomFields Has custom field
 	HasCustomFields *bool `form:"has_custom_fields,omitempty" json:"has_custom_fields,omitempty"`
+	HasDuplicates   *bool `form:"has_duplicates,omitempty" json:"has_duplicates,omitempty"`
 	Id              *int  `form:"id,omitempty" json:"id,omitempty"`
 
 	// IdIn Multiple values may be separated by commas.
@@ -5668,10 +5801,10 @@ type DocumentsReprocessJSONRequestBody = ReprocessDocumentsRequest
 type DocumentsRotateJSONRequestBody = RotateDocumentsRequest
 
 // DocumentsSelectionDataCreateJSONRequestBody defines body for DocumentsSelectionDataCreate for application/json ContentType.
-type DocumentsSelectionDataCreateJSONRequestBody = DocumentListRequest
+type DocumentsSelectionDataCreateJSONRequestBody = DocumentSelectionRequest
 
 // DocumentsSelectionDataCreateMultipartRequestBody defines body for DocumentsSelectionDataCreate for multipart/form-data ContentType.
-type DocumentsSelectionDataCreateMultipartRequestBody = DocumentListRequest
+type DocumentsSelectionDataCreateMultipartRequestBody = DocumentSelectionRequest
 
 // DocumentsPartialUpdateJSONRequestBody defines body for DocumentsPartialUpdate for application/json ContentType.
 type DocumentsPartialUpdateJSONRequestBody = PatchedDocumentRequest
@@ -17528,6 +17661,18 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 		if params.HasCustomFields != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "has_custom_fields", *params.HasCustomFields, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.HasDuplicates != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "has_duplicates", *params.HasDuplicates, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
