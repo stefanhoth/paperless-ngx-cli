@@ -3010,6 +3010,19 @@ type PaginatedCorrespondentList struct {
 	Results  []Correspondent `json:"results"`
 }
 
+// PaginatedCustomFieldList defines model for PaginatedCustomFieldList.
+type PaginatedCustomFieldList struct {
+	// Count Example: 123
+	Count int `json:"count"`
+
+	// Next Example: http://api.example.org/accounts/?page=4
+	Next *string `json:"next,omitempty"`
+
+	// Previous Example: http://api.example.org/accounts/?page=2
+	Previous *string       `json:"previous,omitempty"`
+	Results  []CustomField `json:"results"`
+}
+
 // PaginatedDocumentList defines model for PaginatedDocumentList.
 type PaginatedDocumentList struct {
 	// Count Example: 123
@@ -4916,6 +4929,27 @@ type CorrespondentsRetrieveParams struct {
 	FullPerms *bool `form:"full_perms,omitempty" json:"full_perms,omitempty"`
 }
 
+// CustomFieldsListParams defines parameters for CustomFieldsList.
+type CustomFieldsListParams struct {
+	Id *int `form:"id,omitempty" json:"id,omitempty"`
+
+	// IdIn Multiple values may be separated by commas.
+	IdIn            *[]int  `form:"id__in,omitempty" json:"id__in,omitempty"`
+	NameIcontains   *string `form:"name__icontains,omitempty" json:"name__icontains,omitempty"`
+	NameIendswith   *string `form:"name__iendswith,omitempty" json:"name__iendswith,omitempty"`
+	NameIexact      *string `form:"name__iexact,omitempty" json:"name__iexact,omitempty"`
+	NameIstartswith *string `form:"name__istartswith,omitempty" json:"name__istartswith,omitempty"`
+
+	// Ordering Which field to use when ordering the results.
+	Ordering *string `form:"ordering,omitempty" json:"ordering,omitempty"`
+
+	// Page A page number within the paginated result set.
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize Number of results to return per page.
+	PageSize *int `form:"page_size,omitempty" json:"page_size,omitempty"`
+}
+
 // DocumentTypesListParams defines parameters for DocumentTypesList.
 type DocumentTypesListParams struct {
 	FullPerms *bool `form:"full_perms,omitempty" json:"full_perms,omitempty"`
@@ -4974,7 +5008,7 @@ type DocumentsListParams struct {
 
 	// CorrespondentIdIn Multiple values may be separated by commas.
 	CorrespondentIdIn            *[]int              `form:"correspondent__id__in,omitempty" json:"correspondent__id__in,omitempty"`
-	CorrespondentIdNone          *int                `form:"correspondent__id__none,omitempty" json:"correspondent__id__none,omitempty"`
+	CorrespondentIdNone          *[]int              `form:"correspondent__id__none,omitempty" json:"correspondent__id__none,omitempty"`
 	CorrespondentIsnull          *bool               `form:"correspondent__isnull,omitempty" json:"correspondent__isnull,omitempty"`
 	CorrespondentNameIcontains   *string             `form:"correspondent__name__icontains,omitempty" json:"correspondent__name__icontains,omitempty"`
 	CorrespondentNameIendswith   *string             `form:"correspondent__name__iendswith,omitempty" json:"correspondent__name__iendswith,omitempty"`
@@ -4993,14 +5027,14 @@ type DocumentsListParams struct {
 	CreatedYear                  *float32            `form:"created__year,omitempty" json:"created__year,omitempty"`
 	CustomFieldQuery             *string             `form:"custom_field_query,omitempty" json:"custom_field_query,omitempty"`
 	CustomFieldsIcontains        *string             `form:"custom_fields__icontains,omitempty" json:"custom_fields__icontains,omitempty"`
-	CustomFieldsIdAll            *int                `form:"custom_fields__id__all,omitempty" json:"custom_fields__id__all,omitempty"`
-	CustomFieldsIdIn             *int                `form:"custom_fields__id__in,omitempty" json:"custom_fields__id__in,omitempty"`
-	CustomFieldsIdNone           *int                `form:"custom_fields__id__none,omitempty" json:"custom_fields__id__none,omitempty"`
+	CustomFieldsIdAll            *[]int              `form:"custom_fields__id__all,omitempty" json:"custom_fields__id__all,omitempty"`
+	CustomFieldsIdIn             *[]int              `form:"custom_fields__id__in,omitempty" json:"custom_fields__id__in,omitempty"`
+	CustomFieldsIdNone           *[]int              `form:"custom_fields__id__none,omitempty" json:"custom_fields__id__none,omitempty"`
 	DocumentTypeId               *int                `form:"document_type__id,omitempty" json:"document_type__id,omitempty"`
 
 	// DocumentTypeIdIn Multiple values may be separated by commas.
 	DocumentTypeIdIn            *[]int    `form:"document_type__id__in,omitempty" json:"document_type__id__in,omitempty"`
-	DocumentTypeIdNone          *int      `form:"document_type__id__none,omitempty" json:"document_type__id__none,omitempty"`
+	DocumentTypeIdNone          *[]int    `form:"document_type__id__none,omitempty" json:"document_type__id__none,omitempty"`
 	DocumentTypeIsnull          *bool     `form:"document_type__isnull,omitempty" json:"document_type__isnull,omitempty"`
 	DocumentTypeNameIcontains   *string   `form:"document_type__name__icontains,omitempty" json:"document_type__name__icontains,omitempty"`
 	DocumentTypeNameIendswith   *string   `form:"document_type__name__iendswith,omitempty" json:"document_type__name__iendswith,omitempty"`
@@ -5043,7 +5077,7 @@ type DocumentsListParams struct {
 
 	// OwnerIdIn Multiple values may be separated by commas.
 	OwnerIdIn   *[]int `form:"owner__id__in,omitempty" json:"owner__id__in,omitempty"`
-	OwnerIdNone *int   `form:"owner__id__none,omitempty" json:"owner__id__none,omitempty"`
+	OwnerIdNone *[]int `form:"owner__id__none,omitempty" json:"owner__id__none,omitempty"`
 	OwnerIsnull *bool  `form:"owner__isnull,omitempty" json:"owner__isnull,omitempty"`
 
 	// Page A page number within the paginated result set.
@@ -5062,16 +5096,16 @@ type DocumentsListParams struct {
 
 	// StoragePathIdIn Multiple values may be separated by commas.
 	StoragePathIdIn            *[]int  `form:"storage_path__id__in,omitempty" json:"storage_path__id__in,omitempty"`
-	StoragePathIdNone          *int    `form:"storage_path__id__none,omitempty" json:"storage_path__id__none,omitempty"`
+	StoragePathIdNone          *[]int  `form:"storage_path__id__none,omitempty" json:"storage_path__id__none,omitempty"`
 	StoragePathIsnull          *bool   `form:"storage_path__isnull,omitempty" json:"storage_path__isnull,omitempty"`
 	StoragePathNameIcontains   *string `form:"storage_path__name__icontains,omitempty" json:"storage_path__name__icontains,omitempty"`
 	StoragePathNameIendswith   *string `form:"storage_path__name__iendswith,omitempty" json:"storage_path__name__iendswith,omitempty"`
 	StoragePathNameIexact      *string `form:"storage_path__name__iexact,omitempty" json:"storage_path__name__iexact,omitempty"`
 	StoragePathNameIstartswith *string `form:"storage_path__name__istartswith,omitempty" json:"storage_path__name__istartswith,omitempty"`
 	TagsId                     *int    `form:"tags__id,omitempty" json:"tags__id,omitempty"`
-	TagsIdAll                  *int    `form:"tags__id__all,omitempty" json:"tags__id__all,omitempty"`
-	TagsIdIn                   *int    `form:"tags__id__in,omitempty" json:"tags__id__in,omitempty"`
-	TagsIdNone                 *int    `form:"tags__id__none,omitempty" json:"tags__id__none,omitempty"`
+	TagsIdAll                  *[]int  `form:"tags__id__all,omitempty" json:"tags__id__all,omitempty"`
+	TagsIdIn                   *[]int  `form:"tags__id__in,omitempty" json:"tags__id__in,omitempty"`
+	TagsIdNone                 *[]int  `form:"tags__id__none,omitempty" json:"tags__id__none,omitempty"`
 	TagsNameIcontains          *string `form:"tags__name__icontains,omitempty" json:"tags__name__icontains,omitempty"`
 	TagsNameIendswith          *string `form:"tags__name__iendswith,omitempty" json:"tags__name__iendswith,omitempty"`
 	TagsNameIexact             *string `form:"tags__name__iexact,omitempty" json:"tags__name__iexact,omitempty"`
@@ -9621,10 +9655,10 @@ type ClientInterface interface {
 	// Mixin to add document count to queryset, permissions-aware if needed
 	CorrespondentsUpdateWithFormdataBody(ctx context.Context, id int, body CorrespondentsUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// CustomFieldsRetrieve performs a GET /api/custom_fields/ (the `CustomFieldsRetrieve` operationId) request.
+	// CustomFieldsList performs a GET /api/custom_fields/ (the `CustomFieldsList` operationId) request.
 	//
 	// Mixin to add document count to queryset, permissions-aware if needed
-	CustomFieldsRetrieve(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CustomFieldsList(ctx context.Context, params *CustomFieldsListParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CustomFieldsCreateWithBody performs a POST /api/custom_fields/ (the `CustomFieldsCreate` operationId) request,
 	// with any type of body and a specified content type.
@@ -9649,10 +9683,10 @@ type ClientInterface interface {
 	// Mixin to add document count to queryset, permissions-aware if needed
 	CustomFieldsDestroy(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// CustomFieldsRetrieve2 performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve2` operationId) request.
+	// CustomFieldsRetrieve performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve` operationId) request.
 	//
 	// Mixin to add document count to queryset, permissions-aware if needed
-	CustomFieldsRetrieve2(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CustomFieldsRetrieve(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CustomFieldsPartialUpdateWithBody performs a PATCH /api/custom_fields/{id}/ (the `CustomFieldsPartialUpdate` operationId) request,
 	// with any type of body and a specified content type.
@@ -11391,11 +11425,11 @@ func (c *Client) CorrespondentsUpdateWithFormdataBody(ctx context.Context, id in
 	return c.Client.Do(req)
 }
 
-// CustomFieldsRetrieve performs a GET /api/custom_fields/ (the `CustomFieldsRetrieve` operationId) request.
+// CustomFieldsList performs a GET /api/custom_fields/ (the `CustomFieldsList` operationId) request.
 //
 // Mixin to add document count to queryset, permissions-aware if needed
-func (c *Client) CustomFieldsRetrieve(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomFieldsRetrieveRequest(c.Server)
+func (c *Client) CustomFieldsList(ctx context.Context, params *CustomFieldsListParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomFieldsListRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -11469,11 +11503,11 @@ func (c *Client) CustomFieldsDestroy(ctx context.Context, id int, reqEditors ...
 	return c.Client.Do(req)
 }
 
-// CustomFieldsRetrieve2 performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve2` operationId) request.
+// CustomFieldsRetrieve performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve` operationId) request.
 //
 // Mixin to add document count to queryset, permissions-aware if needed
-func (c *Client) CustomFieldsRetrieve2(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomFieldsRetrieve2Request(c.Server, id)
+func (c *Client) CustomFieldsRetrieve(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomFieldsRetrieveRequest(c.Server, id)
 	if err != nil {
 		return nil, err
 	}
@@ -16236,8 +16270,8 @@ func NewCorrespondentsUpdateRequestWithBody(server string, id int, contentType s
 	return req, nil
 }
 
-// NewCustomFieldsRetrieveRequest constructs an http.Request for the CustomFieldsRetrieve method
-func NewCustomFieldsRetrieveRequest(server string) (*http.Request, error) {
+// NewCustomFieldsListRequest constructs an http.Request for the CustomFieldsList method
+func NewCustomFieldsListRequest(server string, params *CustomFieldsListParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -16253,6 +16287,129 @@ func NewCustomFieldsRetrieveRequest(server string) (*http.Request, error) {
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Id != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "id", *params.Id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IdIn != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "id__in", *params.IdIn, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NameIcontains != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name__icontains", *params.NameIcontains, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NameIendswith != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name__iendswith", *params.NameIendswith, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NameIexact != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name__iexact", *params.NameIexact, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NameIstartswith != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name__istartswith", *params.NameIstartswith, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Ordering != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ordering", *params.Ordering, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page_size", *params.PageSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -16348,8 +16505,8 @@ func NewCustomFieldsDestroyRequest(server string, id int) (*http.Request, error)
 	return req, nil
 }
 
-// NewCustomFieldsRetrieve2Request constructs an http.Request for the CustomFieldsRetrieve2 method
-func NewCustomFieldsRetrieve2Request(server string, id int) (*http.Request, error) {
+// NewCustomFieldsRetrieveRequest constructs an http.Request for the CustomFieldsRetrieve method
+func NewCustomFieldsRetrieveRequest(server string, id int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -17276,7 +17433,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.CorrespondentIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "correspondent__id__none", *params.CorrespondentIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "correspondent__id__none", *params.CorrespondentIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17504,7 +17661,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.CustomFieldsIdAll != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "custom_fields__id__all", *params.CustomFieldsIdAll, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "custom_fields__id__all", *params.CustomFieldsIdAll, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17516,7 +17673,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.CustomFieldsIdIn != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "custom_fields__id__in", *params.CustomFieldsIdIn, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "custom_fields__id__in", *params.CustomFieldsIdIn, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17528,7 +17685,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.CustomFieldsIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "custom_fields__id__none", *params.CustomFieldsIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "custom_fields__id__none", *params.CustomFieldsIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17564,7 +17721,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.DocumentTypeIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "document_type__id__none", *params.DocumentTypeIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "document_type__id__none", *params.DocumentTypeIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17960,7 +18117,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.OwnerIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "owner__id__none", *params.OwnerIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "owner__id__none", *params.OwnerIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -18068,7 +18225,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.StoragePathIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "storage_path__id__none", *params.StoragePathIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "storage_path__id__none", *params.StoragePathIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -18152,7 +18309,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.TagsIdAll != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tags__id__all", *params.TagsIdAll, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "tags__id__all", *params.TagsIdAll, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -18164,7 +18321,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.TagsIdIn != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tags__id__in", *params.TagsIdIn, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "tags__id__in", *params.TagsIdIn, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -18176,7 +18333,7 @@ func NewDocumentsListRequest(server string, params *DocumentsListParams) (*http.
 
 		if params.TagsIdNone != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tags__id__none", *params.TagsIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "tags__id__none", *params.TagsIdNone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -26529,12 +26686,12 @@ type ClientWithResponsesInterface interface {
 	// Mixin to add document count to queryset, permissions-aware if needed
 	CorrespondentsUpdateWithFormdataBodyWithResponse(ctx context.Context, id int, body CorrespondentsUpdateFormdataRequestBody, reqEditors ...RequestEditorFn) (*CorrespondentsUpdateResponse, error)
 
-	// CustomFieldsRetrieveWithResponse performs a GET /api/custom_fields/ (the `CustomFieldsRetrieve` operationId) request.
+	// CustomFieldsListWithResponse performs a GET /api/custom_fields/ (the `CustomFieldsList` operationId) request.
 	//
 	// Mixin to add document count to queryset, permissions-aware if needed
 	//
 	// Returns a wrapper object for the known response body format(s).
-	CustomFieldsRetrieveWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieveResponse, error)
+	CustomFieldsListWithResponse(ctx context.Context, params *CustomFieldsListParams, reqEditors ...RequestEditorFn) (*CustomFieldsListResponse, error)
 
 	// CustomFieldsCreateWithBodyWithResponse performs a POST /api/custom_fields/ (the `CustomFieldsCreate` operationId) request,
 	// with any type of body and a specified content type.
@@ -26563,12 +26720,12 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	CustomFieldsDestroyWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CustomFieldsDestroyResponse, error)
 
-	// CustomFieldsRetrieve2WithResponse performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve2` operationId) request.
+	// CustomFieldsRetrieveWithResponse performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve` operationId) request.
 	//
 	// Mixin to add document count to queryset, permissions-aware if needed
 	//
 	// Returns a wrapper object for the known response body format(s).
-	CustomFieldsRetrieve2WithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieve2Response, error)
+	CustomFieldsRetrieveWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieveResponse, error)
 
 	// CustomFieldsPartialUpdateWithBodyWithResponse performs a PATCH /api/custom_fields/{id}/ (the `CustomFieldsPartialUpdate` operationId) request,
 	// with any type of body and a specified content type.
@@ -28733,18 +28890,25 @@ func (r CorrespondentsUpdateResponse) ContentType() string {
 	return ""
 }
 
-type CustomFieldsRetrieveResponse struct {
+type CustomFieldsListResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *PaginatedCustomFieldList
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CustomFieldsListResponse) GetJSON200() *PaginatedCustomFieldList {
+	return r.JSON200
 }
 
 // GetBody returns the raw response body bytes
-func (r CustomFieldsRetrieveResponse) GetBody() []byte {
+func (r CustomFieldsListResponse) GetBody() []byte {
 	return r.Body
 }
 
 // Status returns HTTPResponse.Status
-func (r CustomFieldsRetrieveResponse) Status() string {
+func (r CustomFieldsListResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -28752,7 +28916,7 @@ func (r CustomFieldsRetrieveResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r CustomFieldsRetrieveResponse) StatusCode() int {
+func (r CustomFieldsListResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -28760,7 +28924,7 @@ func (r CustomFieldsRetrieveResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CustomFieldsRetrieveResponse) ContentType() string {
+func (r CustomFieldsListResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -28842,7 +29006,7 @@ func (r CustomFieldsDestroyResponse) ContentType() string {
 	return ""
 }
 
-type CustomFieldsRetrieve2Response struct {
+type CustomFieldsRetrieveResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
@@ -28850,17 +29014,17 @@ type CustomFieldsRetrieve2Response struct {
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r CustomFieldsRetrieve2Response) GetJSON200() *CustomField {
+func (r CustomFieldsRetrieveResponse) GetJSON200() *CustomField {
 	return r.JSON200
 }
 
 // GetBody returns the raw response body bytes
-func (r CustomFieldsRetrieve2Response) GetBody() []byte {
+func (r CustomFieldsRetrieveResponse) GetBody() []byte {
 	return r.Body
 }
 
 // Status returns HTTPResponse.Status
-func (r CustomFieldsRetrieve2Response) Status() string {
+func (r CustomFieldsRetrieveResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -28868,7 +29032,7 @@ func (r CustomFieldsRetrieve2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r CustomFieldsRetrieve2Response) StatusCode() int {
+func (r CustomFieldsRetrieveResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -28876,7 +29040,7 @@ func (r CustomFieldsRetrieve2Response) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CustomFieldsRetrieve2Response) ContentType() string {
+func (r CustomFieldsRetrieveResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -35107,17 +35271,17 @@ func (c *ClientWithResponses) CorrespondentsUpdateWithFormdataBodyWithResponse(c
 	return ParseCorrespondentsUpdateResponse(rsp)
 }
 
-// CustomFieldsRetrieveWithResponse performs a GET /api/custom_fields/ (the `CustomFieldsRetrieve` operationId) request.
+// CustomFieldsListWithResponse performs a GET /api/custom_fields/ (the `CustomFieldsList` operationId) request.
 //
 // # Mixin to add document count to queryset, permissions-aware if needed
 //
 // Returns a wrapper object for the known response body format(s).
-func (c *ClientWithResponses) CustomFieldsRetrieveWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieveResponse, error) {
-	rsp, err := c.CustomFieldsRetrieve(ctx, reqEditors...)
+func (c *ClientWithResponses) CustomFieldsListWithResponse(ctx context.Context, params *CustomFieldsListParams, reqEditors ...RequestEditorFn) (*CustomFieldsListResponse, error) {
+	rsp, err := c.CustomFieldsList(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseCustomFieldsRetrieveResponse(rsp)
+	return ParseCustomFieldsListResponse(rsp)
 }
 
 // CustomFieldsCreateWithBodyWithResponse performs a POST /api/custom_fields/ (the `CustomFieldsCreate` operationId) request,
@@ -35171,17 +35335,17 @@ func (c *ClientWithResponses) CustomFieldsDestroyWithResponse(ctx context.Contex
 	return ParseCustomFieldsDestroyResponse(rsp)
 }
 
-// CustomFieldsRetrieve2WithResponse performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve2` operationId) request.
+// CustomFieldsRetrieveWithResponse performs a GET /api/custom_fields/{id}/ (the `CustomFieldsRetrieve` operationId) request.
 //
 // # Mixin to add document count to queryset, permissions-aware if needed
 //
 // Returns a wrapper object for the known response body format(s).
-func (c *ClientWithResponses) CustomFieldsRetrieve2WithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieve2Response, error) {
-	rsp, err := c.CustomFieldsRetrieve2(ctx, id, reqEditors...)
+func (c *ClientWithResponses) CustomFieldsRetrieveWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*CustomFieldsRetrieveResponse, error) {
+	rsp, err := c.CustomFieldsRetrieve(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseCustomFieldsRetrieve2Response(rsp)
+	return ParseCustomFieldsRetrieveResponse(rsp)
 }
 
 // CustomFieldsPartialUpdateWithBodyWithResponse performs a PATCH /api/custom_fields/{id}/ (the `CustomFieldsPartialUpdate` operationId) request,
@@ -38772,17 +38936,27 @@ func ParseCorrespondentsUpdateResponse(rsp *http.Response) (*CorrespondentsUpdat
 	return response, nil
 }
 
-// ParseCustomFieldsRetrieveResponse parses an HTTP response from a CustomFieldsRetrieveWithResponse call
-func ParseCustomFieldsRetrieveResponse(rsp *http.Response) (*CustomFieldsRetrieveResponse, error) {
+// ParseCustomFieldsListResponse parses an HTTP response from a CustomFieldsListWithResponse call
+func ParseCustomFieldsListResponse(rsp *http.Response) (*CustomFieldsListResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &CustomFieldsRetrieveResponse{
+	response := &CustomFieldsListResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PaginatedCustomFieldList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
 	}
 
 	return response, nil
@@ -38830,15 +39004,15 @@ func ParseCustomFieldsDestroyResponse(rsp *http.Response) (*CustomFieldsDestroyR
 	return response, nil
 }
 
-// ParseCustomFieldsRetrieve2Response parses an HTTP response from a CustomFieldsRetrieve2WithResponse call
-func ParseCustomFieldsRetrieve2Response(rsp *http.Response) (*CustomFieldsRetrieve2Response, error) {
+// ParseCustomFieldsRetrieveResponse parses an HTTP response from a CustomFieldsRetrieveWithResponse call
+func ParseCustomFieldsRetrieveResponse(rsp *http.Response) (*CustomFieldsRetrieveResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &CustomFieldsRetrieve2Response{
+	response := &CustomFieldsRetrieveResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
