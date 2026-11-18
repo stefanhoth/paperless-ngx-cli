@@ -10,6 +10,10 @@ code or product but don't warrant a full [ADR](adr/).
   the call in bold, and the why. **Add the entry in the same PR that makes
   the decision.**
 
+## 2026-11-18
+
+- **Required checks are no longer strict** (`strict_required_status_checks_policy: false`). With several green PRs open, only the first to merge won and every other PR had to be updated and run CI again. PR CI already tests the merge ref, and CI on every push to `main` catches the rare case where two PRs only break together; a scheduled Claude task fixes a red `main`, failing PRs and merge conflicts. Re-import the ruleset (or untick "Require branches to be up to date") to apply it.
+
 ## 2026-07-28
 
 - **Added `paperless suggest` and `paperless chat` as dedicated commands for
