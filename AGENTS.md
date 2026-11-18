@@ -21,6 +21,11 @@ Edit the schema or `oapi-codegen.yaml`, then run `make generate-docker VERSION=v
 - `cmd/config.go` — config file at `~/.config/paperless-ngx-cli/config` must be written with `0600` permissions.
 - Commits must be atomic (one topic per commit).
 
+## Pull Requests
+
+- PR titles are Conventional Commits with a scope; PRs are squash-merged.
+- After opening a PR, enable auto-merge (`gh pr merge --auto --squash`): it merges once the required checks are green. Opt out with a draft PR or the label `hold`.
+
 ## More Detail
 
 See [docs/development.md](docs/development.md) for project structure, release process, and Homebrew tap setup.
