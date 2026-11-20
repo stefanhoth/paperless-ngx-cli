@@ -3,7 +3,7 @@ module github.com/stefanhoth/paperless-ngx-cli
 go 1.26.11
 
 require (
-	github.com/oapi-codegen/runtime v1.9.0
+	github.com/oapi-codegen/runtime v1.9.1
 	github.com/spf13/cobra v1.10.2
 )
 
